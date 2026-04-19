@@ -56,8 +56,6 @@ const techStack: TechItem[] = [
   { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
   { name: "Redux", icon: SiRedux, color: "#764ABC" },
   { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-  { name: "Shadcn UI", icon: SiShadcnui, color: "#ffffff" },
-  { name: "Framer Motion", icon: SiFramer, color: "#0055FF" },
 
   // Backend & APIs
   { name: "Node.js", icon: FaNodeJs, color: "#339933" },
@@ -79,14 +77,12 @@ const techStack: TechItem[] = [
   { name: "Jenkins", icon: FaJenkins, color: "#D24939" },
   { name: "GitHub Actions", icon: SiGithubactions, color: "#2088FF" },
   { name: "Terraform", icon: SiTerraform, color: "#646CFF" },
-  { name: "AWS EC2", icon: FaAws, color: "#FF9900" },
-  { name: "AWS S3", icon: FaAws, color: "#FF9900" },
+  { name: "AWS", icon: FaAws, color: "#FF9900" },
   { name: "NGINX", icon: SiNginx, color: "#009639" },
   { name: "Prometheus", icon: SiPrometheus, color: "#E6522C" },
   { name: "Grafana", icon: SiGrafana, color: "#F46800" },
   { name: "Loki", icon: SiGrafana, color: "#F46800" },
   { name: "Sentry", icon: SiSentry, color: "#362D59" },
-  { name: "Vercel", icon: SiVercel, color: "#ffffff" },
   { name: "Vim", icon: SiVim, color: "#019733" },
 
   // Security & Testing
@@ -105,7 +101,6 @@ const techStack: TechItem[] = [
   { name: "Git", icon: SiGit, color: "#F05032" },
   { name: "GitHub", icon: FaGithub, color: "#ffffff" },
   { name: "Postman", icon: SiPostman, color: "#FF6C37" },
-  { name: "Vite", icon: SiVite, color: "#9c4cff" },
 
   // Systems & IoT
   { name: "Linux", icon: FaLinux, color: "#FCC624" },
@@ -165,7 +160,7 @@ export function TechStack() {
                 scale: 1.08,
                 boxShadow: `0 0 20px ${tech.color}15, 0 4px 16px rgba(0,0,0,0.3)`,
               }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-bg-card border border-border hover:border-border-hover transition-all duration-200 cursor-default group"
+              className="glass-card cursor-pointer flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-bg-card border border-border hover:border-border-hover transition-all duration-200 cursor-default group"
             >
               <tech.icon
                 size={16}

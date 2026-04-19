@@ -232,6 +232,7 @@ export const portfolioData = {
   ],
   projects: [
     {
+      "logo":"Kafka",
       "title": "Distributed Microservices Architecture with Apache Kafka",
       "duration": "Ongoing",
       "description": "Event-driven microservices system with Kafka-based communication, Redis caching, and full observability stack.",
@@ -269,6 +270,7 @@ export const portfolioData = {
       "imageTwo": "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png"
     },
     {
+      "logo":"React.js",
       "title": "Ticket Booking Platform for Live Concerts",
       "duration": "Feb 2025 – Mar 2025",
       "description": "Scalable full-stack ticketing platform with barcode-based entry verification, dynamic seat allocation, and real-time analytics dashboards.",
@@ -294,6 +296,7 @@ export const portfolioData = {
       "featured": true
     },
     {
+      "logo":"AI",
       "title": "AI-Powered Contactless Ordering & Recommendation System",
       "duration": "Apr 2025 – Jun 2025",
       "description": "Contactless dining platform with QR-based ordering and AI-driven menu recommendations.",

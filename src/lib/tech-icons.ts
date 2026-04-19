@@ -118,3 +118,7 @@ export const TECH_ICONS: Record<string, IconItem> = {
   // Version Control
   "GitHub": { icon: FaGithub, color: "#ffffff" },
 };
+
+export function getTechIcon(techName: string) {
+  return TECH_ICONS[techName];
+}

@@ -6,7 +6,8 @@ import { Loader } from "./components/loader";
 // Lazy load pages for performance
 const HomePage = lazy(() => import("./pages/home-page").then(m => ({ default: m.HomePage })));
 const SkillsPage = lazy(() => import("./pages/skills-page").then(m => ({ default: m.SkillsPage })));
-const ExperiencePage = lazy(() => import("./pages/experience-page").then(m => ({ default: m.ExperiencePage })));
+const WorkPage = lazy(() => import("./pages/work-page"));
+const ProjectDetailsPage = lazy(() => import("./pages/project-details-page"));
 
 function AppContent() {
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -55,7 +56,8 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/skills" element={<SkillsPage />} />
-          <Route path="/experience" element={<ExperiencePage />} />
+          <Route path="/work" element={<WorkPage />} />
+          <Route path="/project/:slug" element={<ProjectDetailsPage />} />
         </Routes>
       </Suspense>
     </div>

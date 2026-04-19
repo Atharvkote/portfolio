@@ -18,7 +18,7 @@ export function Education() {
       {/* Horizontal Timeline Container */}
       <div className="relative w-full pt-24 md:pt-20">
         {/* Main timeline line */}
-        <div className="absolute top-12 md:top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary/60 to-primary/20 rounded-full" />
+        <div className="absolute top-12 md:top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20 rounded-full" />
 
         {/* Education items */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
