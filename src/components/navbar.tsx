@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { TbLayoutFilled } from "react-icons/tb";
-import { Link, useLocation } from "react-router-dom";
 
 
 const NAV_LINKS = [
@@ -12,36 +11,6 @@ const NAV_LINKS = [
   { name: "Work", href: "/work", type: "route" },
   { name: "Contact", href: "/#contact", type: "hash" },
 ];
-
-function NavLink({ link, index, onClick }: { link: typeof NAV_LINKS[0]; index: number; onClick?: () => void }) {
-  const location = useLocation();
-  const isActive = link.type === "route" && location.pathname === link.href;
-
-  if (link.type === "route") {
-    return (
-      <Link
-        to={link.href}
-        onClick={onClick}
-        className={`relative px-4 py-2 font-mono text-[13px] transition-colors rounded-md hover:bg-primary/5 ${isActive ? "text-primary" : "text-text-secondary hover:text-primary"
-          }`}
-      >
-        <span className="text-primary mr-1">0{index + 1}.</span>
-        {link.name}
-      </Link>
-    );
-  }
-
-  return (
-    <a
-      href={link.href}
-      onClick={onClick}
-      className="relative px-4 py-2 font-mono text-[13px] text-text-secondary hover:text-primary transition-colors rounded-md hover:bg-primary/5"
-    >
-      <span className="text-primary mr-1">0{index + 1}.</span>
-      {link.name}
-    </a>
-  );
-}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -90,7 +59,7 @@ export function Navbar() {
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map((link, i) => (
+            {NAV_LINKS.map((link) => (
               <motion.a
                 key={link.name}
                 href={link.href}

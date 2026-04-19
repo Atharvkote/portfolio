@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
 import { portfolioData } from "../data/portfolio";
 
-const TECH_LIST = portfolioData.skills
-  .flatMap((s) => s.items)
-  .slice(0, 8);
-
 export function About() {
   return (
     <section id="about" className="py-8 md:py-16">

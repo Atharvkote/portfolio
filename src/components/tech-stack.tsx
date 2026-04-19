@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import {
-  FaReact, FaNodeJs, FaDocker, FaGitAlt, FaGithub, FaLinux, FaAws, FaBootstrap, FaJava, FaPhp,
+  FaReact, FaNodeJs, FaDocker, FaGithub, FaLinux, FaAws, FaJava,
   FaJenkins,
 } from "react-icons/fa";
 import {
-  SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer, SiExpress, SiMongodb,
-  SiMysql, SiFirebase, SiVercel, SiArduino, SiEspressif, SiPython,
-  SiJavascript, SiVite, SiPostman, SiGit,
+  SiNextdotjs, SiTypescript, SiTailwindcss, SiExpress, SiMongodb,
+  SiMysql, SiFirebase, SiArduino, SiEspressif, SiPython,
+  SiJavascript, SiPostman, SiGit,
   SiTerraform,
   SiApachekafka,
   SiRazorpay,
@@ -28,7 +28,6 @@ import {
   SiPrometheus,
   SiGithubactions,
   SiHackthebox,
-  SiShadcnui,
   SiGnubash,
   SiYaml,
 } from "react-icons/si";
@@ -124,7 +123,7 @@ const badgeVariants = {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.4 },
   },
 };
 

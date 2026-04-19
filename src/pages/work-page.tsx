@@ -4,16 +4,8 @@ import { QuickAccess } from "../components/quick-access";
 import { Footer } from "../components/contact";
 import { portfolioData } from "../data/portfolio";
 import { Link } from "react-router-dom";
-import { ChevronRight, Database, Ticket, Bot, Code } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import TechIcon from "../components/icon-provider";
-
-const getProjectIcon = (title: string) => {
-  const t = title.toLowerCase();
-  if (t.includes("microservices") || t.includes("kafka")) return <Database className="w-6 h-6 text-emerald-400" />;
-  if (t.includes("ticket")) return <Ticket className="w-6 h-6 text-orange-400" />;
-  if (t.includes("ai") || t.includes("recommendation")) return <Bot className="w-6 h-6 text-blue-400" />;
-  return <Code className="w-6 h-6 text-primary" />;
-};
 
 export default function WorkPage() {
   return (

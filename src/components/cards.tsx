@@ -38,26 +38,7 @@ const devopsItems = [
   },
 ];
 
-const frontendItems = [
-  {
-    title: "UI Architecture",
-    desc: "Component-driven architecture with reusable, scalable design systems and clean separation of concerns.",
-  },
-  {
-    title: "State Management",
-    desc: "Efficient global and local state handling using tools like Zustand/Redux for predictable data flow.",
-  },
-  {
-    title: "Performance",
-    desc: "Optimized rendering with code-splitting, lazy loading, memoization, and minimal re-renders.",
-  },
-  {
-    title: "UX & Accessibility",
-    desc: "Responsive, accessible interfaces with semantic HTML, keyboard navigation, and smooth interactions.",
-  },
-];
-
-function Card({ index, title, desc }) {
+function Card({ index, title, desc }: { index: number; title: string; desc: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

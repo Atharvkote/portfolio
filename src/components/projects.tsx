@@ -37,7 +37,7 @@ export function Projects() {
                 <a href={project.link} target="_blank" rel="noreferrer" className="block w-full h-full">
                   <div className="absolute inset-0 bg-primary/25 group-hover:bg-transparent transition-all duration-500 z-10" />
                   <img
-                    src={project.image}
+                    src={project.imageOne}
                     alt={project.title}
                     loading="lazy"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-[1.03] group-hover:scale-100"

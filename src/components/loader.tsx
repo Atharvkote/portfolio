@@ -25,8 +25,8 @@ export function Loader({ children }: LoaderProps) {
           <div className="relative flex flex-col items-center gap-6">
             {/* Hexagon Logo */}
             <motion.svg
-              width="80"
-              height="90"
+              width="300"
+              height="330"
               viewBox="0 0 84 96"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -43,21 +43,17 @@ export function Loader({ children }: LoaderProps) {
                 animate={{ pathLength: 1 }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
               />
-              <motion.text
-                x="42"
-                y="58"
-                textAnchor="middle"
-                fill="var(--color-primary)"
-                fontFamily="var(--font-display)"
-                fontSize="32"
-                fontWeight="700"
+              <motion.image
+                href="/A.png"
+                x="20"
+                y="25"
+                width="40"
+                height="40"
+                preserveAspectRatio="xMidYMid meet"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={''}
                 transition={{ delay: 0.8, duration: 0.5 }}
-              >
-                A
-              </motion.text>
+              />
             </motion.svg>
 
             {/* Loading bar */}

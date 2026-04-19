@@ -1,27 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { portfolioData } from "../data/portfolio";
 import TechIcon from "./icon-provider";
 import { BsCursorFill } from "react-icons/bs";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-  },
-};
 
 export function Projects() {
   const [active, setActive] = useState(0);
@@ -64,7 +47,7 @@ export function Projects() {
             }}
           />
 
-          {portfolioData.projects.map((proj, i) => (
+          {portfolioData.projects.map((_, i) => (
             <button
               key={i}
               onClick={() => setActive(i)}
@@ -140,7 +123,7 @@ export function Projects() {
               <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
                 <div className="flex-1">
                   <p className="font-mono text-xs sm:text-sm text-primary mb-3 sm:mb-4">
-                    {project.shortDesc}
+                    {project.description}
                   </p>
                   <p className="text-text-secondary leading-relaxed text-sm sm:text-base">
                     {project.description}

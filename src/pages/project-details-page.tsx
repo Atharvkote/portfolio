@@ -1,10 +1,10 @@
-import { useParams, Navigate, Link } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { portfolioData } from "../data/portfolio";
 import { Navbar } from "../components/navbar";
 import { SocialBar } from "../components/social-bar";
 import { QuickAccess } from "../components/quick-access";
 import { Footer } from "../components/contact";
-import { ArrowLeft, Code, ExternalLink, CheckCircle } from "lucide-react";
+import { Code, ExternalLink, CheckCircle } from "lucide-react";
 import { getTechIcon } from "../lib/tech-icons";
 
 export default function ProjectDetailsPage() {

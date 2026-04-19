@@ -1,5 +1,3 @@
-import { link } from "framer-motion/client";
-
 export const portfolioData = {
   name: "Atharva Kote",
   role: "Software Engineering Student | Problem Solver | Tech Enthusiast",

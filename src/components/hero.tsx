@@ -1,7 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import { portfolioData } from "../data/portfolio";
-import { ChevronRight, Scroll } from "lucide-react";
-import { FaRegFileLines } from "react-icons/fa6";
+import { ChevronRight } from "lucide-react";
 import { ScrollMouse } from "./scroll-indicator";
 import { MdOutlineFileDownload } from "react-icons/md";
 

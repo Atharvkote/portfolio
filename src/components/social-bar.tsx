@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaGithub, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import { portfolioData } from "../data/portfolio";
 import { FaXTwitter } from "react-icons/fa6";
