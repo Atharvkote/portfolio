@@ -54,7 +54,7 @@ function Card({ index, title, desc }: { index: number; title: string; desc: stri
 
       {/* Content */}
       <div>
-        <h4 className="text-white font-semibold text-lg mb-1">
+        <h4 className="text-text-primary font-semibold text-lg mb-1">
           {title}
         </h4>
         <p className="text-text-muted text-sm leading-relaxed">
@@ -83,7 +83,7 @@ export function BackendDevops() {
             <span className="num">01.</span> BACKEND
           </motion.h2>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
             Resilient, Modular & High-Performance Architecture.
           </h2>
 
@@ -111,7 +111,7 @@ export function BackendDevops() {
             <span className="num">02.</span> DEVEOPS
           </motion.h2>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
             Automated, Scalable & CD Pipelines.
           </h2>
 

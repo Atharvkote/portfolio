@@ -326,7 +326,7 @@ export function SkillsPage() {
             {/* then Magic */}
             <h2 className="text-4xl md:text-5xl font-semibold">
               <span className="text-gray-400">then </span>
-              <span className="bg-primary text-white px-3 py-1 rounded-lg">
+              <span className="bg-primary text-text-primary px-3 py-1 rounded-lg">
                 Magic.
               </span>
             </h2>

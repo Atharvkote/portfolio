@@ -68,9 +68,9 @@ export function Footer() {
         href={portfolioData.socials.github}
         target="_blank"
         rel="noreferrer"
-        className="font-mono text-xs  flex items-center gap-2 justify-center text-white hover:text-primary transition-colors leading-relaxed"
+        className="font-mono text-xs  flex items-center gap-2 justify-center text-text-primary hover:text-primary transition-colors leading-relaxed"
       >
-        <p className="flex items-center gap-2 text-white"><FaHeart /> Designed & Built by {portfolioData.name}</p>
+        <p className="flex items-center gap-2 text-text-primary"><FaHeart /> Designed & Built by {portfolioData.name}</p>
       </a>
     </footer>
   );

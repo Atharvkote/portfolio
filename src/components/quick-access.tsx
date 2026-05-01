@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Keyboard, X, Moon, Eye } from "lucide-react";
+import { Keyboard, X, Moon, Link2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,8 +10,6 @@ export function QuickAccess() {
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") !== "light";
   });
-  
-  const [focus, setFocus] = useState(true);
 
   useEffect(() => {
     if (darkMode) {
@@ -25,7 +23,6 @@ export function QuickAccess() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger if user is typing in an input
       if (
         document.activeElement?.tagName === "INPUT" ||
         document.activeElement?.tagName === "TEXTAREA"
@@ -39,8 +36,9 @@ export function QuickAccess() {
         setIsOpen(false);
       } else if (e.key.toLowerCase() === "d" && isOpen) {
         setDarkMode((prev) => !prev);
-      } else if (e.key.toLowerCase() === "f" && isOpen) {
-        setFocus((prev) => !prev);
+      } else if (e.key.toLowerCase() === "l" && isOpen) {
+        navigate("/links");
+        setIsOpen(false);
       } else if (e.key.toLowerCase() === "w" && isOpen) {
         navigate("/work");
         setIsOpen(false);
@@ -108,9 +106,9 @@ export function QuickAccess() {
             </kbd>
           </div>
           <div className="flex justify-between items-center border-b border-border/50 pb-1">
-            <span className="text-text-primary text-xs">Toggle Focus</span>
+            <span className="text-text-primary text-xs">Go to Links</span>
             <kbd className="px-2 py-1 bg-bg-elevated border border-border rounded text-xs font-semibold">
-              F
+              L
             </kbd>
           </div>
           <div className="flex justify-between items-center border-b border-border/50 pb-1">
@@ -133,18 +131,24 @@ export function QuickAccess() {
         <div>
           <h3 className="text-xl font-bold font-display mb-6">Action Center</h3>
           <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col justify-between p-5 bg-bg-elevated border border-border rounded-xl transition-all hover:border-primary/50">
+            <button
+              onClick={() => setDarkMode((prev) => !prev)}
+              className="flex flex-col justify-between p-5 bg-bg-elevated border border-border rounded-xl transition-all hover:border-primary/50 cursor-pointer text-left"
+            >
               <Moon className="w-6 h-6 mb-8 text-text-primary" />
               <span className="text-sm font-semibold font-body">
                 Dark Mode: {darkMode ? "On" : "Off"}
               </span>
-            </div>
-            <div className="flex flex-col justify-between p-5 bg-bg-elevated border border-border rounded-xl transition-all hover:border-primary/50">
-              <Eye className="w-6 h-6 mb-8 text-text-primary" />
+            </button>
+            <button
+              onClick={() => { navigate("/links"); setIsOpen(false); }}
+              className="flex flex-col justify-between p-5 bg-bg-elevated border border-border rounded-xl transition-all hover:border-primary/50 cursor-pointer text-left"
+            >
+              <Link2 className="w-6 h-6 mb-8 text-text-primary" />
               <span className="text-sm font-semibold font-body">
-                Focus: {focus ? "On" : "Off"}
+                All Links
               </span>
-            </div>
+            </button>
           </div>
         </div>
       </div>

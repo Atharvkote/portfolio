@@ -20,7 +20,7 @@ export function Loader({ children }: LoaderProps) {
           key="loader"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-bg"
+          className="fixed inset-0 z-9999 flex items-center bg-bg text-text-primary justify-center"
         >
           <div className="relative flex flex-col items-center gap-6">
             {/* Hexagon Logo */}
@@ -36,7 +36,7 @@ export function Loader({ children }: LoaderProps) {
                 points="42 3 81 24 81 72 42 93 3 72 3 24"
                 fill="none"
                 stroke="var(--color-primary)"
-                strokeWidth="2"
+                strokeWidth="1"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 initial={{ pathLength: 0 }}
@@ -57,9 +57,13 @@ export function Loader({ children }: LoaderProps) {
             </motion.svg>
 
             {/* Loading bar */}
-            <div className="w-32 h-[2px] bg-border rounded-full overflow-hidden">
+            <div
+              className="w-32 h-[2px] rounded-full overflow-hidden"
+              style={{ backgroundColor: "var(--color-border)" }}
+            >
               <motion.div
-                className="h-full bg-primary rounded-full"
+                className="h-full rounded-full"
+                style={{ backgroundColor: "var(--color-primary)" }}
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 1.8, ease: "easeInOut" }}

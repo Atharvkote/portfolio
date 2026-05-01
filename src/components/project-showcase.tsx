@@ -51,8 +51,8 @@ export function Projects() {
             <button
               key={i}
               onClick={() => setActive(i)}
-              className={`flex-1 lg:flex-none no-scrollbar cursor-pointer px-3 sm:px-5 py-2.5 text-center lg:text-left text-xs text-white/30 sm:text-xl font-extrabold transition-all duration-200 ${active === i
-                ? "bg-primary/5 text-white/90"
+              className={`flex-1 lg:flex-none no-scrollbar cursor-pointer px-3 sm:px-5 py-2.5 text-center lg:text-left text-xs text-text-primary/30 sm:text-xl font-extrabold transition-all duration-200 ${active === i
+                ? "bg-primary/5 text-text-primary/90"
                 : "text-text-muted hover:text-primary hover:bg-primary/[0.03]"
                 }`}
             >

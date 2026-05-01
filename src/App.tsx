@@ -8,6 +8,7 @@ const HomePage = lazy(() => import("./pages/home-page").then(m => ({ default: m.
 const SkillsPage = lazy(() => import("./pages/skills-page").then(m => ({ default: m.SkillsPage })));
 const WorkPage = lazy(() => import("./pages/work-page"));
 const ProjectDetailsPage = lazy(() => import("./pages/project-details-page"));
+const LinksPage = lazy(() => import("./pages/links-page").then(m => ({ default: m.LinksPage })));
 
 function AppContent() {
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -58,6 +59,7 @@ function AppContent() {
           <Route path="/skills" element={<SkillsPage />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/project/:slug" element={<ProjectDetailsPage />} />
+          <Route path="/links" element={<LinksPage />} />
         </Routes>
       </Suspense>
     </div>

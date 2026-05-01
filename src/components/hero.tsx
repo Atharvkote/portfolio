@@ -51,15 +51,15 @@ export function Hero() {
           variants={item}
           className="border-l-[4px] border-primary pl-5 text-2xl md:text-4xl font-bold leading-relaxed md:leading-[1.4] text-text-secondary/60 mb-8"
         >
-          <span className="underline decoration-[3px] decoration-primary underline-offset-6 text-white">
+          <span className="underline decoration-[3px] decoration-primary underline-offset-6 text-text-primary">
             Curious by Nature
           </span>
           ,{" "}
-          <span className=" border border-primary rounded-xl px-3 py-1 text-white">
+          <span className=" border border-primary rounded-xl px-3 py-1 text-text-primary">
             Disciplined
           </span>{" "}
           in Effort,
-          and Consistent in{" "} <span className="inline-block bg-primary text-white px-3 mt-2 rounded-xl shadow-md">
+          and Consistent in{" "} <span className="inline-block bg-primary text-text-primary px-3 mt-2 rounded-xl shadow-md">
             Learning
           </span>
           .
@@ -85,7 +85,7 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="relative inline-block group"
           >
-            <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-white overflow-hidden inline-block">
+            <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
 
               <span className="absolute inset-0 bg-bg z-0  transition-all duration-300 group-hover:scale-105"></span>
 
@@ -104,7 +104,7 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="relative inline-block group"
           >
-            <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-white overflow-hidden inline-block">
+            <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
 
               {/* Background layer */}
               <span className="absolute inset-0 bg-bg z-0  transition-all duration-300 group-hover:scale-105"></span>

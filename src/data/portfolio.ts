@@ -1,6 +1,18 @@
 import {
   Code2, Server, Cloud, Braces,
 } from "lucide-react";
+import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { SiLeetcode, SiStackoverflow } from "react-icons/si";
+import type { IconType } from "react-icons";
+
+// ─── Link Item Interface ───
+export interface LinkItem {
+  label: string;
+  handle: string;
+  href: string;
+  icon: IconType | React.FC<{ size?: number; className?: string }>;
+}
 
 // ─── Skill Section Interface ───
 export interface SkillSection {
@@ -409,5 +421,45 @@ export const skillSections: SkillSection[] = [
       "GitHub Actions", "Jenkins", "NGINX", "Cloudflare",
       "Prometheus", "Grafana", "Loki", "Linux", "Ubuntu",
     ],
+  },
+];
+
+// ─── Social Links ───
+export const socialLinks: LinkItem[] = [
+  {
+    label: "GitHub",
+    handle: "@Atharvkote",
+    href: portfolioData.socials.github,
+    icon: FaGithub,
+  },
+  {
+    label: "LinkedIn",
+    handle: "@atharvakote",
+    href: portfolioData.socials.linkedin,
+    icon: FaLinkedinIn,
+  },
+  {
+    label: "X (Twitter)",
+    handle: "@ImAtharva81",
+    href: portfolioData.socials.twitter,
+    icon: FaXTwitter,
+  },
+  {
+    label: "Instagram",
+    handle: "@___atharv_81",
+    href: portfolioData.socials.instagram,
+    icon: FaInstagram,
+  },
+  {
+    label: "LeetCode",
+    handle: "@AtharvaKote81",
+    href: portfolioData.socials.leetcode,
+    icon: SiLeetcode,
+  },
+  {
+    label: "Stack Overflow",
+    handle: "@atharva-kote",
+    href: portfolioData.socials.stackoverflow,
+    icon: SiStackoverflow,
   },
 ];
