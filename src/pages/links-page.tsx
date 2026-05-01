@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { portfolioData, socialLinks, type LinkItem } from "../data/portfolio";
 import {
-  ArrowUpRight, Mail, Globe, ChevronLeft,
+  ArrowUpRight, Mail, Globe,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
