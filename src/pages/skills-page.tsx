@@ -1,18 +1,302 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "../components/navbar";
 import { SocialBar } from "../components/social-bar";
 import { QuickAccess } from "../components/quick-access";
 import { Footer } from "../components/contact";
-import { BsCursorFill } from "react-icons/bs";
-import { GiInfinity } from "react-icons/gi";
-import { FaServer } from "react-icons/fa";
-import { GiReactor } from "react-icons/gi";
+import TechIcon from "../components/icon-provider";
+import {
+  Code2, Server, Cloud, ChevronRight, Sparkles, Braces,
+} from "lucide-react";
 
+// ─── Skill Section Data ───
+interface SkillSection {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: React.FC<{ size?: number; className?: string }>;
+  skills: string[]; // names matching TECH_ICONS keys
+}
+
+const sections: SkillSection[] = [
+  {
+    id: "languages",
+    title: "Languages",
+    subtitle: "Core Programming Languages",
+    description:
+      "The foundational languages I write production code in — from systems to scripting to full-stack web.",
+    icon: Braces,
+    skills: [
+      "Java", "JavaScript", "TypeScript", "Python", "YAML", "Bash",
+    ],
+  },
+  {
+    id: "frontend",
+    title: "Front-End",
+    subtitle: "Pixel-Perfect & Interactive UIs",
+    description:
+      "Crafting responsive, animated, and accessible user interfaces with modern component-driven frameworks.",
+    icon: Code2,
+    skills: [
+      "React.js", "Next.js", "Redux", "Tailwind CSS", "SASS", "Vite", "Electron",
+    ],
+  },
+  {
+    id: "backend",
+    title: "Scalable Architecture",
+    subtitle: "Resilient & High-Performance Systems",
+    description:
+      "Building event-driven microservices, real-time communication layers, caching pipelines, and robust API architectures designed for scale.",
+    icon: Server,
+    skills: [
+      "Node.js", "Express.js", "Socket.io", "Apache Kafka", "Redis",
+      "MongoDB", "MySQL", "PostgreSQL", "Firebase", "Supabase", "Prisma",
+      "JWT-RS256", "Razorpay", "Stripe",
+    ],
+  },
+  {
+    id: "devops",
+    title: "DevOps & Cloud",
+    subtitle: "Automated CI/CD & Infrastructure",
+    description:
+      "Containerization, orchestration, monitoring, and cloud-native infrastructure for zero-downtime delivery.",
+    icon: Cloud,
+    skills: [
+      "Docker", "Kubernetes", "AWS EC2", "AWS S3", "Terraform",
+      "GitHub Actions", "Jenkins", "NGINX", "Cloudflare",
+      "Prometheus", "Grafana", "Loki", "Linux", "Ubuntu",
+    ],
+  },
+];
+
+// ─── Animation Variants ───
+const stagger = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.04, delayChildren: 0.1 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const chipPop = {
+  hidden: { opacity: 0, scale: 0.8, y: 12 },
+  show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
+};
+
+// ─── Skill Chip (icon + name, primary color only) ───
+function SkillChip({ name }: { name: string }) {
+  return (
+    <motion.div
+      variants={chipPop}
+      whileHover={{
+        scale: 1.06,
+        boxShadow: "0 0 24px rgba(167, 139, 250, 0.12), 0 4px 20px rgba(0,0,0,0.25)",
+      }}
+      className="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl
+                 border border-border bg-bg-card/50 backdrop-blur-sm
+                 hover:border-primary/25 hover:bg-bg-hover/40
+                 transition-all duration-300 cursor-default"
+    >
+      <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0
+                      bg-primary/8 group-hover:bg-primary/15 transition-colors duration-300">
+        <TechIcon name={name} size={15} className="opacity-80 group-hover:opacity-100 transition-opacity" />
+      </div>
+      <span className="text-[13px] font-body font-medium text-text-secondary
+                        group-hover:text-text-primary transition-colors whitespace-nowrap">
+        {name}
+      </span>
+    </motion.div>
+  );
+}
+
+// ─── Category Accordion Panel ───
+function CategoryPanel({ section, isActive, onToggle }: {
+  section: SkillSection;
+  isActive: boolean;
+  onToggle: () => void;
+}) {
+  const SectionIcon = section.icon;
+
+  return (
+    <motion.div
+      variants={fadeUp}
+      layout
+      className="rounded-2xl border border-primary/40 bg-bg-card/25
+                overflow-hidden transition-all duration-300"
+    >
+      {/* Header */}
+      <button
+        onClick={onToggle}
+        className="w-full text-left px-5 sm:px-6 py-5 flex items-center gap-4 group cursor-pointer
+                   transition-colors duration-200"
+      >
+        {/* Icon */}
+        <div
+          className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0
+                     transition-all duration-300"
+        >
+          <SectionIcon
+            size={20}
+            className="text-primary transition-colors duration-300"
+          />
+        </div>
+
+        {/* Text */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-primary">
+              {section.title}
+            </span>
+            <span className="text-[11px] font-mono text-text-dim">
+              — {section.skills.length} tools
+            </span>
+          </div>
+          <h3 className="text-base sm:text-lg font-display font-bold text-text-primary leading-tight">
+            {section.subtitle}
+          </h3>
+        </div>
+
+        {/* Arrow */}
+        <motion.div
+          animate={{ rotate: isActive ? 90 : 0 }}
+          transition={{ duration: 0.25 }}
+          className="text-text-muted shrink-0"
+        >
+          <ChevronRight size={18} />
+        </motion.div>
+      </button>
+
+      {/* Expandable skills */}
+      <AnimatePresence initial={false}>
+        {isActive && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="px-5 sm:px-6 pb-6">
+              {/* Description */}
+              <p className="text-text-secondary text-[13px] leading-relaxed mb-5
+                            pl-3 border-l-2 border-primary/15">
+                {section.description}
+              </p>
+
+              {/* Skills grid */}
+              <motion.div
+                variants={stagger}
+                initial="hidden"
+                animate="show"
+                className="flex flex-wrap gap-2.5"
+              >
+                {section.skills.map((skill) => (
+                  <SkillChip key={skill} name={skill} />
+                ))}
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+// ─── Stats Row ───
+function StatsRow() {
+  const stats = [
+    { label: "Technologies", value: "30+" },
+    { label: "Projects Built", value: "10+" },
+    { label: "Years Coding", value: "3+" },
+    { label: "LeetCode Solved", value: "240+" },
+  ];
+
+  return (
+    <motion.div
+      variants={stagger}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+      className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12"
+    >
+      {stats.map((s) => (
+        <motion.div
+          key={s.label}
+          variants={fadeUp}
+          className="rounded-xl border border-border bg-bg-card/30 backdrop-blur-sm p-4
+                     text-center hover:border-primary/20 transition-all duration-300 group"
+        >
+          <div className="text-2xl md:text-3xl font-display font-bold mb-1 text-primary">
+            {s.value}
+          </div>
+          <div className="text-[11px] font-mono text-text-muted uppercase tracking-wider">
+            {s.label}
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
+// ─── Currently Exploring Marquee ───
+function ExploringMarquee() {
+  const items = [
+    "Rust", "WebAssembly", "tRPC", "Bun", "Deno", "Astro", "gRPC",
+    "GraphQL", "Turborepo", "Edge Computing", "AI/ML", "BullMQ",
+  ];
+
+  return (
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+      className="rounded-xl border border-border bg-bg-card/25 backdrop-blur-sm p-4 mb-12 overflow-hidden"
+    >
+      <div className="flex items-center gap-2 mb-3">
+        <Sparkles size={14} className="text-primary" />
+        <span className="font-mono text-[11px] text-primary font-bold uppercase tracking-widest">
+          Currently Exploring
+        </span>
+      </div>
+      <div className="relative overflow-hidden">
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-bg-card/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-bg-card/90 to-transparent z-10 pointer-events-none" />
+
+        <motion.div
+          className="flex gap-3 whitespace-nowrap"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        >
+          {[...items, ...items].map((item, i) => (
+            <span
+              key={`${item}-${i}`}
+              className="inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-mono
+                         text-text-secondary border border-border/50 bg-bg-elevated/30
+                         hover:text-primary hover:border-primary/20 transition-colors shrink-0"
+            >
+              {item}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Main Page ───
 export function SkillsPage() {
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  const [activeSection, setActiveSection] = useState<string>("languages");
+
+  const toggle = (id: string) => {
+    setActiveSection((prev) => (prev === id ? "" : id));
   };
 
   return (
@@ -21,272 +305,94 @@ export function SkillsPage() {
       <SocialBar />
       <QuickAccess />
 
-      <main className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 lg:px-6 pt-32 pb-20 flex flex-col md:flex-row gap-16 items-start">
-        
-        {/* Left Content Area */}
-        <div className="flex-1 max-w-[750px]">
-          <div className="mb-5">
-            <span className="font-mono text-primary text-sm font-bold uppercase tracking-widest mb-1 block">Work</span>
-            <h1 className="text-lg md:text-xl lg:text-3xl font-bold font-display text-text-primary tracking-tight">
-              Skills and Tools
-            </h1>
-            <p className="text-md text-text-secondary leading-relaxed">
-              A look at all the programming languages, libraries, and tools I've worked with.
+      <main className="relative z-10 w-full max-w-[820px] mx-auto px-6 sm:px-10 lg:px-6 pt-32 pb-20">
+        {/* ── Header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10"
+        >
+          <span className="font-mono text-primary text-sm font-bold uppercase tracking-widest mb-1 block">
+            Skills
+          </span>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold font-display text-text-primary tracking-tight mb-3">
+            Tools & Technologies
+          </h1>
+          <p className="text-text-secondary text-[15px] leading-relaxed max-w-[600px]">
+            A curated look at the technologies I use daily — from core languages
+            to scalable architectures and automated cloud infrastructure.
+          </p>
+        </motion.div>
+
+        {/* ── Stats ── */}
+        <StatsRow />
+
+        {/* ── Section Panels ── */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          className="space-y-4 mb-12"
+        >
+          {sections.map((sec) => (
+            <CategoryPanel
+              key={sec.id}
+              section={sec}
+              isActive={activeSection === sec.id}
+              onToggle={() => toggle(sec.id)}
+            />
+          ))}
+        </motion.div>
+
+        {/* ── Exploring ── */}
+        <ExploringMarquee />
+
+        {/* ── Quote ── */}
+        <div className="max-w-3xl flex flex-col items-center gap-2 text-center  space-y-4">
+
+          {/* Top line */}
+          <div className="flex items-center gap-4">
+            <div className="flex gap-1">
+              <div className="w-6 h-10 bg-gray-700 skew-x-[-20deg] opacity-50"></div>
+              <div className="w-6 h-10 bg-gray-700 skew-x-[-20deg] opacity-30"></div>
+            </div>
+
+            <p className="text-4xl font-semibold md:text-4xl italic text-gray-400">
+              Development: Turning
             </p>
           </div>
 
-          <div className="space-y-4">
-            
-            {/* Introduction */}
-            <div className="space-y-6 text-text-secondary leading-relaxed text-[14px] px-4 pl-0 md:pl-4 border-l-0 md:border-l border-border/50 relative">
-              <p>
-                I started my journey exploring the vast world of software development. I've tried many programming languages and tech stacks, across Front-End, Back-End, and Infrastructure.
-              </p>
-              <p>
-                Even though the scope of software engineering is broad, I am deeply interested and focused on <span className="text-text-primary font-bold">Front-End Development</span>, <span className="text-text-primary font-bold">Back-End Development</span>, and <span className="text-text-primary font-bold">DevOps</span>.
-              </p>
+          <div className="flex justify-center flex-col gap-3 ">
+
+            {/* Coffee into Code */}
+            <div className="flex items-center gap-4 justify-center text-center">
+              <div className="h-[2px] w-16 bg-gray-600"></div>
+
+              <h1 className="text-4xl md:text-5xl font-semibold">
+                <span className="bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
+                  Coffee
+                </span>{" "}
+                <span className="text-gray-400">into</span>{" "}
+                <span className="text-primary px-3 py-1 rounded-lg">
+                  Code
+                </span>
+              </h1>
+
+              <div className="h-[2px] w-16 bg-gray-600"></div>
             </div>
 
-            <hr className="border-border/30" />
-
-            {/* Front-End Section */}
-            <section id="frontend" className="space-y-2">
-              <h2 className="text-2xl font-display font-bold text-text-primary flex items-center gap-2"> <GiReactor className="text-primary text-2xl" /> Front-End Developer</h2>
-              
-              <div className="space-y-1 mb-6 text-text-secondary text-[14px] px-4 leading-relaxed">
-                <p>I love creating something that is clean and minimalistic, attractive and has value, and of course, easy to use.</p>
-                <p>I really enjoy creating websites with <strong className="text-text-primary">rich UI components</strong>, including:</p>
-                <ul className="list-none space-y-1 pl-2">
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-text-primary rounded-sm"></span> <strong className="text-text-primary">Web application,</strong></li>
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-text-primary rounded-sm"></span> <strong className="text-text-primary">Documentation pages,</strong></li>
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-text-primary rounded-sm"></span> <strong className="text-text-primary">CMS contents layout,</strong></li>
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-text-primary rounded-sm"></span> <strong className="text-text-primary">Dashboard layout,</strong></li>
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-text-primary rounded-sm"></span> and others.</li>
-                </ul>
-                <p>But I still like to make simple website pages like <strong className="text-text-primary">landing pages</strong>. So, what tools did I feel comfortable using during the website creation?</p>
-              </div>
-
-              {/* Sub-skills */}
-              <div className="space-y-5">
-                <div id="frontend-typescript">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> TypeScript</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    First of all, the programming language. I'm very used to using <strong className="text-text-primary">TypeScript</strong>, although website creation can be done using PHP, Python, etc.
-                  </p>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed">
-                    The JavaScript superset — TypeScript — has accompanied me for <strong className="text-text-primary">years</strong>.
-                  </p>
-                </div>
-                
-                <div id="frontend-react">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> React</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    I really enjoy building single page application websites and React is my go-to library.
-                  </p>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed">
-                    I've been using it <strong className="text-text-primary">extensively</strong> and have become quite proficient with it.
-                  </p>
-                </div>
-
-
-                <div id="frontend-tailwind">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Tailwind CSS</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    For now, I love using Tailwind CSS for styling, even though I've been using plain CSS and SCSS for a longer time.
-                  </p>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed">
-                    <strong className="text-text-primary">I'm really comfortable</strong> using it and I think it's a great tool.
-                  </p>
-                </div>
-
-                <div id="frontend-framer">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Framer Motion</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed">
-                    For animations, I am more comfortable using Framer Motion. Creating animations using JavaScript has <strong className="text-text-primary">never been as easy as using Framer Motion</strong>.
-                  </p>
-                </div>
-
-                <div id="frontend-nextjs">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Next.js</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed">
-                    I've been using React for a few years, but since discovering Next.js, I don't think I would want to use any other web framework. <strong className="text-text-primary">It's just that good!</strong>
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <hr className="border-border/30" />
-
-            {/* Back-End Section */}
-            <section id="backend" className="space-y-5">
-              <h2 className="text-2xl font-display font-bold text-text-primary  flex items-center gap-2"><FaServer className="text-primary text-2xl" />Backend-End Developer</h2>
-              <div className="space-y-6 text-text-secondary text-[14px] px-4 leading-relaxed">
-                <p>I love building systems that are robust, scalable, secure, and efficient — always with clean architecture and developer-friendly APIs in mind.</p>
-              </div>
-
-              <div className="space-y-5">
-                <div id="backend-python">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Python</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    Python is incredibly versatile. I use it for scripting, automation, building APIs, and data processing.
-                  </p>
-                </div>
-
-                <div id="backend-fastapi">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> FastAPI</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    FastAPI enables incredibly fast API development with automatic Swagger documentation. It's the standard for modern Python backend applications.
-                  </p>
-                </div>
-
-                <div id="backend-express">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Node.js & Express</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    For JavaScript-heavy stacks, Node.js remains the golden standard. Coupled with Express or native HTTP, it handles asynchronous operations perfectly.
-                  </p>
-                </div>
-
-                <div id="backend-django">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Django</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    When I need a robust architecture with a built-in admin panel and ORM right out of the box, Django is the framework of choice for rapid full-stack delivery.
-                  </p>
-                </div>
-
-                <div id="backend-flask">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Flask</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    For highly customized, microservice architecture Python applications where I need finite control over dependencies and routing, Flask is perfect.
-                  </p>
-                </div>
-
-                <div id="backend-postgresql">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> PostgreSQL</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    My primary relational database. It is incredibly robust, fully ACID compliant, and handles large complex relational workloads with ease.
-                  </p>
-                </div>
-
-                <div id="backend-mongodb">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> MongoDB</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    When documents have varying structures and fast JSON-based iteration is necessary for full-stack JavaScript applications, MongoDB is fantastic.
-                  </p>
-                </div>
-
-                <div id="backend-redis">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Redis</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    Crucial for in-memory caching mechanisms, task queue management with Celery or Bull, and dramatically improving backend API response times.
-                  </p>
-                </div>
-
-                <div id="backend-docker">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Docker</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    Containerizing my application environments ensures "it works on my machine" translates perfectly to production deployments.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <hr className="border-border/30" />
-
-            {/* DevOps Section */}
-            <section id="devops" className="space-y-5">
-              <h2 className="text-2xl font-display font-bold text-text-primary  flex items-center gap-2"> <GiInfinity className="text-primary text-2xl" /> DevOps</h2>
-              <div className="space-y-6 text-text-secondary text-[14px] px-4 leading-relaxed">
-                <p>Ensuring system stability, zero-downtime deployments, and highly scalable cloud architectures.</p>
-              </div>
-
-              <div className="space-y-5">
-                <div id="devops-docker">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Docker</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    At the core of all modern cloud-native architectures. I rely on it for consistent service isolation, testing, and production builds.
-                  </p>
-                </div>
-
-                <div id="devops-kubernetes">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Kubernetes</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    Orchestrating containerized applications dynamically. From auto-scaling, fault-tolerance, to managing complex microservices networking.
-                  </p>
-                </div>
-
-                <div id="devops-aws">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> AWS</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    Using EC2, S3, RDS, Lambda, and IAM to provision comprehensive infrastructure networks natively in the cloud.
-                  </p>
-                </div>
-
-                <div id="devops-terraform">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> Terraform</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    Infrastructure as Code. Defining and managing precise, reproducible cloud resources directly via declarative configuration files.
-                  </p>
-                </div>
-
-                <div id="devops-github">
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 flex items-center gap-2"><BsCursorFill className="text-primary rotate-45 text-xs"/> GitHub Actions</h3>
-                  <p className="text-text-secondary text-[14px] px-4 leading-relaxed mb-1">
-                    Automating entire CI/CD pipelines natively to handle linting, building, testing, and pushing code autonomously.
-                  </p>
-                </div>
-              </div>
-            </section>
-
+            {/* then Magic */}
+            <h2 className="text-4xl md:text-5xl font-semibold">
+              <span className="text-gray-400">then </span>
+              <span className="bg-primary text-white px-3 py-1 rounded-lg">
+                Magic.
+              </span>
+            </h2>
           </div>
+
         </div>
-
-        {/* Right Sidebar - Sticky Table of Contents */}
-        <aside className="hidden lg:block w-[320px] shrink-0 relative mt-16 text-[14px]" >
-          <div className="sticky top-24 bg-bg-card/80 backdrop-blur-md rounded-xl border border-border p-5 no-scrollbar shadow-2xl">
-            <h3 className="font-bold text-text-primary mb-1">Table of Contents</h3>
-            
-            <div className="space-y-1">
-              <div className="font-bold text-primary mb-2 mt-4 cursor-pointer hover:underline" onClick={() => scrollTo('frontend')}>Front-End Developer</div>
-              
-              <ul className="pl-4 space-y-2 border-l border-border/50 ml-1 text-text-secondary">
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('frontend-typescript')}>TypeScript</li>
-                <li className="cursor-pointer text-primary bg-primary/10 px-2 py-1 -ml-2 rounded w-fit" onClick={() => scrollTo('frontend-react')}>React</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('frontend-tailwind')}>Tailwind CSS</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('frontend-framer')}>Framer Motion</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('frontend-nextjs')}>Next.js</li>
-              </ul>
-            </div>
-
-            <div className="space-y-1">
-              <div className="font-bold text-primary mb-2 mt-6 cursor-pointer hover:underline" onClick={() => scrollTo('backend')}>Backend-End Developer</div>
-              
-              <ul className="pl-4 space-y-2 border-l border-border/50 ml-1 text-text-secondary">
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-python')}>Python</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-fastapi')}>FastAPI</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-express')}>Node/Express</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-django')}>Django</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-flask')}>Flask</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-postgresql')}>PostgreSQL</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-mongodb')}>MongoDB</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-redis')}>Redis</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('backend-docker')}>Docker</li>
-              </ul>
-            </div>
-
-            <div className="space-y-1">
-              <div className="font-bold text-primary mb-2 mt-6 cursor-pointer hover:underline" onClick={() => scrollTo('devops')}>DevOps Engineer</div>
-              
-              <ul className="pl-4 space-y-2 border-l border-border/50 ml-1 text-text-secondary mb-6">
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('devops-docker')}>Docker</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('devops-kubernetes')}>Kubernetes</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('devops-aws')}>AWS</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('devops-terraform')}>Terraform</li>
-                <li className="cursor-pointer hover:text-text-primary transition-colors hover:pl-1" onClick={() => scrollTo('devops-github')}>GitHub Actions</li>
-              </ul>
-            </div>
-
-          </div>
-        </aside>
       </main>
 
       <Footer />
