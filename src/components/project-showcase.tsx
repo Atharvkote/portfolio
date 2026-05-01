@@ -75,7 +75,7 @@ export function Projects() {
 
               <div className="relative w-full flex flex-col gap-10 text-center items-center cursor-pointer bg-[#17142a]  border-2 border-primary-dim/10 rounded-xl p-4 sm:p-6 lg:p-5">
 
-                <div className="relative w-full max-w-[420px] h-[300px] sm:h-[200px] group">
+                <div className="relative w-full max-w-[420px] h-[250px] sm:h-[200px] group">
 
                   <div className="
       absolute left-1/2 -translate-x-[60%] bottom-0
