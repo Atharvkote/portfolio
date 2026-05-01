@@ -25,8 +25,8 @@ export function Loader({ children }: LoaderProps) {
           <div className="relative flex flex-col items-center gap-6">
             {/* Hexagon Logo */}
             <motion.svg
-              width="300"
-              height="330"
+              width="240"
+              height="300"
               viewBox="0 0 84 96"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -36,7 +36,7 @@ export function Loader({ children }: LoaderProps) {
                 points="42 3 81 24 81 72 42 93 3 72 3 24"
                 fill="none"
                 stroke="var(--color-primary)"
-                strokeWidth="4"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 initial={{ pathLength: 0 }}

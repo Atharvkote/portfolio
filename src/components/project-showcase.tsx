@@ -84,19 +84,19 @@ export function Projects() {
       border border-white/10
       shadow-[0_20px_60px_rgba(0,0,0,0.6)]
       transform -rotate-3
-      transition-all duration-500 ease-out
+      transition-all duration-500 ease-out 
       group-hover:-translate-x-[70%] group-hover:-rotate-6 group-hover:scale-[1.03]
     ">
                     <img
                       src={project.imageTwo}
                       alt="Back Preview"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full  object-cover"
                     />
                   </div>
 
                   {/* FRONT IMAGE */}
                   <div className="
-      absolute left-1/2 -translate-x-[40%] bottom-0
+      absolute left-1/2 -translate-x-[40%] bottom-0 
       w-[90%] h-full
       rounded-2xl overflow-hidden
       border border-white/10
@@ -108,7 +108,7 @@ export function Projects() {
                     <img
                       src={project.imageOne}
                       alt="Main Preview"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-fill"
                     />
                   </div>
                 </div>
@@ -122,9 +122,7 @@ export function Projects() {
               {/* TEXT */}
               <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
                 <div className="flex-1">
-                  <p className="font-mono text-xs sm:text-sm text-primary mb-3 sm:mb-4">
-                    {project.description}
-                  </p>
+                
                   <p className="text-text-secondary leading-relaxed text-sm sm:text-base">
                     {project.description}
                   </p>

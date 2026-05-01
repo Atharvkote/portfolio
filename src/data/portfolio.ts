@@ -291,7 +291,10 @@ export const portfolioData = {
       ],
       "github": "https://github.com/Atharvkote",
       "link": "#",
-      "featured": true
+      "featured": true,
+      "imageOne": "/Ticket-1.jpg",
+      "imageTwo": "/Ticket.jpg"
+
     },
     {
       "logo":"AI",
@@ -318,7 +321,9 @@ export const portfolioData = {
       ],
       "github": "https://github.com/Atharvkote",
       "link": "#",
-      "featured": true
+      "featured": true,
+      "imageOne": "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1777659486/FD-1_y8pi1t.png",
+      "imageTwo": "/FD-2.png"
     }
 
   ]
