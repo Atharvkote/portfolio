@@ -6,69 +6,9 @@ import { QuickAccess } from "../components/quick-access";
 import { Footer } from "../components/contact";
 import TechIcon from "../components/icon-provider";
 import {
-  Code2, Server, Cloud, ChevronRight, Sparkles, Braces,
+  ChevronRight, Sparkles,
 } from "lucide-react";
-
-// ─── Skill Section Data ───
-interface SkillSection {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  icon: React.FC<{ size?: number; className?: string }>;
-  skills: string[]; // names matching TECH_ICONS keys
-}
-
-const sections: SkillSection[] = [
-  {
-    id: "languages",
-    title: "Languages",
-    subtitle: "Core Programming Languages",
-    description:
-      "The foundational languages I write production code in — from systems to scripting to full-stack web.",
-    icon: Braces,
-    skills: [
-      "Java", "JavaScript", "TypeScript", "Python", "YAML", "Bash",
-    ],
-  },
-  {
-    id: "frontend",
-    title: "Front-End",
-    subtitle: "Pixel-Perfect & Interactive UIs",
-    description:
-      "Crafting responsive, animated, and accessible user interfaces with modern component-driven frameworks.",
-    icon: Code2,
-    skills: [
-      "React.js", "Next.js", "Redux", "Tailwind CSS", "SASS", "Vite", "Electron",
-    ],
-  },
-  {
-    id: "backend",
-    title: "Scalable Architecture",
-    subtitle: "Resilient & High-Performance Systems",
-    description:
-      "Building event-driven microservices, real-time communication layers, caching pipelines, and robust API architectures designed for scale.",
-    icon: Server,
-    skills: [
-      "Node.js", "Express.js", "Socket.io", "Apache Kafka", "Redis",
-      "MongoDB", "MySQL", "PostgreSQL", "Firebase", "Supabase", "Prisma",
-      "JWT-RS256", "Razorpay", "Stripe",
-    ],
-  },
-  {
-    id: "devops",
-    title: "DevOps & Cloud",
-    subtitle: "Automated CI/CD & Infrastructure",
-    description:
-      "Containerization, orchestration, monitoring, and cloud-native infrastructure for zero-downtime delivery.",
-    icon: Cloud,
-    skills: [
-      "Docker", "Kubernetes", "AWS EC2", "AWS S3", "Terraform",
-      "GitHub Actions", "Jenkins", "NGINX", "Cloudflare",
-      "Prometheus", "Grafana", "Loki", "Linux", "Ubuntu",
-    ],
-  },
-];
+import { skillSections, type SkillSection } from "../data/portfolio";
 
 // ─── Animation Variants ───
 const stagger = {
@@ -81,12 +21,12 @@ const stagger = {
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const chipPop = {
   hidden: { opacity: 0, scale: 0.8, y: 12 },
-  show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
+  show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.35 } },
 };
 
 // ─── Skill Chip (icon + name, primary color only) ───
@@ -336,7 +276,7 @@ export function SkillsPage() {
           viewport={{ once: true, margin: "-60px" }}
           className="space-y-4 mb-12"
         >
-          {sections.map((sec) => (
+          {skillSections.map((sec) => (
             <CategoryPanel
               key={sec.id}
               section={sec}

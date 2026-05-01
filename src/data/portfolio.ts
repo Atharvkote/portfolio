@@ -1,3 +1,25 @@
+import {
+  Code2, Server, Cloud, Braces,
+} from "lucide-react";
+
+// ─── Skill Section Interface ───
+export interface SkillSection {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: React.FC<{ size?: number; className?: string }>;
+  skills: string[];
+}
+
+// Icon components for skill sections
+const SkillIcons = {
+  Braces: Braces,
+  Code2: Code2,
+  Server: Server,
+  Cloud: Cloud,
+};
+
 export const portfolioData = {
   name: "Atharva Kote",
   role: "Software Engineering Student | Problem Solver | Tech Enthusiast",
@@ -328,3 +350,64 @@ export const portfolioData = {
 
   ]
 };
+
+// ─── Skill Sections for Skills Page ───
+export interface SkillSection {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: React.FC<{ size?: number; className?: string }>;
+  skills: string[];
+}
+
+export const skillSections: SkillSection[] = [
+  {
+    id: "languages",
+    title: "Languages",
+    subtitle: "Core Programming Languages",
+    description:
+      "The foundational languages I write production code in — from systems to scripting to full-stack web.",
+    icon: SkillIcons.Braces,
+    skills: [
+      "Java", "JavaScript", "TypeScript", "Python", "YAML", "Bash",
+    ],
+  },
+  {
+    id: "frontend",
+    title: "Front-End",
+    subtitle: "Pixel-Perfect & Interactive UIs",
+    description:
+      "Crafting responsive, animated, and accessible user interfaces with modern component-driven frameworks.",
+    icon: SkillIcons.Code2,
+    skills: [
+      "React.js", "Next.js", "Redux", "Tailwind CSS", "SASS", "Vite", "Electron",
+    ],
+  },
+  {
+    id: "backend",
+    title: "Scalable Architecture",
+    subtitle: "Resilient & High-Performance Systems",
+    description:
+      "Building event-driven microservices, real-time communication layers, caching pipelines, and robust API architectures designed for scale.",
+    icon: SkillIcons.Server,
+    skills: [
+      "Node.js", "Express.js", "Socket.io", "Apache Kafka", "Redis",
+      "MongoDB", "MySQL", "PostgreSQL", "Firebase", "Supabase", "Prisma",
+      "JWT-RS256", "Razorpay", "Stripe",
+    ],
+  },
+  {
+    id: "devops",
+    title: "DevOps & Cloud",
+    subtitle: "Automated CI/CD & Infrastructure",
+    description:
+      "Containerization, orchestration, monitoring, and cloud-native infrastructure for zero-downtime delivery.",
+    icon: SkillIcons.Cloud,
+    skills: [
+      "Docker", "Kubernetes", "AWS EC2", "AWS S3", "Terraform",
+      "GitHub Actions", "Jenkins", "NGINX", "Cloudflare",
+      "Prometheus", "Grafana", "Loki", "Linux", "Ubuntu",
+    ],
+  },
+];

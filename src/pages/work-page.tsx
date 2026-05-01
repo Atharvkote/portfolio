@@ -19,13 +19,12 @@ const stagger = {
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 // ─── Project Card ───
-function ProjectCard({ project, index }: {
+function ProjectCard({ project }: {
   project: (typeof portfolioData.projects)[number];
-  index: number;
 }) {
   const slug = project.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
 
@@ -176,7 +175,7 @@ export default function WorkPage() {
           className="grid grid-cols-1 md:grid-cols-2 gap-5"
         >
           {portfolioData.projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
+            <ProjectCard key={index} project={project} />
           ))}
         </motion.div>
 
