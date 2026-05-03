@@ -5,7 +5,7 @@ import { QuickAccess } from "../components/quick-access";
 import { Footer } from "../components/contact";
 import { portfolioData } from "../data/portfolio";
 import { Link } from "react-router-dom";
-import { ChevronRight, ArrowUpRight, Calendar } from "lucide-react";
+import { ChevronRight, Calendar } from "lucide-react";
 import TechIcon from "../components/icon-provider";
 
 // ─── Animation Variants ───

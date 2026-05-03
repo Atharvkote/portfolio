@@ -25,7 +25,7 @@ const item: Variants = {
 
 export function Hero() {
 
-  const handleResumeDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleResumeDownload = () => {
     const toastId = toast.loading("Downloading resume...");
     setTimeout(() => {
       toast.success("Resume downloaded!", { id: toastId });
