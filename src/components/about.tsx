@@ -8,7 +8,7 @@ export function About() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.35 }}
         className="section-heading"
       >
         <span className="num">01.</span> About Me
@@ -20,7 +20,7 @@ export function About() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          transition={{ duration: 0.35, delay: 0.08 }}
           className="space-y-5"
         >
           <p>
@@ -49,7 +49,7 @@ export function About() {
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
           className="relative group mx-auto md:mx-0 w-[250px] md:w-full max-w-[300px]"
         >
           <div className="relative z-10 rounded-lg overflow-hidden aspect-square border-2 border-primary/15 transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1">

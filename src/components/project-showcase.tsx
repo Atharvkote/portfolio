@@ -17,7 +17,7 @@ export function Projects() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.35 }}
         className="section-heading"
       >
         <span className="num">04.</span> Featured Projects
@@ -27,7 +27,7 @@ export function Projects() {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5, delay: 0.15 }}
+        transition={{ duration: 0.35, delay: 0.08 }}
         className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10 max-w-[1200px]"
       >
 
@@ -73,7 +73,7 @@ export function Projects() {
               className="space-y-4 sm:space-y-6"
             >
 
-              <div className="relative w-full flex flex-col gap-10 text-center items-center cursor-pointer bg-[#17142a]  border-2 border-primary-dim/10 rounded-xl p-4 sm:p-6 lg:p-5">
+              <div className="relative w-full flex flex-col gap-10 text-center items-center cursor-pointer bg-bg  border-2 border-primary-dim/10 rounded-xl p-4 sm:p-6 lg:p-5">
 
                 <div className="relative w-full max-w-[420px] h-[250px] sm:h-[200px] group">
 

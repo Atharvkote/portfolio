@@ -15,18 +15,18 @@ const stagger = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.04, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.03, delayChildren: 0.05 },
   },
 };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
 };
 
 const chipPop = {
   hidden: { opacity: 0, scale: 0.8, y: 12 },
-  show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.35 } },
+  show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.25 } },
 };
 
 // ─── Skill Chip (icon + name, primary color only) ───
@@ -213,7 +213,7 @@ function ExploringMarquee() {
         <motion.div
           className="flex gap-3 whitespace-nowrap"
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         >
           {[...items, ...items].map((item, i) => (
             <span

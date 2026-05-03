@@ -9,7 +9,7 @@ export function Education() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.35 }}
         className="section-heading mb-12"
       >
         <span className="num">03.</span> Education
@@ -28,7 +28,7 @@ export function Education() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
+              transition={{ duration: 0.35, delay: i * 0.08 }}
               className="relative"
             >
               {/* Timeline dot and connector */}

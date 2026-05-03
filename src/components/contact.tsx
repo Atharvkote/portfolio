@@ -10,7 +10,7 @@ export function Contact() {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.4 }}
         className="max-w-[600px] mx-auto text-center"
       >
         <p className="font-mono text-primary text-sm mb-4">05. What's Next?</p>
@@ -35,7 +35,12 @@ export function Contact() {
 
 export function Footer() {
   return (
-    <footer className="relative z-10 py-8 px-6 text-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.35, delay: 0.7 }}
+      className="relative z-10 py-8 px-6 text-center">
       {/* Mobile-only social links */}
       <div className="flex justify-center gap-6 mb-5 lg:hidden">
         <a
@@ -72,6 +77,6 @@ export function Footer() {
       >
         <p className="flex items-center gap-2 text-text-primary"><FaHeart /> Designed & Built by {portfolioData.name}</p>
       </a>
-    </footer>
+    </motion.div>
   );
 }

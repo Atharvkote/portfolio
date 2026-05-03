@@ -14,7 +14,7 @@ export function Experience() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.35 }}
         className="section-heading"
       >
         <span className="num">03.</span> Where I've Worked
@@ -25,7 +25,7 @@ export function Experience() {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5, delay: 0.15 }}
+        transition={{ duration: 0.35, delay: 0.08 }}
         className="flex flex-col md:flex-row gap-10 max-w-[1000px]"
       >
         {/* LEFT: Tabs */}
@@ -98,7 +98,7 @@ export function Experience() {
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.92 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.35 }}
             className="flex justify-center md:justify-end"
           >
             <div className="relative h-fit group mx-auto md:mx-0 w-[200px] md:w-full max-w-[200px]">

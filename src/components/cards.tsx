@@ -43,7 +43,7 @@ function Card({ index, title, desc }: { index: number; title: string; desc: stri
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
       viewport={{ once: true }}
       className="relative group rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-6 flex gap-5 hover:border-primary/40 transition-all duration-300"
     >
@@ -77,7 +77,7 @@ export function BackendDevops() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.35 }}
             className="section-heading py-0 my-0"
           >
             <span className="num">01.</span> BACKEND
@@ -105,7 +105,7 @@ export function BackendDevops() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.35 }}
             className="section-heading py-0 my-0"
           >
             <span className="num">02.</span> DEVEOPS

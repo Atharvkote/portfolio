@@ -19,7 +19,7 @@ export function SocialBar() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.4, duration: 0.5 }}
+        transition={{ delay: 0.3, duration: 0.35 }}
         className="fixed bottom-0 left-8 lg:left-12 hidden lg:flex flex-col items-center gap-0 z-30"
       >
         <div className="flex flex-col gap-5 mb-5">
@@ -43,7 +43,7 @@ export function SocialBar() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.4, duration: 0.5 }}
+        transition={{ delay: 1.2, duration: 0.35 }}
         className="fixed bottom-0 right-8 lg:right-12 hidden lg:flex flex-col items-center gap-0 z-30"
       >
         <a

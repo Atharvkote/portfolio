@@ -10,13 +10,13 @@ const stagger = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.07, delayChildren: 0.3 },
+    transition: { staggerChildren: 0.04, delayChildren: 0.1 },
   },
 };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
 };
 
 // ─── Link Card ───
@@ -157,7 +157,7 @@ export function LinksPage() {
         <motion.a
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.3, delay: 0.2 }}
           href="/resume.pdf"
           target="_blank"
           rel="noreferrer"
@@ -174,7 +174,7 @@ export function LinksPage() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 0.3 }}
           className="mt-12 text-[11px] font-mono text-text-dim text-center"
         >
           © {new Date().getFullYear()} {portfolioData.name}. All rights reserved.

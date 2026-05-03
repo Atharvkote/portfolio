@@ -9,7 +9,7 @@ export function Loader({ children }: LoaderProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2200);
+    const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -19,7 +19,7 @@ export function Loader({ children }: LoaderProps) {
         <motion.div
           key="loader"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
           className="fixed inset-0 z-9999 flex items-center bg-bg text-text-primary justify-center"
         >
           <div className="relative flex flex-col items-center gap-6">
@@ -30,7 +30,7 @@ export function Loader({ children }: LoaderProps) {
               viewBox="0 0 84 96"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <motion.polygon
                 points="42 3 81 24 81 72 42 93 3 72 3 24"
@@ -41,7 +41,7 @@ export function Loader({ children }: LoaderProps) {
                 strokeLinejoin="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
+                transition={{ duration: 1, ease: "easeInOut" }}
               />
               <motion.image
                 href="/A.png"
@@ -52,7 +52,7 @@ export function Loader({ children }: LoaderProps) {
                 preserveAspectRatio="xMidYMid meet"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
+                transition={{ delay: 0.4, duration: 0.3 }}
               />
             </motion.svg>
 
@@ -66,7 +66,7 @@ export function Loader({ children }: LoaderProps) {
                 style={{ backgroundColor: "var(--color-primary)" }}
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 1.8, ease: "easeInOut" }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
               />
             </div>
           </div>
@@ -76,7 +76,7 @@ export function Loader({ children }: LoaderProps) {
           key="content"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
         >
           {children}
         </motion.div>
