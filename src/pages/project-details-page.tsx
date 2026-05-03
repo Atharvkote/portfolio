@@ -11,18 +11,17 @@ import {
   Zap, Calendar, Layers,
 } from "lucide-react";
 
-// ─── Animation Variants ───
 const stagger = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.04, delayChildren: 0.08 },
+    transition: { staggerChildren: 0.3, delayChildren: 0.6 },
   },
 };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
 const scaleIn = {
@@ -78,13 +77,8 @@ export default function ProjectDetailsPage() {
         >
           {/* Meta row */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            {project.featured && (
-              <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-widest
-                               bg-primary/12 text-primary border border-primary/20">
-                Featured
-              </span>
-            )}
-            <span className="flex items-center gap-1.5 text-[12px] font-mono text-text-muted">
+            <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-widest
+                               bg-primary/12 text-primary border border-primary/20 flex items-center gap-1">
               <Calendar size={12} /> {project.duration}
             </span>
           </div>

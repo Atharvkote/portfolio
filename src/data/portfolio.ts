@@ -299,7 +299,7 @@ export const portfolioData = {
       "link": "#",
       "featured": true,
       "imageOne": "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png",
-      "imageTwo": "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png"
+      "imageTwo": "/vednex2.png"
     },
     {
       "logo":"React.js",
@@ -331,7 +331,7 @@ export const portfolioData = {
 
     },
     {
-      "logo":"AI",
+      "logo":"PyTorch",
       "title": "AI-Powered Contactless Ordering & Recommendation System",
       "duration": "Apr 2025 – Jun 2025",
       "description": "Contactless dining platform with QR-based ordering and AI-driven menu recommendations.",

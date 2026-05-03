@@ -2,14 +2,17 @@ import { motion, type Variants } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { ScrollMouse } from "./scroll-indicator";
 import { MdOutlineFileDownload } from "react-icons/md";
+import { toast } from "sonner";
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.3, delayChildren: 0.4  },
+    transition: { staggerChildren: 0.3, delayChildren: 0.4 },
   },
 };
+
+
 
 const item: Variants = {
   hidden: { opacity: 0, y: 25 },
@@ -21,6 +24,15 @@ const item: Variants = {
 };
 
 export function Hero() {
+
+  const handleResumeDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const toastId = toast.loading("Downloading resume...");
+    setTimeout(() => {
+      toast.success("Resume downloaded!", { id: toastId });
+    }, 2000);
+  };
+
+
   return (
     <section
       id="hero"
@@ -71,7 +83,7 @@ export function Hero() {
           I'm a software engineering student passionate about crafting
           pixel-perfect, performant digital experiences. Currently focused on
           full-stack development and cloud computing at{" "}
-          <a href="#" className="link-hover">
+          <a href="https://sanjivanicoe.org.in/" target="_blank" rel="noreferrer" className="link-hover">
             Sanjivani COE
           </a>
           .
@@ -79,7 +91,7 @@ export function Hero() {
 
         <motion.div variants={item} className="flex flex-wrap gap-4">
           <motion.a
-            href="#projects"
+            href="/work"
             initial={{ opacity: 0, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35 }}
@@ -99,6 +111,7 @@ export function Hero() {
           <motion.a
             href="/resume.pdf"
             download
+            onClick={handleResumeDownload}
             initial={{ opacity: 0, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35 }}

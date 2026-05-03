@@ -2,6 +2,8 @@ import { useEffect, useCallback, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Lenis from "lenis";
 import { Loader } from "./components/loader";
+import Option from "./lib/toast";
+import { Toaster } from "sonner";
 
 // Lazy load pages for performance
 const HomePage = lazy(() => import("./pages/home-page").then(m => ({ default: m.HomePage })));
@@ -70,6 +72,13 @@ function App() {
   return (
     <BrowserRouter>
       <Loader>
+        <Toaster
+          position="top-right" // top-right | top-center | bottom-left etc
+          richColors
+          // closeButton
+          expand={true}
+          toastOptions={Option}
+        />
         <AppContent />
       </Loader>
     </BrowserRouter>

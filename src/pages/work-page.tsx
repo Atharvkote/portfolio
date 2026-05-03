@@ -13,7 +13,7 @@ const stagger = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.05, delayChildren: 0.08 },
+    transition: { staggerChildren: 0.3, delayChildren: 0.6 },
   },
 };
 
@@ -40,12 +40,6 @@ function ProjectCard({ project }: {
         <div className="p-5 sm:p-6">
           {/* Meta badges */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            {project.featured && (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest
-                               bg-primary/10 text-primary border border-primary/15">
-                Featured
-              </span>
-            )}
             <span className="flex items-center gap-1 text-[11px] font-mono text-text-dim">
               <Calendar size={10} />
               {project.duration}
@@ -65,12 +59,7 @@ function ProjectCard({ project }: {
                 {project.title}
               </h3>
             </div>
-            <ArrowUpRight
-              size={18}
-              className="text-text-dim shrink-0 mt-1
-                         group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5
-                         transition-all duration-300"
-            />
+          
           </div>
 
           {/* Description */}

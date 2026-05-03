@@ -15,21 +15,20 @@ const stagger = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.03, delayChildren: 0.05 },
+    transition: { staggerChildren: 0.3, delayChildren: 0.6 },
   },
 };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
 const chipPop = {
   hidden: { opacity: 0, scale: 0.8, y: 12 },
-  show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.25 } },
+  show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-// ─── Skill Chip (icon + name, primary color only) ───
 function SkillChip({ name }: { name: string }) {
   return (
     <motion.div

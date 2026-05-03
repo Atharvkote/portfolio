@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { TbLayoutFilled } from "react-icons/tb";
+import { toast } from "sonner";
 
 
 const NAV_LINKS = [
@@ -34,6 +35,11 @@ export function Navbar() {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
+
+
+  const handleQuickAccessClick = () => {
+    toast.success("Press Q to open Quick Access", { duration: 3000 });
+  };
 
   return (
     <>
@@ -68,17 +74,15 @@ export function Navbar() {
                 <span className="hover:text-primary duration-100 transition-colors">{link.name}</span>
               </motion.a>
             ))}
-            <motion.a
-              href="/resume.pdf"
-              target="_blank"
+            <motion.button
+              onClick={handleQuickAccessClick}
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="ml-4 border border-primary py-[0.175rem] px-4 rounded-lg hover:bg-gray-600/20 duration-500 transition-colors text-primary text-sm flex items-center gap-1"
+              className="ml-4 border border-primary py-[0.175rem] px-4 rounded-lg hover:bg-gray-600/20 duration-500 transition-colors text-primary text-sm flex items-center gap-1 cursor-pointer"
             >
               <TbLayoutFilled className="text-lg " /> Quick access <span className="border-2 text-xs font-bold px-[0.125rem] py-0 bg-gray-600/40 rounded ">Q</span>
-
-            </motion.a>
+            </motion.button>
           </div>
 
           {/* Mobile Hamburger */}
@@ -118,16 +122,6 @@ export function Navbar() {
                 </span>
               </motion.a>
             ))}
-            <motion.a
-              href="/resume.pdf"
-              target="_blank"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="cta-btn mt-4"
-            >
-              Resume
-            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>

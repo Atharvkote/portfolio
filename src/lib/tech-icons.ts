@@ -26,7 +26,8 @@ import {
   SiOpenai,
   SiPhp,
   SiYaml,
-  SiShell
+  SiShell,
+  SiPytorch
 } from "react-icons/si";
 import { BsCss , } from "react-icons/bs";
 import type { IconType } from "react-icons";
@@ -112,12 +113,13 @@ export const TECH_ICONS: Record<string, IconItem> = {
   "Cypress": { icon: SiCypress, color: "#17202C" },
 
   // Others
-  "Kafka": { icon: SiApachekafka, color: "#231F20" },
+  "Kafka": { icon: SiApachekafka, color: "#FFFFFF" },
   "Apache Kafka": { icon: SiApachekafka, color: "#FFFFFF" },
   "Razorpay": { icon: SiRazorpay, color: "#0C2451" },
   "Stripe": { icon: SiStripe, color: "#635BFF" },
   "Zod": { icon: SiZod, color: "#3E67B1" },
   "OpenAI": { icon: SiOpenai, color: "#412991" },
+  "PyTorch": { icon: SiPytorch, color: "#FF6C37" },
   "Vercel": { icon: SiVercel, color: "#ffffff" },
   "QR/Barcode Systems": { icon: QrCode, color: "#ffffff" },
 
