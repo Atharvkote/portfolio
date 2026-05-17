@@ -75,11 +75,11 @@ export function Projects() {
 
               <div className="relative w-full flex flex-col gap-10 text-center items-center cursor-pointer bg-bg  border-2 border-primary-dim/10 rounded-xl p-4 sm:p-6 lg:p-5">
 
-                <div className="relative w-full max-w-[420px] h-[250px] sm:h-[200px] group">
+                <div className="relative w-full max-w-[420px] h-[200px] group">
 
                   <div className="
       absolute left-1/2 -translate-x-[60%] bottom-0
-      w-[85%] h-[88%]
+      w-[85%] h-fit
       rounded-2xl overflow-hidden
       border border-white/10
       shadow-[0_20px_60px_rgba(0,0,0,0.6)]
@@ -97,7 +97,7 @@ export function Projects() {
                   {/* FRONT IMAGE */}
                   <div className="
       absolute left-1/2 -translate-x-[40%] bottom-0 
-      w-[90%] h-full
+      w-[90%] h-fit
       rounded-2xl overflow-hidden
       border border-white/10
       shadow-[0_30px_80px_rgba(0,0,0,0.7)]
@@ -108,7 +108,7 @@ export function Projects() {
                     <img
                       src={project.imageOne}
                       alt="Main Preview"
-                      className="w-full h-full object-fill"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                 </div>

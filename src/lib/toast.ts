@@ -1,8 +1,8 @@
 const Option = {
   style: {
-    background: "#a78bf9",
-    color: "#0a101f",
-    border: "2px solid #a855f7",
+    background: "var(--color-bg-elevated)",     
+    color: "var(--color-text-primary)",         
+    border: "1px solid var(--color-primary)",
     borderRadius: "10px",
     padding: "10px",
     fontSize: "14px",

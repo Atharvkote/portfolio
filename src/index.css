@@ -41,6 +41,7 @@
   --color-text-muted: #6b7280;
   --color-text-dim: #4b5563;
   --color-text-bright: #f8fafc;
+  --toast-text-color: #ffffff;
 
   /* ── Border Colors ── */
   --color-border: rgba(167, 139, 250, 0.08);
@@ -356,6 +357,7 @@ a {
   --color-text-muted: #71717a;
   --color-text-dim: #a1a1aa;
   --color-text-bright: #18181b;
+  --toast-text-color: #000000;
 
   /* ── Border Colors ── */
   --color-border: rgba(0, 0, 0, 0.08);

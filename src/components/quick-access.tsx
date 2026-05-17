@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Keyboard, X, Moon, Link2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 
 export function QuickAccess() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export function QuickAccess() {
     } else {
       document.documentElement.setAttribute("data-theme", "light");
       localStorage.setItem("theme", "light");
+      toast.warning("Fair warning! Light Attracts Bugs! 🐞",);
     }
   }, [darkMode]);
 

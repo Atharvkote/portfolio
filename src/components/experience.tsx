@@ -29,7 +29,7 @@ export function Experience() {
         className="flex flex-col md:flex-row gap-10 max-w-[1000px]"
       >
         {/* LEFT: Tabs */}
-        <div className="relative flex md:flex-col overflow-x-auto md:overflow-visible border-b md:border-b-0 md:border-l-2 border-text-muted/15 md:min-w-[180px] shrink-0">
+        <div className="relative flex flex-col overflow-x-auto md:overflow-visible border-b md:border-b-0 md:border-l-2 border-text-muted/15 md:min-w-[180px] shrink-0">
           {/* Indicator */}
           <div
             className="hidden md:block absolute left-[-2px] w-[2px] h-[42px] bg-primary rounded-full transition-all duration-300"
