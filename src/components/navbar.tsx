@@ -176,9 +176,6 @@ export function Navbar() {
                     <span className="font-display text-[1.45rem] font-bold tracking-[-0.03em] text-text-primary group-hover:text-primary transition-colors leading-none block">
                       {link.name}
                     </span>
-                    <span className="font-mono text-[0.65rem] text-text-muted tracking-[0.05em] uppercase mt-0.5 block">
-                      {link.sub ?? ""}
-                    </span>
                   </div>
 
                   {/* Arrow */}
