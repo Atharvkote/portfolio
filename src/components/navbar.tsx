@@ -12,9 +12,7 @@ import { FaXTwitter } from "react-icons/fa6";
 const NAV_LINKS = [
   { name: "About", href: "/#about", type: "hash" },
   { name: "Skills", href: "/skills", type: "route" },
-  { name: "Experience", href: "/#experience", type: "hash" },
   { name: "Work", href: "/work", type: "route" },
-  { name: "Contact", href: "/#contact", type: "hash" },
 ];
 
 const SOCIAL_LINKS = [
