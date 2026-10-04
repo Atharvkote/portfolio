@@ -1,5 +1,6 @@
 ## atharvakote.dev
-![](https://res.cloudinary.com/dgz7hqbl9/image/upload/v1779051782/Screenshot_2026-05-18_023124_kgatkn.png)
+
+<img width="1843" height="900" alt="image" src="https://github.com/user-attachments/assets/e655c4d4-9f36-48e8-9e36-1dd6b450695e" />
 
 The code behind my digital identity — a portfolio that reflects who I am, what I build, and where I’m headed. Built with modern technologies, smooth animations, and a clean responsive design focused on performance and user experience.
 
