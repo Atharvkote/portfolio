@@ -13,7 +13,7 @@ export function Contact() {
         transition={{ duration: 0.4 }}
         className="max-w-[600px] mx-auto text-center"
       >
-        <p className="font-mono text-primary text-sm mb-4">05. What's Next?</p>
+        <p className="font-mono text-primary text-sm mb-4">06. What's Next?</p>
         <h2 className="font-display text-[clamp(36px,6vw,56px)] font-bold tracking-tight mb-6">
           Get In Touch
         </h2>

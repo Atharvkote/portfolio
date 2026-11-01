@@ -244,27 +244,41 @@ export const portfolioData = {
   ],
   education: [
     {
+      degree: "B.Tech in Computer Science and Engineering",
+      specialization: "Hons. in Cybersecurity",
       school: "Sanjivani College of Engineering, Kopargaon",
-      degree: "B.E. in Computer Engineering",
+      university: "Savitribai Phule Pune University (SPPU)",
       period: "2023 — Present",
       score: "CGPA: 8.7",
+      status: "Currently Pursuing",
+      highlights: [
+        "Specialization in Cybersecurity and Threat Analysis",
+        "Distributed Systems, Cloud and Microservices",
+        "Data Structures and Algorithmic Problem Solving",
+      ],
     },
     {
+      degree: "Higher Secondary Education (HSC)",
+      stream: "Science",
       school: "Sanjivani Junior College, Kopargaon",
-      degree: "HSC (Science)",
+      board: "Maharashtra State Board of Secondary and Higher Secondary Education (MSBSHSE)",
       period: "2021 — 2023",
       score: "80.89%",
+      status: "Completed",
     },
     {
+      degree: "Secondary School Certificate (SSC)",
+      stream: "General Education",
       school: "Saibaba English Medium School, Shirdi",
-      degree: "SSC",
+      board: "Maharashtra State Board of Secondary and Higher Secondary Education (MSBSHSE)",
       period: "2010 — 2021",
       score: "87.89%",
+      status: "Completed",
     },
   ],
   projects: [
     {
-      "logo":"Kafka",
+      "logo": "Kafka",
       "title": "Distributed Microservices Architecture with Apache Kafka",
       "duration": "Ongoing",
       "description": "Event-driven microservices system with Kafka-based communication, Redis caching, and full observability stack.",
@@ -302,7 +316,7 @@ export const portfolioData = {
       "imageTwo": "/vednex2.png"
     },
     {
-      "logo":"React.js",
+      "logo": "React.js",
       "title": "Ticket Booking Platform for Live Concerts",
       "duration": "Feb 2025 – Mar 2025",
       "description": "Scalable full-stack ticketing platform with barcode-based entry verification, dynamic seat allocation, and real-time analytics dashboards.",
@@ -331,7 +345,7 @@ export const portfolioData = {
 
     },
     {
-      "logo":"PyTorch",
+      "logo": "PyTorch",
       "title": "AI-Powered Contactless Ordering & Recommendation System",
       "duration": "Apr 2025 – Jun 2025",
       "description": "Contactless dining platform with QR-based ordering and AI-driven menu recommendations.",
@@ -375,17 +389,20 @@ export interface SkillSection {
 
 export const skillSections: SkillSection[] = [
   {
-    id: "languages",
-    title: "Languages",
-    subtitle: "Core Programming Languages",
+    id: "backend",
+    title: "Scalable Architecture",
+    subtitle: "Resilient & High-Performance Systems",
     description:
-      "The foundational languages I write production code in — from systems to scripting to full-stack web.",
-    icon: SkillIcons.Braces,
+      "Building event-driven microservices, real-time communication layers, caching pipelines, and robust API architectures designed for scale.",
+    icon: SkillIcons.Server,
     skills: [
-      "Java", "JavaScript", "TypeScript", "Python", "YAML", "Bash",
+      "Spring Boot", "Hibernate", "Flyway", "RabbitMQ", "Node.js", "Socket.io", "Apache Kafka", "Redis",
+      "PostgreSQL", "MongoDB", "MySQL",
+      "Razorpay",
     ],
   },
   {
+
     id: "frontend",
     title: "Front-End",
     subtitle: "Pixel-Perfect & Interactive UIs",
@@ -397,21 +414,8 @@ export const skillSections: SkillSection[] = [
     ],
   },
   {
-    id: "backend",
-    title: "Scalable Architecture",
-    subtitle: "Resilient & High-Performance Systems",
-    description:
-      "Building event-driven microservices, real-time communication layers, caching pipelines, and robust API architectures designed for scale.",
-    icon: SkillIcons.Server,
-    skills: [
-      "Node.js", "Express.js", "Socket.io", "Apache Kafka", "Redis",
-      "MongoDB", "MySQL", "PostgreSQL", "Firebase", "Supabase", "Prisma",
-      "JWT-RS256", "Razorpay", "Stripe",
-    ],
-  },
-  {
     id: "devops",
-    title: "DevOps & Cloud",
+    title: "DevOps & Monitering",
     subtitle: "Automated CI/CD & Infrastructure",
     description:
       "Containerization, orchestration, monitoring, and cloud-native infrastructure for zero-downtime delivery.",
@@ -420,6 +424,17 @@ export const skillSections: SkillSection[] = [
       "Docker", "Kubernetes", "AWS EC2", "AWS S3", "Terraform",
       "GitHub Actions", "Jenkins", "NGINX", "Cloudflare",
       "Prometheus", "Grafana", "Loki", "Linux", "Ubuntu",
+    ],
+  },
+  {
+    id: "languages",
+    title: "Languages",
+    subtitle: "Core Programming Languages",
+    description:
+      "The foundational languages I write production code in — from systems to scripting to full-stack web.",
+    icon: SkillIcons.Braces,
+    skills: [
+      "Java", "JavaScript", "YAML", "Bash",
     ],
   },
 ];

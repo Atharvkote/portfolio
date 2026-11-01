@@ -4,15 +4,13 @@ import {
 } from "react-icons/fa";
 
 import {
-  SiNextdotjs, SiTypescript, SiTailwindcss, SiExpress, SiMongodb,
-  SiMysql, SiFirebase, SiVercel, SiPython, SiJavascript,
-  SiTerraform, SiApachekafka, SiRazorpay, SiJsonwebtokens,
-  SiNginx, SiRedis, SiSocketdotio, SiRedux,
+  SiNextdotjs, SiTypescript, SiTailwindcss, SiMongodb,
+  SiMysql, SiVercel, SiPython, SiJavascript,
+  SiTerraform, SiApachekafka, SiRazorpay, SiNginx, SiRedis, SiSocketdotio, SiRedux,
   SiGrafana, SiPrometheus, SiGithubactions,
 
   // ✅ NEW IMPORTS
-  SiPostgresql, SiSupabase, SiPrisma,
-  SiKubernetes, SiDigitalocean,
+  SiPostgresql, SiSupabase, SiKubernetes, SiDigitalocean,
   SiHtml5, SiSass,
   SiVite, SiWebpack,
   SiPostman, SiInsomnia,
@@ -27,11 +25,16 @@ import {
   SiPhp,
   SiYaml,
   SiShell,
+  SiSpringboot,
+  SiHibernate,
+  SiFlyway,
+  SiRabbitmq,
   SiPytorch
 } from "react-icons/si";
-import { BsCss , } from "react-icons/bs";
+import { BsCss, } from "react-icons/bs";
 import type { IconType } from "react-icons";
 import { QrCode } from "lucide-react";
+import { MdHttp } from "react-icons/md";
 
 interface IconItem {
   icon: IconType;
@@ -48,7 +51,7 @@ export const TECH_ICONS: Record<string, IconItem> = {
   "YAML": { icon: SiYaml, color: "#DC382D" },
   "Bash": { icon: SiShell, color: "#47A248" },
 
-  
+
   "HTML": { icon: SiHtml5, color: "#E34F26" },
   "CSS": { icon: BsCss, color: "#1572B6" },
   "SASS": { icon: SiSass, color: "#CC6699" },
@@ -69,21 +72,22 @@ export const TECH_ICONS: Record<string, IconItem> = {
   "Redux Saga": { icon: SiReduxsaga, color: "#999999" },
 
   // Backend
+  "Spring Boot": { icon: SiSpringboot, color: "#6DB33F" },
+  "Hibernate": { icon: SiHibernate, color: "#BCA57A" },
+  "Flyway": { icon: SiFlyway, color: "#CC0200" },
+  "RabbitMQ": { icon: SiRabbitmq, color: "#FF6600" },
   "Node.js": { icon: FaNodeJs, color: "#339933" },
-  "Express.js": { icon: SiExpress, color: "#ffffff" },
   "Socket.io": { icon: SiSocketdotio, color: "#ffffff" },
-  "JWT-RS256": { icon: SiJsonwebtokens, color: "#000000" },
+  "Rest API": { icon: MdHttp, color: "#00FFFF" },
 
   // Databases
   "MongoDB": { icon: SiMongodb, color: "#47A248" },
   "MySQL": { icon: SiMysql, color: "#4479A1" },
-  "Firebase": { icon: SiFirebase, color: "#FFCA28" },
   "Redis": { icon: SiRedis, color: "#DC382D" },
 
-  
+
   "PostgreSQL": { icon: SiPostgresql, color: "#4169E1" },
   "Supabase": { icon: SiSupabase, color: "#3ECF8E" },
-  "Prisma": { icon: SiPrisma, color: "#2D3748" },
 
   // DevOps
   "Docker": { icon: FaDocker, color: "#2496ED" },
@@ -94,7 +98,7 @@ export const TECH_ICONS: Record<string, IconItem> = {
   "AWS S3": { icon: FaAws, color: "#FF9900" },
   "NGINX": { icon: SiNginx, color: "#009639" },
 
-  
+
   "Kubernetes": { icon: SiKubernetes, color: "#326CE5" },
   "DigitalOcean": { icon: SiDigitalocean, color: "#0080FF" },
   "Cloudflare": { icon: SiCloudflare, color: "#F38020" },
