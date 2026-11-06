@@ -3,6 +3,7 @@ import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import { portfolioData } from "../data/portfolio";
 import { FaXTwitter } from "react-icons/fa6";
+import { trackSocialClick, trackContactClick } from "../lib/analytics";
 
 const SOCIALS = [
   { icon: FaGithub, href: portfolioData.socials.github, label: "GitHub" },
@@ -30,6 +31,7 @@ export function SocialBar() {
               target="_blank"
               rel="noreferrer"
               aria-label={label}
+              onClick={() => trackSocialClick(label, href)}
               className="text-text-muted hover:text-primary  hover:-translate-y-[3px] transition-all duration-200 p-1"
             >
               <Icon size={18} className="hover:text-primary" />
@@ -48,6 +50,7 @@ export function SocialBar() {
       >
         <a
           href={`mailto:${portfolioData.email}`}
+          onClick={() => trackContactClick("email", portfolioData.email)}
           className="font-mono text-[12px] tracking-[0.15em] text-text-muted hover:text-primary transition-all duration-200 hover:-translate-y-[3px] mb-5"
           style={{ writingMode: "vertical-rl" }}
         >

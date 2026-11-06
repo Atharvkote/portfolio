@@ -7,6 +7,8 @@ import { portfolioData } from "../data/portfolio";
 import { Link } from "react-router-dom";
 import { ChevronRight, Calendar } from "lucide-react";
 import TechIcon from "../components/icon-provider";
+import { SEO } from "../components/seo";
+import { trackProjectClick } from "../lib/analytics";
 
 // ─── Animation Variants ───
 const stagger = {
@@ -32,6 +34,7 @@ function ProjectCard({ project }: {
     <motion.div variants={fadeUp}>
       <Link
         to={`/project/${slug}`}
+        onClick={() => trackProjectClick(project.title, `/project/${slug}`)}
         className="group relative block rounded-2xl border border-primary/15 bg-bg-card/25 backdrop-blur-sm
                    overflow-hidden transition-all duration-400
                    hover:border-primary/35 hover:shadow-[0_0_48px_rgba(167,139,250,0.06)]"
@@ -128,6 +131,11 @@ function ProjectStats() {
 export default function WorkPage() {
   return (
     <div className="relative bg-bg min-h-screen text-text-primary font-body overflow-x-clip">
+      <SEO
+        title="Featured Engineering Projects"
+        description="Portfolio of software engineering projects, distributed systems with Apache Kafka, concert ticketing platforms, and scalable backends by Atharva Kote."
+        path="/work"
+      />
       <Navbar />
       <SocialBar />
       <QuickAccess />

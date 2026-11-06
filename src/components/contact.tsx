@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FaGithub, FaHeart, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { portfolioData } from "../data/portfolio";
 import { FaMessage } from "react-icons/fa6";
+import { trackContactClick, trackSocialClick } from "../lib/analytics";
 
 export function Contact() {
   return (
@@ -25,7 +26,10 @@ export function Contact() {
         <a
           target="_blank"
           rel="noreferrer"
-          href={`mailto:${portfolioData.email}`} className="text-primary border-2 border-primary rounded-md px-6 py-1 w-1/2 mx-auto flex gap-2 items-center justify-center">
+          href={`mailto:${portfolioData.email}`}
+          onClick={() => trackContactClick("email", portfolioData.email)}
+          className="text-primary border-2 border-primary rounded-md px-6 py-1 w-1/2 mx-auto flex gap-2 items-center justify-center"
+        >
           Say Hello <FaMessage size={18} className="ml-2 text-primary" />
         </a>
       </motion.div>
@@ -47,6 +51,7 @@ export function Footer() {
           href={portfolioData.socials.github}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackSocialClick("github", portfolioData.socials.github)}
           className="text-text-muted hover:text-primary transition-colors p-1"
         >
           <FaGithub size={20} />
@@ -55,6 +60,7 @@ export function Footer() {
           href={portfolioData.socials.linkedin}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackSocialClick("linkedin", portfolioData.socials.linkedin)}
           className="text-text-muted hover:text-primary transition-colors p-1"
         >
           <FaLinkedinIn size={20} />
@@ -63,6 +69,7 @@ export function Footer() {
           href={portfolioData.socials.twitter}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackSocialClick("twitter", portfolioData.socials.twitter)}
           className="text-text-muted hover:text-primary transition-colors p-1"
         >
           <FaTwitter size={20} />

@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { ScrollMouse } from "./scroll-indicator";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { toast } from "sonner";
+import { trackResumeDownload } from "../lib/analytics";
 
 const container = {
   hidden: { opacity: 0 },
@@ -26,6 +27,7 @@ const item: Variants = {
 export function Hero() {
 
   const handleResumeDownload = () => {
+    trackResumeDownload();
     const toastId = toast.loading("Downloading resume...");
     setTimeout(() => {
       toast.success("Resume downloaded!", { id: toastId });

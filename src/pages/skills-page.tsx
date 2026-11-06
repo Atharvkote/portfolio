@@ -5,6 +5,7 @@ import { SocialBar } from "../components/social-bar";
 import { QuickAccess } from "../components/quick-access";
 import { Footer } from "../components/contact";
 import TechIcon from "../components/icon-provider";
+import { SEO } from "../components/seo";
 import {
   ChevronRight, Search,
 } from "lucide-react";
@@ -240,6 +241,11 @@ export function SkillsPage() {
 
   return (
     <div className="relative bg-bg min-h-screen text-text-primary font-body overflow-x-clip">
+      <SEO
+        title="Technical Skills & Architecture"
+        description="Explore the technical skills, programming languages, and cloud tools of Atharva Kote — Java, Spring Boot, Microservices, Kafka, Redis, PostgreSQL, and DevOps."
+        path="/skills"
+      />
       <Navbar />
       <SocialBar />
       <QuickAccess />

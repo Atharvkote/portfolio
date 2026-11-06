@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa";
 import { portfolioData } from "../data/portfolio";
 import TechIcon from "./icon-provider";
 import { BsCursorFill } from "react-icons/bs";
+import { trackEvent } from "../lib/analytics";
 
 export function Projects() {
   const [active, setActive] = useState(0);
@@ -89,8 +90,11 @@ export function Projects() {
     ">
                     <img
                       src={project.imageTwo}
-                      alt="Back Preview"
-                      className="w-full h-full  object-cover"
+                      alt={`${project.title} interface preview`}
+                      loading="lazy"
+                      width={420}
+                      height={200}
+                      className="w-full h-full object-cover"
                     />
                   </div>
 
@@ -107,7 +111,10 @@ export function Projects() {
     ">
                     <img
                       src={project.imageOne}
-                      alt="Main Preview"
+                      alt={`${project.title} preview`}
+                      loading="lazy"
+                      width={420}
+                      height={200}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -146,9 +153,10 @@ export function Projects() {
               {/* LINKS */}
               <div className="flex flex-row gap-3 pt-2">
                 <a
-                  href="#"
+                  href={project.github || "https://github.com/Atharvkote"}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackEvent("github_click", { project: project.title, url: project.github })}
                   className="flex items-center justify-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-all font-mono text-xs sm:text-sm flex-1"
                 >
                   <FaGithub className="w-4 h-4" /> Code
@@ -156,7 +164,8 @@ export function Projects() {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="#"
+                  href={project.link || "#"}
+                  onClick={() => trackEvent("project_demo_click", { project: project.title, url: project.link })}
                   className="flex items-center justify-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-all font-mono text-xs sm:text-sm flex-1"
                 >
                   <ExternalLink className="w-4 h-4" /> Live

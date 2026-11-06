@@ -4,6 +4,8 @@ import {
   ArrowUpRight, Mail, Globe,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "../components/seo";
+import { trackSocialClick } from "../lib/analytics";
 
 // ─── Animations ───
 const stagger = {
@@ -29,6 +31,7 @@ function LinkCard({ item }: { item: LinkItem }) {
       href={item.href}
       target="_blank"
       rel="noreferrer"
+      onClick={() => trackSocialClick(item.label, item.href)}
       className="group flex items-center gap-4 px-5 py-4 rounded-2xl
                  border border-primary/12 bg-bg-card/30 backdrop-blur-sm
                  hover:border-primary/30 hover:bg-bg-card/50
@@ -66,6 +69,11 @@ function LinkCard({ item }: { item: LinkItem }) {
 export function LinksPage() {
   return (
     <div className="relative bg-bg min-h-screen text-text-primary font-body overflow-x-clip">
+      <SEO
+        title="Connect & Social Profiles"
+        description="Connect with Atharva Kote across GitHub, LinkedIn, Twitter, LeetCode, and Stack Overflow."
+        path="/links"
+      />
       {/* Subtle background glow */}
       <div
         className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
@@ -90,6 +98,9 @@ export function LinksPage() {
               <img
                 src="https://res.cloudinary.com/dgz7hqbl9/image/upload/q_auto/f_auto/v1776017613/WhatsApp_Image_2026-04-12_at_11.41.15_PM_sxrxmm.jpg"
                 alt={portfolioData.name}
+                loading="lazy"
+                width={96}
+                height={96}
                 className="w-full h-full object-cover"
               />
             </div>

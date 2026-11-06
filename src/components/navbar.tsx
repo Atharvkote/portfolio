@@ -7,6 +7,7 @@ import { FaGithub, FaHeart, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import { portfolioData } from "../data/portfolio";
 import { FaXTwitter } from "react-icons/fa6";
+import { trackSocialClick } from "../lib/analytics";
 
 
 const NAV_LINKS = [
@@ -188,7 +189,13 @@ export function Navbar() {
             <div className="px-7 pb-10 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
               <div className="flex gap-3 mb-4">
                 {SOCIAL_LINKS.map((s) => (
-                  <a key={s.label} href={s.href}
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.label}
+                    onClick={() => trackSocialClick(s.label, s.href)}
                     className="w-[34px] h-[34px] rounded-lg flex items-center justify-center font-mono text-[0.65rem] text-text-muted transition-all"
                     style={{ border: "1px solid rgba(167,139,250,0.12)", background: "rgba(167,139,250,0.05)" }}
                   >

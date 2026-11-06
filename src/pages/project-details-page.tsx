@@ -6,6 +6,8 @@ import { SocialBar } from "../components/social-bar";
 import { QuickAccess } from "../components/quick-access";
 import { Footer } from "../components/contact";
 import TechIcon from "../components/icon-provider";
+import { SEO } from "../components/seo";
+import { trackEvent } from "../lib/analytics";
 import {
   Code, ExternalLink, ChevronRight, ArrowLeft,
   Zap, Calendar, Layers,
@@ -47,6 +49,12 @@ export default function ProjectDetailsPage() {
 
   return (
     <div className="relative bg-bg min-h-screen text-text-primary overflow-x-clip font-body">
+      <SEO
+        title={project.title}
+        description={project.description}
+        path={`/project/${slug}`}
+        ogImage={project.imageOne || undefined}
+      />
       <Navbar />
       <SocialBar />
       <QuickAccess />
@@ -101,6 +109,7 @@ export default function ProjectDetailsPage() {
                 href={project.github}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackEvent("github_click", { project_title: project.title, url: project.github })}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-primary/25
                            text-primary text-[13px] font-mono font-bold
                            hover:bg-primary/8 hover:border-primary/40 transition-all duration-300 group"
@@ -114,6 +123,7 @@ export default function ProjectDetailsPage() {
                 href={project.link}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackEvent("project_demo_click", { project_title: project.title, url: project.link })}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
                            bg-primary text-bg text-[13px] font-mono font-bold
                            hover:bg-primary-light transition-all duration-300 group"
@@ -141,6 +151,9 @@ export default function ProjectDetailsPage() {
               <img
                 src={project.imageOne}
                 alt={`${project.title} Preview`}
+                loading="lazy"
+                width={800}
+                height={450}
                 className="w-full h-full object-cover transition-transform duration-700 ease-out
                            group-hover:scale-105"
               />
@@ -157,6 +170,9 @@ export default function ProjectDetailsPage() {
               <img
                 src={project.imageTwo}
                 alt={`${project.title} Interface`}
+                loading="lazy"
+                width={800}
+                height={450}
                 className="w-full h-full object-cover transition-transform duration-700 ease-out
                            group-hover:scale-105"
               />

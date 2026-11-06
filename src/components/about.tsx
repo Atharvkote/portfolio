@@ -56,8 +56,10 @@ export function About() {
             <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
             <img
               src="https://res.cloudinary.com/dgz7hqbl9/image/upload/q_auto/f_auto/v1776017613/WhatsApp_Image_2026-04-12_at_11.41.15_PM_sxrxmm.jpg"
-              alt="Atharva Kote"
+              alt="Atharva Kote — Java Backend Developer"
               loading="lazy"
+              width={300}
+              height={300}
               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
             />
           </div>

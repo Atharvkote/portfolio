@@ -1,0 +1,7 @@
+# robots.txt for Atharva Kote Portfolio
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://atharvakote.vercel.app/sitemap.xml
+

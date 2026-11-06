@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Navbar } from "../components/navbar";
 import { SocialBar } from "../components/social-bar";
 import { QuickAccess } from "../components/quick-access";
+import { SEO } from "../components/seo";
 
 // Lazy loaded components for better performance
 const Hero = lazy(() => import("../components/hero").then((m) => ({ default: m.Hero })));
@@ -17,6 +18,7 @@ const BackendDevops = lazy(() => import("../components/cards").then((m) => ({ de
 export function HomePage() {
   return (
     <div className="relative bg-bg min-h-screen text-text-primary overflow-x-hidden">
+      <SEO path="/" />
       {/* Fixed Elements */}
       <Navbar />
       <SocialBar />
