@@ -4,14 +4,11 @@ import {
   FaJenkins,
 } from "react-icons/fa";
 import {
-  SiNextdotjs, SiTypescript, SiTailwindcss, SiExpress, SiMongodb,
-  SiMysql, SiFirebase, SiArduino, SiEspressif, SiPython,
-  SiJavascript, SiPostman, SiGit,
+  SiNextdotjs, SiTailwindcss, SiMongodb,
+  SiMysql, SiFirebase, SiArduino, SiEspressif, SiJavascript, SiPostman, SiGit,
   SiTerraform,
   SiApachekafka,
   SiRazorpay,
-  SiJsonwebtokens,
-  SiNginx,
   SiRedis,
   SiSocketdotio,
   SiFastapi,
@@ -44,8 +41,6 @@ const techStack: TechItem[] = [
   // Programming Languages
   { name: "Java", icon: FaJava, color: "#ED8B00" },
   { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-  { name: "Python", icon: SiPython, color: "#3776AB" },
   { name: "SQL", icon: SiMysql, color: "#4479A1" },
   { name: "YAML", icon: SiYaml, color: "#CB171E" },
   { name: "Bash", icon: SiGnubash, color: "#4EAA25" },
@@ -57,11 +52,10 @@ const techStack: TechItem[] = [
   { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
 
   // Backend & APIs
+
   { name: "Node.js", icon: FaNodeJs, color: "#339933" },
-  { name: "Express.js", icon: SiExpress, color: "#ffffff" },
   { name: "REST APIs", icon: SiFastapi, color: "#009688" },
   { name: "Socket.io", icon: SiSocketdotio, color: "#ffffff" },
-  { name: "JWT Auth", icon: SiJsonwebtokens, color: "#000000" },
   { name: "Razorpay", icon: SiRazorpay, color: "#0C2451" },
   { name: "Kafka", icon: SiApachekafka, color: "#231F20" },
 
@@ -77,7 +71,6 @@ const techStack: TechItem[] = [
   { name: "GitHub Actions", icon: SiGithubactions, color: "#2088FF" },
   { name: "Terraform", icon: SiTerraform, color: "#646CFF" },
   { name: "AWS", icon: FaAws, color: "#FF9900" },
-  { name: "NGINX", icon: SiNginx, color: "#009639" },
   { name: "Prometheus", icon: SiPrometheus, color: "#E6522C" },
   { name: "Grafana", icon: SiGrafana, color: "#F46800" },
   { name: "Loki", icon: SiGrafana, color: "#F46800" },
@@ -130,16 +123,16 @@ const badgeVariants = {
 export function TechStack() {
   return (
     <section className="py-4 md:py-8">
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="section-heading"
-        >
-          <span className="num">02.</span> My Tech Stack
-        </motion.h2>
+      {/* Heading */}
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.5 }}
+        className="section-heading"
+      >
+        <span className="num">02.</span> My Tech Stack
+      </motion.h2>
 
       <div className="max-w-[1000px] mx-auto text-center">
 
