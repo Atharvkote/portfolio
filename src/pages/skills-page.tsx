@@ -6,7 +6,7 @@ import { QuickAccess } from "../components/quick-access";
 import { Footer } from "../components/contact";
 import TechIcon from "../components/icon-provider";
 import {
-  ChevronRight, Sparkles,
+  ChevronRight, Search,
 } from "lucide-react";
 import { skillSections, type SkillSection } from "../data/portfolio";
 
@@ -152,8 +152,8 @@ function StatsRow() {
   const stats = [
     { label: "Technologies", value: "30+" },
     { label: "Projects Built", value: "10+" },
-    { label: "Years Coding", value: "3+" },
-    { label: "LeetCode Solved", value: "240+" },
+    { label: "Years Coding", value: "4+" },
+    { label: "LeetCode Solved", value: "310+" },
   ];
 
   return (
@@ -199,7 +199,7 @@ function ExploringMarquee() {
       className="rounded-xl border border-border bg-bg-card/25 backdrop-blur-sm p-4 mb-12 overflow-hidden"
     >
       <div className="flex items-center gap-2 mb-3">
-        <Sparkles size={14} className="text-primary" />
+        <Search size={14} className="text-primary" />
         <span className="font-mono text-[11px] text-primary font-bold uppercase tracking-widest">
           Currently Exploring
         </span>
