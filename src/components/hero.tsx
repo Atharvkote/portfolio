@@ -63,7 +63,7 @@ export function Hero() {
 
         <motion.h2
           variants={item}
-          className="border-l-[4px] border-primary pl-5 text-2xl md:text-4xl font-bold leading-relaxed md:leading-[1.4] text-text-secondary/60 mb-8"
+          className="border-l-[4px] border-primary pl-5 text-2xl md:text-4xl font-bold leading-relaxed md:leading-[1.4] text-text-secondary mb-8"
         >
           <span className="underline decoration-[3px] decoration-primary underline-offset-6 text-text-primary">
             Curious by Nature
@@ -104,7 +104,7 @@ export function Hero() {
               <span className="absolute inset-0 bg-bg z-0  transition-all duration-300 group-hover:scale-105"></span>
 
               <span className="relative z-10 font-medium">
-                Check out my work <ChevronRight className="inline-block ml-1" />
+                Check out my work <ChevronRight className="inline-block ml-1" aria-hidden="true" />
               </span>
             </span>
 
@@ -126,7 +126,7 @@ export function Hero() {
 
               {/* Text */}
               <span className="relative z-10 font-medium">
-                Download Resume <MdOutlineFileDownload className="inline-block ml-1 text-xl" />
+                Download Resume <MdOutlineFileDownload className="inline-block ml-1 text-xl" aria-hidden="true" />
               </span>
             </span>
 

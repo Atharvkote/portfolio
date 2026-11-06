@@ -44,7 +44,7 @@ function ProjectCard({ project }: {
           {/* Meta badges */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="flex items-center gap-1 text-[11px] font-mono text-text-dim">
-              <Calendar size={10} />
+              <Calendar size={10} aria-hidden="true" />
               {project.duration}
             </span>
           </div>
@@ -188,11 +188,12 @@ export default function WorkPage() {
             href={portfolioData.socials.github}
             target="_blank"
             rel="noreferrer"
+            aria-label="View all repositories by Atharva Kote on GitHub"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-primary/25
                        text-primary text-[13px] font-mono font-bold
                        hover:bg-primary/8 hover:border-primary/40 transition-all duration-300"
           >
-            View all on GitHub <ChevronRight size={14} />
+            View all on GitHub <ChevronRight size={14} aria-hidden="true" />
           </a>
         </motion.div>
       </main>

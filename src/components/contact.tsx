@@ -30,7 +30,7 @@ export function Contact() {
           onClick={() => trackContactClick("email", portfolioData.email)}
           className="text-primary border-2 border-primary rounded-md px-6 py-1 w-1/2 mx-auto flex gap-2 items-center justify-center"
         >
-          Say Hello <FaMessage size={18} className="ml-2 text-primary" />
+          Say Hello <FaMessage size={18} className="ml-2 text-primary" aria-hidden="true" />
         </a>
       </motion.div>
     </section>
@@ -51,28 +51,31 @@ export function Footer() {
           href={portfolioData.socials.github}
           target="_blank"
           rel="noreferrer"
+          aria-label="Atharva Kote on GitHub"
           onClick={() => trackSocialClick("github", portfolioData.socials.github)}
           className="text-text-muted hover:text-primary transition-colors p-1"
         >
-          <FaGithub size={20} />
+          <FaGithub size={20} aria-hidden="true" />
         </a>
         <a
           href={portfolioData.socials.linkedin}
           target="_blank"
           rel="noreferrer"
+          aria-label="Atharva Kote on LinkedIn"
           onClick={() => trackSocialClick("linkedin", portfolioData.socials.linkedin)}
           className="text-text-muted hover:text-primary transition-colors p-1"
         >
-          <FaLinkedinIn size={20} />
+          <FaLinkedinIn size={20} aria-hidden="true" />
         </a>
         <a
           href={portfolioData.socials.twitter}
           target="_blank"
           rel="noreferrer"
+          aria-label="Atharva Kote on Twitter"
           onClick={() => trackSocialClick("twitter", portfolioData.socials.twitter)}
           className="text-text-muted hover:text-primary transition-colors p-1"
         >
-          <FaTwitter size={20} />
+          <FaTwitter size={20} aria-hidden="true" />
         </a>
       </div>
 
@@ -82,7 +85,7 @@ export function Footer() {
         rel="noreferrer"
         className="font-mono text-xs  flex items-center gap-2 justify-center text-text-primary hover:text-primary transition-colors leading-relaxed"
       >
-        <p className="flex items-center gap-2 text-text-primary"><FaHeart /> Designed & Built by {portfolioData.name}</p>
+        <p className="flex items-center gap-2 text-text-primary"><FaHeart aria-hidden="true" /> Designed & Built by {portfolioData.name}</p>
       </a>
     </motion.div>
   );

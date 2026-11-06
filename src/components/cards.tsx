@@ -83,9 +83,9 @@ export function BackendDevops() {
             <span className="num">01.</span> BACKEND
           </motion.h2>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          <h3 className="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
             Resilient, Modular & High-Performance Architecture.
-          </h2>
+          </h3>
 
           <p className="text-text-muted mb-8 max-w-md">
             Build robust systems with clean logic, optimized for speed,
@@ -101,19 +101,19 @@ export function BackendDevops() {
 
         {/* RIGHT - DevOps */}
         <div>
-           <motion.h2
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.35 }}
             className="section-heading py-0 my-0"
           >
-            <span className="num">02.</span> DEVEOPS
+            <span className="num">02.</span> DEVOPS
           </motion.h2>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          <h3 className="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
             Automated, Scalable & CD Pipelines.
-          </h2>
+          </h3>
 
           <p className="text-text-muted mb-8 max-w-md">
             Streamlining infrastructure and CI/CD workflows to support seamless development.

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Menu, X } from "lucide-react";
+import { ChevronRight, Menu, X, User, Code2, Briefcase } from "lucide-react";
 import { TbLayoutFilled } from "react-icons/tb";
 import { toast } from "sonner";
 import { FaGithub, FaHeart, FaInstagram, FaLinkedinIn } from "react-icons/fa";
@@ -11,9 +11,9 @@ import { trackSocialClick } from "../lib/analytics";
 
 
 const NAV_LINKS = [
-  { name: "About", href: "/#about", type: "hash" },
-  { name: "Skills", href: "/skills", type: "route" },
-  { name: "Work", href: "/work", type: "route" },
+  { name: "About", href: "/#about", icon: User },
+  { name: "Skills", href: "/skills", icon: Code2 },
+  { name: "Work", href: "/work", icon: Briefcase },
 ];
 
 const SOCIAL_LINKS = [
@@ -76,24 +76,40 @@ export function Navbar() {
           </motion.a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                className="relative px-4 py-2 font-mono text-[13px] text-text-secondary  transition-colors rounded-md"
-              >
-                <span className="hover:text-primary duration-100 transition-colors">{link.name}</span>
-              </motion.a>
-            ))}
+          <div className="hidden md:flex items-center gap-1.5">
+            {NAV_LINKS.map((link) => {
+              const Icon = link.icon;
+              return (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  className="relative group flex items-center gap-2 px-3.5 py-1.5 font-body font-medium text-[14px] tracking-wide text-text-secondary hover:text-text-primary rounded-lg transition-all duration-200 hover:bg-white/[0.04] border border-transparent hover:border-primary/25 hover:shadow-[0_0_16px_rgba(167,139,250,0.12)]"
+                >
+                  <Icon
+                    size={14}
+                    aria-hidden="true"
+                    className="text-primary/70 group-hover:text-primary group-hover:scale-110 group-hover:-translate-y-0.5 transition-all duration-200"
+                  />
+                  <span>{link.name}</span>
+
+                  {/* Subtle bottom indicator glow */}
+                  <span className="absolute bottom-0 left-2 right-2 h-[1.5px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.a>
+              );
+            })}
             <motion.button
               onClick={handleQuickAccessClick}
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="ml-4 border border-primary/70 py-[0.175rem] px-4 rounded-lg hover:bg-gray-600/20 duration-500 transition-colors text-primary/70 text-sm flex items-center gap-1 cursor-pointer"
+              aria-label="Open Quick Access panel"
+              className="relative group ml-3 flex items-center gap-2 px-3.5 py-1.5 font-body font-medium text-[14px] tracking-wide text-text-secondary hover:text-text-primary rounded-lg transition-all duration-200 hover:bg-white/[0.04] border border-primary/40 hover:border-primary/80 hover:shadow-[0_0_18px_rgba(167,139,250,0.18)] cursor-pointer"
             >
-              <TbLayoutFilled className="text-lg " /> Quick access
+              <TbLayoutFilled aria-hidden="true" className="text-primary/70 group-hover:text-primary group-hover:scale-110 group-hover:-translate-y-0.5 transition-all duration-200 text-base" />
+              <span>Quick access</span>
+
+              {/* Subtle bottom indicator glow */}
+              <span className="absolute bottom-0 left-2 right-2 h-[1.5px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.button>
           </div>
 
@@ -101,9 +117,9 @@ export function Navbar() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden cursor-pointer relative z-[60] text-primary p-2"
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? "Close menu" : "Open navigation menu"}
           >
-            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+            {menuOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
           </button>
         </nav>
       </motion.header>
@@ -149,40 +165,44 @@ export function Navbar() {
 
             {/* Links */}
             <nav className="flex-1 flex flex-col pt-9">
-              {NAV_LINKS.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative flex items-center gap-0 px-7 py-3.5 group transition-colors"
-                  style={{ borderBottom: "1px solid rgba(255,255,255,0.03)" }}
-                >
-                  {/* Active indicator bar */}
-                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[60%] rounded-r opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ background: "linear-gradient(180deg, #a78bfa, #7c3aed)" }}
-                  />
+              {NAV_LINKS.map((link, i) => {
+                const Icon = link.icon;
+                return (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative flex items-center gap-0 px-7 py-3.5 group transition-colors"
+                    style={{ borderBottom: "1px solid rgba(255,255,255,0.03)" }}
+                  >
+                    {/* Active indicator bar */}
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[60%] rounded-r opacity-0 group-hover:opacity-100 transition-opacity"
+                      style={{ background: "linear-gradient(180deg, #a78bfa, #7c3aed)" }}
+                    />
 
-                  {/* Number */}
-                  <span className=" text-[0.65rem] text-primary opacity-70 tracking-widest min-w-[28px] self-start mt-1.5">
-                    0{i + 1}
-                  </span>
-
-                  {/* Label + sub-desc */}
-                  <div className="flex-1 px-3">
-                    <span className="font-display text-[1.45rem] font-bold tracking-[-0.03em] text-text-primary group-hover:text-primary transition-colors leading-none block">
-                      {link.name}
+                    {/* Number */}
+                    <span className=" text-[0.65rem] text-primary opacity-70 tracking-widest min-w-[28px] self-start mt-1.5 font-mono">
+                      0{i + 1}
                     </span>
-                  </div>
 
-                  {/* Arrow */}
-                  <span className="text-border-hover group-hover:text-primary transition-all group-hover:translate-x-1 text-sm">
-                    <ChevronRight size={18} />
-                  </span>
-                </motion.a>
-              ))}
+                    {/* Icon + Label */}
+                    <div className="flex-1 flex items-center gap-3 px-3">
+                      <Icon size={20} aria-hidden="true" className="text-primary/70 group-hover:text-primary transition-colors" />
+                      <span className="font-body text-[1.45rem] font-bold tracking-[-0.02em] text-text-primary group-hover:text-primary transition-colors leading-none block">
+                        {link.name}
+                      </span>
+                    </div>
+
+                    {/* Arrow */}
+                    <span className="text-border-hover group-hover:text-primary transition-all group-hover:translate-x-1 text-sm">
+                      <ChevronRight size={18} aria-hidden="true" />
+                    </span>
+                  </motion.a>
+                );
+              })}
             </nav>
 
             {/* Footer */}
@@ -194,16 +214,16 @@ export function Navbar() {
                     href={s.href}
                     target="_blank"
                     rel="noreferrer"
-                    aria-label={s.label}
+                    aria-label={`Atharva Kote on ${s.label}`}
                     onClick={() => trackSocialClick(s.label, s.href)}
                     className="w-[34px] h-[34px] rounded-lg flex items-center justify-center font-mono text-[0.65rem] text-text-muted transition-all"
                     style={{ border: "1px solid rgba(167,139,250,0.12)", background: "rgba(167,139,250,0.05)" }}
                   >
-                    <s.icon size={14} className="text-primary" />
+                    <s.icon size={14} className="text-primary" aria-hidden="true" />
                   </a>
                 ))}
               </div>
-              <div className="flex items-center justify-center text-xs gap-2 text-text-primary/70"><FaHeart /> Designed & Built by {portfolioData.name}</div>
+              <div className="flex items-center justify-center text-xs gap-2 text-text-primary/70"><FaHeart aria-hidden="true" /> Designed & Built by {portfolioData.name}</div>
 
             </div>
           </motion.div>

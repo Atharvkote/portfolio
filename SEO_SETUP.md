@@ -2,7 +2,6 @@
 
 This guide documents all Technical SEO, Google Search Console (GSC), Google Analytics 4 (GA4), Structured Data (JSON-LD), and deployment configurations implemented for Atharva Kote's portfolio.
 
----
 
 ## 1. Files Created and Modified
 
@@ -40,7 +39,6 @@ This guide documents all Technical SEO, Google Search Console (GSC), Google Anal
 | [`src/components/project-showcase.tsx`](file:///c:/Users/athar/OneDrive/Documents/GitHub/v2-portfolio/src/components/project-showcase.tsx) | Connected dynamic project URLs; added lazy loading and click tracking. |
 | [`src/components/about.tsx`](file:///c:/Users/athar/OneDrive/Documents/GitHub/v2-portfolio/src/components/about.tsx) | Added explicit image dimensions (`300x300`) and descriptive alt tag for CLS prevention. |
 
----
 
 ## 2. Technical SEO Specifications
 
@@ -62,7 +60,6 @@ A composite schema is rendered on the homepage:
 2. `WebSite` schema: Publisher, author reference, and site description.
 3. `ProfilePage` schema: Declares the page as the canonical profile for Atharva Kote.
 
----
 
 ## 3. Google Search Console (GSC) Setup
 
@@ -86,7 +83,6 @@ Select **HTML tag** as your verification method and click **Verify**.
 > [!NOTE]
 > If Google assigns a new or different verification token in the future, replace the `content` attribute value in `index.html` line 55 and deploy.
 
----
 
 ## 4. Sitemap Submission Instructions
 
@@ -109,7 +105,6 @@ Once your property is verified in Google Search Console:
 - `https://atharvakote.vercel.app/project/ticket-booking-platform-for-live-concerts`
 - `https://atharvakote.vercel.app/project/ai-powered-contactless-ordering-recommendation-system`
 
----
 
 ## 5. Google Analytics 4 (GA4) Integration
 
@@ -150,7 +145,6 @@ The analytics utility tracks:
 > [!TIP]
 > If `VITE_GA_MEASUREMENT_ID` is not set or empty, all analytics functions automatically no-op without errors or console warnings.
 
----
 
 ## 6. Security Headers Configured in `vercel.json`
 
@@ -164,7 +158,6 @@ The following headers are automatically applied across all responses on Vercel:
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | Protects user privacy while providing referrer data for analytics. |
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` | Disables unnecessary browser capabilities. |
 
----
 
 ## 7. How to Test Indexing Readiness & Validate
 

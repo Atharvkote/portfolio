@@ -69,13 +69,13 @@ export function QuickAccess() {
         className="absolute top-10 right-10 p-3 bg-bg-elevated rounded-xl cursor-pointer border border-border hover:border-primary hover:text-primary transition-all"
         aria-label="Close Quick Access"
       >
-        <X className="w-5 h-5" />
+        <X className="w-5 h-5" aria-hidden="true" />
       </button>
 
       {/* Left: Shortcuts Info */}
       <div className="flex flex-col max-w-sm mb-12 md:mb-0 w-full animate-slide-in">
         <div className="flex items-center gap-3 mb-4">
-          <Keyboard className="w-7 h-7 text-bg bg-text-primary rounded p-1" />
+          <Keyboard className="w-7 h-7 text-bg bg-text-primary rounded p-1" aria-hidden="true" />
           <h2 className="text-lg font-bold font-display">TIP: Shortcuts</h2>
         </div>
         <p className="text-text-secondary text-sm mb-10 leading-relaxed">
@@ -135,18 +135,20 @@ export function QuickAccess() {
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => setDarkMode((prev) => !prev)}
+              aria-label={`Toggle dark mode, currently ${darkMode ? "On" : "Off"}`}
               className="flex flex-col justify-between p-5 bg-bg-elevated border border-border rounded-xl transition-all hover:border-primary/50 cursor-pointer text-left"
             >
-              <Moon className="w-6 h-6 mb-8 text-text-primary" />
+              <Moon className="w-6 h-6 mb-8 text-text-primary" aria-hidden="true" />
               <span className="text-sm font-semibold font-body">
                 Dark Mode: {darkMode ? "On" : "Off"}
               </span>
             </button>
             <button
               onClick={() => { navigate("/links"); setIsOpen(false); }}
+              aria-label="Navigate to all links page"
               className="flex flex-col justify-between p-5 bg-bg-elevated border border-border rounded-xl transition-all hover:border-primary/50 cursor-pointer text-left"
             >
-              <Link2 className="w-6 h-6 mb-8 text-text-primary" />
+              <Link2 className="w-6 h-6 mb-8 text-text-primary" aria-hidden="true" />
               <span className="text-sm font-semibold font-body">
                 All Links
               </span>

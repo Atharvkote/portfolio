@@ -30,11 +30,11 @@ export function SocialBar() {
               href={href}
               target="_blank"
               rel="noreferrer"
-              aria-label={label}
+              aria-label={`Follow Atharva Kote on ${label}`}
               onClick={() => trackSocialClick(label, href)}
               className="text-text-muted hover:text-primary  hover:-translate-y-[3px] transition-all duration-200 p-1"
             >
-              <Icon size={18} className="hover:text-primary" />
+              <Icon size={18} className="hover:text-primary" aria-hidden="true" />
             </a>
           ))}
         </div>

@@ -156,6 +156,7 @@ export function TechStack() {
             >
               <tech.icon
                 size={16}
+                aria-hidden="true"
                 style={{ color: tech.color }}
                 className="shrink-0 group-hover:drop-shadow-[0_0_6px_var(--tw-shadow-color)] transition-all"
               />

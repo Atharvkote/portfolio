@@ -31,6 +31,7 @@ function LinkCard({ item }: { item: LinkItem }) {
       href={item.href}
       target="_blank"
       rel="noreferrer"
+      aria-label={`Visit Atharva Kote on ${item.label} (${item.handle})`}
       onClick={() => trackSocialClick(item.label, item.href)}
       className="group flex items-center gap-4 px-5 py-4 rounded-2xl
                  border border-primary/12 bg-bg-card/30 backdrop-blur-sm
@@ -41,7 +42,7 @@ function LinkCard({ item }: { item: LinkItem }) {
       <div className="w-10 h-10 rounded-xl bg-primary/8 border border-primary/12
                       flex items-center justify-center shrink-0
                       group-hover:bg-primary/15 transition-colors duration-300">
-        <Icon size={18} className="text-text-secondary group-hover:text-primary transition-colors" />
+        <Icon size={18} aria-hidden="true" className="text-text-secondary group-hover:text-primary transition-colors" />
       </div>
 
       {/* Text */}
@@ -57,6 +58,7 @@ function LinkCard({ item }: { item: LinkItem }) {
       {/* Arrow */}
       <ArrowUpRight
         size={16}
+        aria-hidden="true"
         className="text-text-dim shrink-0
                    group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5
                    transition-all duration-300"
@@ -131,22 +133,24 @@ export function LinksPage() {
           <div className="flex items-center gap-3">
             <Link
               to="/"
+              aria-label="Return to portfolio home page"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full
                          border border-primary/25 text-text-primary text-[13px] font-mono font-bold
                          hover:border-primary/50 hover:bg-primary/8 transition-all duration-300"
             >
-              <Globe size={14} />
+              <Globe size={14} aria-hidden="true" />
               Website
-              <ArrowUpRight size={12} />
+              <ArrowUpRight size={12} aria-hidden="true" />
             </Link>
             <a
               href={`mailto:${portfolioData.email}`}
+              aria-label={`Send email to ${portfolioData.email}`}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full
                          bg-primary/15 text-primary text-[13px] font-mono font-bold
                          border border-primary/20
                          hover:bg-primary/25 transition-all duration-300"
             >
-              <Mail size={14} />
+              <Mail size={14} aria-hidden="true" />
               {portfolioData.email}
             </a>
           </div>
@@ -172,13 +176,14 @@ export function LinksPage() {
           href="/resume.pdf"
           target="_blank"
           rel="noreferrer"
+          aria-label="Download Atharva Kote resume in PDF format"
           className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl
                      border border-primary/20 bg-primary/8 text-primary
                      text-[13px] font-mono font-bold
                      hover:bg-primary/15 hover:border-primary/35 transition-all duration-300"
         >
           Download Resume
-          <ArrowUpRight size={14} />
+          <ArrowUpRight size={14} aria-hidden="true" />
         </motion.a>
 
         {/* Footer */}

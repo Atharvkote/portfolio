@@ -83,6 +83,7 @@ function CategoryPanel({ section, isActive, onToggle }: {
         >
           <SectionIcon
             size={20}
+            aria-hidden="true"
             className="text-primary transition-colors duration-300"
           />
         </div>
@@ -108,7 +109,7 @@ function CategoryPanel({ section, isActive, onToggle }: {
           transition={{ duration: 0.25 }}
           className="text-text-muted shrink-0"
         >
-          <ChevronRight size={18} />
+          <ChevronRight size={18} aria-hidden="true" />
         </motion.div>
       </button>
 
@@ -315,7 +316,7 @@ export function SkillsPage() {
             <div className="flex items-center gap-4 justify-center text-center">
               <div className="h-[2px] w-16 bg-gray-600"></div>
 
-              <h1 className="text-4xl md:text-5xl font-semibold">
+              <p className="text-4xl md:text-5xl font-semibold font-display">
                 <span className="bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
                   Coffee
                 </span>{" "}
@@ -323,18 +324,18 @@ export function SkillsPage() {
                 <span className="text-primary px-3 py-1 rounded-lg">
                   Code
                 </span>
-              </h1>
+              </p>
 
               <div className="h-[2px] w-16 bg-gray-600"></div>
             </div>
 
             {/* then Magic */}
-            <h2 className="text-4xl md:text-5xl font-semibold">
+            <p className="text-4xl md:text-5xl font-semibold font-display">
               <span className="text-gray-400">then </span>
               <span className="bg-primary text-text-primary px-3 py-1 rounded-lg">
                 Magic.
               </span>
-            </h2>
+            </p>
           </div>
 
         </div>

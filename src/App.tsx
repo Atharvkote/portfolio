@@ -37,22 +37,35 @@ function AppContent() {
     // Initialize Google Analytics safely if measurement ID is present
     initGA();
 
-    // Lenis smooth scroll
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
+    // Optimize main-thread performance on touch/mobile devices
+    // Mobile browsers have hardware-accelerated native compositor scrolling;
+    // disabling Lenis and mousemove listeners on touch devices eliminates long main-thread tasks.
+    const isTouch = window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    let lenis: Lenis | null = null;
+    let rafId: number | null = null;
+
+    if (!isTouch) {
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+
+      const raf = (time: number) => {
+        lenis?.raf(time);
+        rafId = requestAnimationFrame(raf);
+      };
+      rafId = requestAnimationFrame(raf);
+
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
-    requestAnimationFrame(raf);
 
-    window.addEventListener("mousemove", handleMouseMove);
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      lenis.destroy();
+      if (!isTouch) {
+        window.removeEventListener("mousemove", handleMouseMove);
+        if (rafId !== null) cancelAnimationFrame(rafId);
+        lenis?.destroy();
+      }
     };
   }, [handleMouseMove]);
 

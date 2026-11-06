@@ -48,10 +48,11 @@ export function Projects() {
             }}
           />
 
-          {portfolioData.projects.map((_, i) => (
+          {portfolioData.projects.map((p, i) => (
             <button
               key={i}
               onClick={() => setActive(i)}
+              aria-label={`View project ${i + 1}: ${p.title}`}
               className={`flex-1 lg:flex-none no-scrollbar cursor-pointer px-3 sm:px-5 py-2.5 text-center lg:text-left text-xs text-text-primary/30 sm:text-xl font-extrabold transition-all duration-200 ${active === i
                 ? "bg-primary/5 text-text-primary/90"
                 : "text-text-muted hover:text-primary hover:bg-primary/[0.03]"
@@ -144,7 +145,7 @@ export function Projects() {
                     className="bg-white/5 text-xs border w-full border-white/10 rounded-lg px-3 sm:px-4 py-2 sm:py-2 hover:border-primary/30 transition-colors"
                   >
                     <p className="font-mono flex items-center gap-2 text-text-secondary">
-                      <BsCursorFill className="text-primary" /> {highlight}
+                      <BsCursorFill className="text-primary" aria-hidden="true" /> {highlight}
                     </p>
                   </div>
                 ))}
@@ -156,19 +157,21 @@ export function Projects() {
                   href={project.github || "https://github.com/Atharvkote"}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label={`View source code for ${project.title} on GitHub`}
                   onClick={() => trackEvent("github_click", { project: project.title, url: project.github })}
                   className="flex items-center justify-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-all font-mono text-xs sm:text-sm flex-1"
                 >
-                  <FaGithub className="w-4 h-4" /> Code
+                  <FaGithub className="w-4 h-4" aria-hidden="true" /> Code
                 </a>
                 <a
                   target="_blank"
                   rel="noreferrer"
                   href={project.link || "#"}
+                  aria-label={`View live demo of ${project.title}`}
                   onClick={() => trackEvent("project_demo_click", { project: project.title, url: project.link })}
                   className="flex items-center justify-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-all font-mono text-xs sm:text-sm flex-1"
                 >
-                  <ExternalLink className="w-4 h-4" /> Live
+                  <ExternalLink className="w-4 h-4" aria-hidden="true" /> Live
                 </a>
               </div>
 

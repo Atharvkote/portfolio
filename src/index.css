@@ -38,8 +38,8 @@
   /* ── Text Colors ── */
   --color-text-primary: #e8e6f2;
   --color-text-secondary: #9ca3af;
-  --color-text-muted: #6b7280;
-  --color-text-dim: #4b5563;
+  --color-text-muted: #94a3b8;
+  --color-text-dim: #9ca3af;
   --color-text-bright: #f8fafc;
   --toast-text-color: #ffffff;
 
@@ -176,13 +176,10 @@ a {
     0 0 40px var(--color-primary-glow);
 }
 
-.carattere-regular {
-  font-family: "Carattere", cursive;
-  font-weight: 400;
-  font-style: normal;
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
-
-
 
 .grain-overlay {
   position: fixed;
@@ -354,8 +351,8 @@ a {
   /* ── Text Colors ── */
   --color-text-primary: #27272a;
   --color-text-secondary: #52525b;
-  --color-text-muted: #71717a;
-  --color-text-dim: #a1a1aa;
+  --color-text-muted: #52525b;
+  --color-text-dim: #64748b;
   --color-text-bright: #18181b;
   --toast-text-color: #000000;
 

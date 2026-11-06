@@ -31,6 +31,8 @@ export function Loader({ children }: LoaderProps) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
+              role="img"
+              aria-label="Atharva Kote logo animation"
             >
               <motion.polygon
                 points="42 3 81 24 81 72 42 93 3 72 3 24"
@@ -50,9 +52,8 @@ export function Loader({ children }: LoaderProps) {
                 width="40"
                 height="40"
                 preserveAspectRatio="xMidYMid meet"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.3 }}
               />
             </motion.svg>
 

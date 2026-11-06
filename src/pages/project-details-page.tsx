@@ -72,7 +72,7 @@ export default function ProjectDetailsPage() {
             className="inline-flex items-center gap-1.5 text-[13px] font-mono text-text-muted
                        hover:text-primary transition-colors mb-8"
           >
-            <ArrowLeft size={14} /> Back to projects
+            <ArrowLeft size={14} aria-hidden="true" /> Back to projects
           </Link>
         </motion.div>
 
@@ -87,7 +87,7 @@ export default function ProjectDetailsPage() {
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-widest
                                bg-primary/12 text-primary border border-primary/20 flex items-center gap-1">
-              <Calendar size={12} /> {project.duration}
+              <Calendar size={12} aria-hidden="true" /> {project.duration}
             </span>
           </div>
 
@@ -109,12 +109,13 @@ export default function ProjectDetailsPage() {
                 href={project.github}
                 target="_blank"
                 rel="noreferrer"
+                aria-label={`View source code for ${project.title} on GitHub`}
                 onClick={() => trackEvent("github_click", { project_title: project.title, url: project.github })}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-primary/25
                            text-primary text-[13px] font-mono font-bold
                            hover:bg-primary/8 hover:border-primary/40 transition-all duration-300 group"
               >
-                <Code size={15} className="group-hover:rotate-6 transition-transform" />
+                <Code size={15} aria-hidden="true" className="group-hover:rotate-6 transition-transform" />
                 Source Code
               </a>
             )}
@@ -123,12 +124,13 @@ export default function ProjectDetailsPage() {
                 href={project.link}
                 target="_blank"
                 rel="noreferrer"
+                aria-label={`View live deployment of ${project.title}`}
                 onClick={() => trackEvent("project_demo_click", { project_title: project.title, url: project.link })}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
                            bg-primary text-bg text-[13px] font-mono font-bold
                            hover:bg-primary-light transition-all duration-300 group"
               >
-                <ExternalLink size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <ExternalLink size={15} aria-hidden="true" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 Live Demo
               </a>
             )}

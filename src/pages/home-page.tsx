@@ -3,9 +3,9 @@ import { Navbar } from "../components/navbar";
 import { SocialBar } from "../components/social-bar";
 import { QuickAccess } from "../components/quick-access";
 import { SEO } from "../components/seo";
+import { Hero } from "../components/hero";
 
-// Lazy loaded components for better performance
-const Hero = lazy(() => import("../components/hero").then((m) => ({ default: m.Hero })));
+// Lazy loaded below-the-fold components for optimized initial load
 const About = lazy(() => import("../components/about").then((m) => ({ default: m.About })));
 const TechStack = lazy(() => import("../components/tech-stack").then((m) => ({ default: m.TechStack })));
 const Experience = lazy(() => import("../components/experience").then((m) => ({ default: m.Experience })));
@@ -26,8 +26,8 @@ export function HomePage() {
 
       {/* Main Content */}
       <main className="relative z-10 w-full max-w-[1100px] mx-auto px-6 sm:px-10 md:px-6 lg:px-0">
+        <Hero />
         <Suspense fallback={null}>
-          <Hero />
           <About />
           <TechStack />
           <BackendDevops/>
