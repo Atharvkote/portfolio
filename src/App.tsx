@@ -1,4 +1,4 @@
-import { useEffect, useCallback, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import { Loader } from "./components/loader";
@@ -28,18 +28,13 @@ function RouteAnalyticsTracker() {
 }
 
 function AppContent() {
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
-    document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
-  }, []);
-
   useEffect(() => {
     // Initialize Google Analytics safely if measurement ID is present
     initGA();
 
     // Optimize main-thread performance on touch/mobile devices
     // Mobile browsers have hardware-accelerated native compositor scrolling;
-    // disabling Lenis and mousemove listeners on touch devices eliminates long main-thread tasks.
+    // disabling Lenis on touch devices eliminates long main-thread tasks.
     const isTouch = window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
 
     let lenis: Lenis | null = null;
@@ -56,23 +51,19 @@ function AppContent() {
         rafId = requestAnimationFrame(raf);
       };
       rafId = requestAnimationFrame(raf);
-
-      window.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
 
     return () => {
       if (!isTouch) {
-        window.removeEventListener("mousemove", handleMouseMove);
         if (rafId !== null) cancelAnimationFrame(rafId);
         lenis?.destroy();
       }
     };
-  }, [handleMouseMove]);
+  }, []);
 
   return (
     <div className="relative bg-bg min-h-screen text-text-primary overflow-x-hidden">
       {/* Background Effects */}
-      <div className="mouse-glow" />
       <div className="grain-overlay" />
 
       {/* Route & Analytics Tracker */}

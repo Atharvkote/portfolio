@@ -9,7 +9,7 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.3, delayChildren: 0.4 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
   },
 };
 
@@ -73,7 +73,7 @@ export function Hero() {
             Disciplined
           </span>{" "}
           in Effort,
-          and Consistent in{" "} <span className="inline-block bg-primary text-text-primary px-3 mt-2 rounded-xl shadow-md">
+          and Consistent in{" "} <span className="inline-block bg-primary text-bg font-bold px-3 mt-2 rounded-xl shadow-md">
             Learning
           </span>
           .

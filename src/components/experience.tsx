@@ -112,8 +112,8 @@ export function Experience() {
                   src={exp.image}
                   alt={exp.company}
                   loading="lazy"
-                  height={150}
-                  width={150}
+                  width={200}
+                  height={200}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
               </div>

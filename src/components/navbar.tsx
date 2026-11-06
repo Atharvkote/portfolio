@@ -71,7 +71,7 @@ export function Navbar() {
             transition={{ delay: 0.1 }}
             className="relative group text-md flex items-center gap-1 font-bold text-primary"
           >
-            <span className=" text-md font-bold bg-primary text-text-primary px-2  rounded-lg">/</span>
+            <span className=" text-md font-bold bg-primary text-bg px-2  rounded-lg">/</span>
             atharva <span className="text-primary text-2xl">.</span>
           </motion.a>
 
@@ -148,7 +148,7 @@ export function Navbar() {
                 transition={{ delay: 0.1 }}
                 className="relative group text-md flex items-center gap-1 font-bold text-primary"
               >
-                <span className=" text-md font-bold bg-primary text-text-primary px-2  rounded-lg">/</span>
+                <span className=" text-md font-bold bg-primary text-bg px-2  rounded-lg">/</span>
                 atharva <span className="text-primary text-2xl">.</span>
               </motion.a>
               <button

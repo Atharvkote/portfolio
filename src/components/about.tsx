@@ -55,7 +55,7 @@ export function About() {
           <div className="relative z-10 rounded-lg overflow-hidden aspect-square border-2 border-primary/15 transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1">
             <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
             <img
-              src="https://res.cloudinary.com/dgz7hqbl9/image/upload/q_auto/f_auto/v1776017613/WhatsApp_Image_2026-04-12_at_11.41.15_PM_sxrxmm.jpg"
+              src="https://res.cloudinary.com/dgz7hqbl9/image/upload/w_400,c_limit,q_auto,f_auto/v1776017613/WhatsApp_Image_2026-04-12_at_11.41.15_PM_sxrxmm.jpg"
               alt="Atharva Kote — Java Backend Developer"
               loading="lazy"
               width={300}
@@ -102,7 +102,7 @@ export function About() {
           {/* then Magic */}
           <p className="text-4xl md:text-5xl font-semibold font-display">
             <span className="text-gray-400">then </span>
-            <span className="bg-primary text-text-primary px-3 py-1 rounded-lg">
+            <span className="bg-primary text-bg font-bold px-3 py-1 rounded-lg">
               Magic.
             </span>
           </p>

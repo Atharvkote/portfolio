@@ -51,9 +51,9 @@ export function ScrollMouse() {
 
           {/* Text */}
           <motion.p
-            className="text-xs text-text-muted tracking-widest "
-            animate={{ opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            className="text-xs font-mono font-medium text-text-secondary tracking-widest"
+            animate={{ y: [0, 3, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           >
             Scroll Down
           </motion.p>
