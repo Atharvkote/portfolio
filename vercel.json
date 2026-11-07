@@ -22,6 +22,10 @@
       "dest": "/$1"
     },
     {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
       "src": "/(.*)",
       "headers": {
         "x-content-type-options": "nosniff",

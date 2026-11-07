@@ -87,7 +87,7 @@ export function About() {
             <div className="h-[2px] w-16 bg-gray-600"></div>
 
             <p className="text-4xl md:text-5xl font-semibold font-display">
-              <span className="bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-primary to-primary-light text-transparent bg-clip-text">
                 Coffee
               </span>{" "}
               <span className="text-gray-400">into</span>{" "}

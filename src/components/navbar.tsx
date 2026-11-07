@@ -83,7 +83,7 @@ export function Navbar() {
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="relative group flex items-center gap-2 px-3.5 py-1.5 font-body font-medium text-[14px] tracking-wide text-text-secondary hover:text-text-primary rounded-lg transition-all duration-200 hover:bg-white/[0.04] border border-transparent hover:border-primary/25 hover:shadow-[0_0_16px_rgba(167,139,250,0.12)]"
+                  className="relative group flex items-center gap-2 px-3.5 py-1.5 font-body font-medium text-[14px] tracking-wide text-text-secondary hover:text-text-primary rounded-lg transition-all duration-200 hover:bg-white/[0.04] border border-transparent hover:border-primary/25 hover:shadow-[0_0_16px_var(--color-primary-glow)]"
                 >
                   <Icon
                     size={14}
@@ -103,7 +103,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
               aria-label="Open Quick Access panel"
-              className="relative group ml-3 flex items-center gap-2 px-3.5 py-1.5 font-body font-medium text-[14px] tracking-wide text-text-secondary hover:text-text-primary rounded-lg transition-all duration-200 hover:bg-white/[0.04] border border-primary/40 hover:border-primary/80 hover:shadow-[0_0_18px_rgba(167,139,250,0.18)] cursor-pointer"
+              className="relative group ml-3 flex items-center gap-2 px-3.5 py-1.5 font-body font-medium text-[14px] tracking-wide text-text-secondary hover:text-text-primary rounded-lg transition-all duration-200 hover:bg-white/[0.04] border border-primary/40 hover:border-primary/80 hover:shadow-[0_0_18px_var(--color-primary-glow)] cursor-pointer"
             >
               <TbLayoutFilled aria-hidden="true" className="text-primary/70 group-hover:text-primary group-hover:scale-110 group-hover:-translate-y-0.5 transition-all duration-200 text-base" />
               <span>Quick access</span>
@@ -136,7 +136,7 @@ export function Navbar() {
           >
             {/* Ambient glow */}
             <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)" }}
+              style={{ background: "radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%)" }}
             />
 
             {/* Top bar */}
@@ -154,14 +154,14 @@ export function Navbar() {
               <button
                 onClick={() => setMenuOpen(false)}
                 className="w-9 h-9 rounded-full flex items-center justify-center text-primary text-sm transition-all"
-                style={{ border: "1px solid rgba(167,139,250,0.2)", background: "rgba(167,139,250,0.08)" }}
+                style={{ border: "1px solid var(--color-border)", background: "var(--color-primary-glow)" }}
               >
                 ✕
               </button>
             </div>
 
             {/* Divider */}
-            <div className="mx-7" style={{ height: "1px", background: "linear-gradient(90deg, rgba(167,139,250,0.25), rgba(167,139,250,0.05) 60%, transparent)" }} />
+            <div className="mx-7" style={{ height: "1px", background: "linear-gradient(90deg, var(--color-primary), transparent)" }} />
 
             {/* Links */}
             <nav className="flex-1 flex flex-col pt-9">
@@ -217,7 +217,7 @@ export function Navbar() {
                     aria-label={`Atharva Kote on ${s.label}`}
                     onClick={() => trackSocialClick(s.label, s.href)}
                     className="w-[34px] h-[34px] rounded-lg flex items-center justify-center font-mono text-[0.65rem] text-text-muted transition-all"
-                    style={{ border: "1px solid rgba(167,139,250,0.12)", background: "rgba(167,139,250,0.05)" }}
+                    style={{ border: "1px solid var(--color-border)", background: "var(--color-primary-glow)" }}
                   >
                     <s.icon size={14} className="text-primary" aria-hidden="true" />
                   </a>

@@ -1,8 +1,11 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaGithub, FaHeart, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { portfolioData } from "../data/portfolio";
 import { FaMessage } from "react-icons/fa6";
+import { Link2 } from "lucide-react";
 import { trackContactClick, trackSocialClick } from "../lib/analytics";
+import { VisitorCounter } from "./VisitorCounter";
 
 export function Contact() {
   return (
@@ -23,15 +26,59 @@ export function Contact() {
           open. Whether you have a question or just want to say hi, I'll try my
           best to get back to you!
         </p>
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href={`mailto:${portfolioData.email}`}
-          onClick={() => trackContactClick("email", portfolioData.email)}
-          className="text-primary border-2 border-primary rounded-md px-6 py-1 w-1/2 mx-auto flex gap-2 items-center justify-center"
-        >
-          Say Hello <FaMessage size={18} className="ml-2 text-primary" aria-hidden="true" />
-        </a>
+
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
+          {/* Say Hello (Gmail Compose) */}
+          <motion.a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${portfolioData.email}`}
+            onClick={() => trackContactClick("email", portfolioData.email)}
+            initial={{ opacity: 0, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="relative inline-block group"
+          >
+            <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
+              {/* Background layer */}
+              <span className="absolute inset-0 bg-bg z-0 transition-all duration-300 group-hover:scale-105"></span>
+
+              {/* Text */}
+              <span className="relative z-10 font-medium">
+                Say Hello <FaMessage className="inline-block ml-1 text-base text-primary" aria-hidden="true" />
+              </span>
+            </span>
+
+            {/* Shadow / offset layer */}
+            <span className="absolute inset-0 border border-primary/30 rounded-lg translate-x-1 translate-y-1 transition-all duration-300 group-hover:bg-primary"></span>
+          </motion.a>
+
+          {/* All Links page */}
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.1 }}
+            className="relative inline-block"
+          >
+            <Link
+              to="/links"
+              className="relative inline-block group"
+            >
+              <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
+                {/* Background layer */}
+                <span className="absolute inset-0 bg-bg z-0 transition-all duration-300 group-hover:scale-105"></span>
+
+                {/* Text */}
+                <span className="relative z-10 font-medium">
+                  All Links <Link2 className="inline-block ml-1 text-lg text-primary" aria-hidden="true" />
+                </span>
+              </span>
+
+              {/* Shadow / offset layer */}
+              <span className="absolute inset-0 border border-primary/30 rounded-lg translate-x-1 translate-y-1 transition-all duration-300 group-hover:bg-primary"></span>
+            </Link>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );
@@ -77,6 +124,10 @@ export function Footer() {
         >
           <FaTwitter size={20} aria-hidden="true" />
         </a>
+      </div>
+
+      <div className="flex justify-center mb-4">
+        <VisitorCounter />
       </div>
 
       <a

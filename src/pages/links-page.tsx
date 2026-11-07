@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { portfolioData, socialLinks, type LinkItem } from "../data/portfolio";
 import {
-  ArrowUpRight, Mail, Globe,
+  ArrowUpRight, Mail, ArrowLeft,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "../components/seo";
@@ -84,7 +84,27 @@ export function LinksPage() {
         }}
       />
 
-      <main className="relative z-10 w-full max-w-3xl mx-auto px-6 pt-16 pb-20 flex flex-col items-center">
+      <main className="relative z-10 w-full max-w-3xl mx-auto px-6 pt-12 pb-20 flex flex-col items-center">
+
+        {/* Back to Home Button */}
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+          className="w-full flex items-center justify-start mb-6"
+        >
+          <Link
+            to="/"
+            aria-label="Return to portfolio home page"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl
+                       border border-primary/20 bg-bg-card/50 backdrop-blur-sm
+                       text-text-muted hover:text-primary hover:border-primary/40
+                       transition-all duration-300 font-mono text-xs sm:text-sm"
+          >
+            <ArrowLeft size={16} className="text-primary transition-transform duration-300 group-hover:-translate-x-1" aria-hidden="true" />
+            <span>Back to Home</span>
+          </Link>
+        </motion.div>
 
         {/* Profile Section */}
         <motion.div
@@ -138,9 +158,8 @@ export function LinksPage() {
                          border border-primary/25 text-text-primary text-[13px] font-mono font-bold
                          hover:border-primary/50 hover:bg-primary/8 transition-all duration-300"
             >
-              <Globe size={14} aria-hidden="true" />
-              Website
-              <ArrowUpRight size={12} aria-hidden="true" />
+              <ArrowLeft size={14} className="text-primary" aria-hidden="true" />
+              Home
             </Link>
             <a
               href={`mailto:${portfolioData.email}`}

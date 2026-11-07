@@ -47,15 +47,14 @@ export function Loader({ children }: LoaderProps) {
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                 />
-                <motion.image
-                  href="/A.png"
-                  x="20"
-                  y="25"
-                  width="40"
-                  height="40"
-                  preserveAspectRatio="xMidYMid meet"
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 1 }}
+                <motion.path
+                  d="M42 26.5 L57.87 64.5 L49.73 64.5 L48.26 60.74 L35.74 60.74 L34.27 64.5 L26.34 64.5 Z M42 44.04 L38.66 53.64 L45.34 53.64 Z"
+                  fill="var(--color-primary)"
+                  fillRule="evenodd"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.35, ease: "easeOut", delay: 0.15 }}
+                  style={{ transformOrigin: "42px 48px" }}
                 />
               </motion.svg>
 

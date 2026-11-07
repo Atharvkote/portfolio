@@ -73,7 +73,7 @@ export function Hero() {
             Disciplined
           </span>{" "}
           in Effort,
-          and Consistent in{" "} <span className="inline-block bg-primary text-bg font-bold px-3 mt-2 rounded-xl shadow-md">
+          and Consistent in{" "} <span className="inline-block bg-primary text-bg font-bold px-3 py-1  mt-2 rounded-md shadow-md">
             Learning
           </span>
           .
