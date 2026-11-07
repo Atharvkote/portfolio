@@ -66,8 +66,8 @@ export function About() {
           <div className="absolute inset-0 border-2 border-primary/30 rounded-lg translate-x-4 translate-y-4 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:bg-primary" />
         </motion.div>
       </div>
-      
-      <div className=" flex items-center justify-center p-6 mt-12">
+
+      <div className=" flex items-center  justify-center p-6 mt-12">
         <div className="max-w-3xl text-left space-y-4">
 
           {/* Top line */}
@@ -100,7 +100,7 @@ export function About() {
           </div>
 
           {/* then Magic */}
-          <p className="text-4xl md:text-5xl font-semibold font-display">
+          <p className="flex justify-center gap-2 text-4xl md:text-5xl font-semibold font-display">
             <span className="text-gray-400">then </span>
             <span className="bg-primary text-bg font-bold px-3 py-1 rounded-lg">
               Magic.
