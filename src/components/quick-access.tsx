@@ -16,7 +16,6 @@ export function QuickAccess() {
   const [activeColor, setActiveColor] = useState(() => {
     return getSavedColorTheme();
   });
-  const [hoveredColor, setHoveredColor] = useState<string | null>(null);
 
   useEffect(() => {
     if (darkMode) {
@@ -203,8 +202,6 @@ export function QuickAccess() {
                       <button
                         key={theme.id}
                         onClick={() => handleSelectColor(theme.id)}
-                        onMouseEnter={() => setHoveredColor(theme.id)}
-                        onMouseLeave={() => setHoveredColor(null)}
                         aria-label={`Select ${theme.name} theme`}
                         title={`${theme.name} (${theme.label})`}
                         className={`group relative flex items-center justify-center h-10 rounded-xl transition-all duration-200 cursor-pointer ${isSelected
