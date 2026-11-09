@@ -13,6 +13,18 @@ export interface ColorTheme {
 
 export const COLOR_THEMES: ColorTheme[] = [
   {
+    id: "emerald",
+    name: "Teal",
+    label: "Cyber Teal",
+    primary: "#01d8b4",
+    light: "#00F0C0",
+    dark: "#00a88c",
+    dim: "#003D35",
+    glow: "rgba(1, 216, 180, 0.28)",
+    border: "rgba(1, 216, 180, 0.2)",
+    borderHover: "rgba(1, 216, 180, 0.4)",
+  },
+  {
     id: "purple",
     name: "Purple",
     label: "Classic Violet",
@@ -71,18 +83,6 @@ export const COLOR_THEMES: ColorTheme[] = [
     glow: "rgba(20, 184, 166, 0.25)",
     border: "rgba(20, 184, 166, 0.12)",
     borderHover: "rgba(20, 184, 166, 0.3)",
-  },
-  {
-    id: "emerald",
-    name: "Emerald",
-    label: "Cyber Green",
-    primary: "#10b981",
-    light: "#6ee7b7",
-    dark: "#059669",
-    dim: "#047857",
-    glow: "rgba(16, 185, 129, 0.25)",
-    border: "rgba(16, 185, 129, 0.12)",
-    borderHover: "rgba(16, 185, 129, 0.3)",
   },
   {
     id: "olive",
@@ -161,11 +161,12 @@ export const COLOR_THEMES: ColorTheme[] = [
 const THEME_STORAGE_KEY = "portfolio-accent-color";
 
 export function getSavedColorTheme(): string {
-  if (typeof window === "undefined") return "purple";
+  if (typeof window === "undefined") return "emerald";
   try {
-    return localStorage.getItem(THEME_STORAGE_KEY) || "purple";
+    localStorage.setItem(THEME_STORAGE_KEY, "emerald");
+    return "emerald";
   } catch {
-    return "purple";
+    return "emerald";
   }
 }
 

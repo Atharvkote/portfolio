@@ -5,6 +5,7 @@ import { Loader } from "./components/loader";
 import Option from "./lib/toast";
 import { Toaster } from "sonner";
 import { initGA, trackPageView } from "./lib/analytics";
+import SplashCursor from "./components/ui/splash-cusor";
 
 // Lazy load pages for performance
 const HomePage = lazy(() => import("./pages/home-page").then(m => ({ default: m.HomePage })));
@@ -66,6 +67,23 @@ function AppContent() {
       {/* Background Effects */}
       <div className="grain-overlay" />
 
+      <SplashCursor
+        rainbow={false}
+        size={1}
+        force={1}
+        swirl={3}
+        trail={1}
+        colors={["#01d8b4", "#0d0d0d"]}
+        clickSplash={false}
+        colorSpeed={1}
+        intensity={1}
+        momentum={1}
+        shading={0.5}
+        glow={0}
+        quality="high"
+        intro
+        contained={false}
+      />
       {/* Route & Analytics Tracker */}
       <RouteAnalyticsTracker />
 

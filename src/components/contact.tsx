@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaGithub, FaHeart, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { portfolioData } from "../data/portfolio";
 import { FaMessage } from "react-icons/fa6";
 import { Link2 } from "lucide-react";
@@ -85,59 +84,215 @@ export function Contact() {
 }
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.35, delay: 0.7 }}
-      className="relative z-10 py-8 px-6 text-center">
-      {/* Mobile-only social links */}
-      <div className="flex justify-center gap-6 mb-5 lg:hidden">
-        <a
-          href={portfolioData.socials.github}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Atharva Kote on GitHub"
-          onClick={() => trackSocialClick("github", portfolioData.socials.github)}
-          className="text-text-muted hover:text-primary transition-colors p-1"
-        >
-          <FaGithub size={20} aria-hidden="true" />
-        </a>
-        <a
-          href={portfolioData.socials.linkedin}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Atharva Kote on LinkedIn"
-          onClick={() => trackSocialClick("linkedin", portfolioData.socials.linkedin)}
-          className="text-text-muted hover:text-primary transition-colors p-1"
-        >
-          <FaLinkedinIn size={20} aria-hidden="true" />
-        </a>
-        <a
-          href={portfolioData.socials.twitter}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Atharva Kote on Twitter"
-          onClick={() => trackSocialClick("twitter", portfolioData.socials.twitter)}
-          className="text-text-muted hover:text-primary transition-colors p-1"
-        >
-          <FaTwitter size={20} aria-hidden="true" />
-        </a>
-      </div>
-
-      <div className="flex justify-center mb-4">
-        <VisitorCounter />
-      </div>
-
-      <a
-        href={portfolioData.socials.github}
-        target="_blank"
-        rel="noreferrer"
-        className="font-mono text-xs  flex items-center gap-2 justify-center text-text-primary hover:text-primary transition-colors leading-relaxed"
+    <footer className="relative z-10 w-full pt-12 pb-10 px-4 sm:px-6 md:px-0 max-w-[1100px] mx-auto select-none">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.45 }}
+        className="rounded-[8px] sm:rounded-[16px] bg-[#0c0c0e]/95 border border-white/[0.08] backdrop-blur-2xl p-6 sm:p-8 md:p-10 lg:p-11 shadow-[0_16px_48px_rgba(0,0,0,0.6)] relative overflow-hidden"
       >
-        <p className="flex items-center gap-2 text-text-primary"><FaHeart aria-hidden="true" /> Designed & Built by {portfolioData.name}</p>
-      </a>
-    </motion.div>
+        {/* Subtle ambient background glow */}
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#01d8b4]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
+
+        {/* Main Grid: Left Signature & Bio, Right Multi-Column Links */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 relative z-10">
+
+          {/* Left Column: Signature & Philosophy */}
+          <div className="lg:col-span-5 flex flex-col justify-start">
+            {/* Signature using Bonheur Royale font */}
+            <h2 className="font-bonheur text-6xl sm:text-7xl md:text-8xl lg:text-[88px] text-white  select-none -ml-1 py-1 drop-shadow-[0_4px_24px_rgba(255,255,255,0.15)]">
+              Atharva Kote
+            </h2>
+
+            {/* Philosophy Paragraph */}
+            <p className="text-text-muted text-xs sm:text-sm leading-relaxed mt-3 sm:mt-4 max-w-sm font-['Manrope']">
+              Building digital experiences that matter, one line of code at a time.
+              Crafting interfaces that feel alive, solving problems that make a difference,
+              and turning ideas into reality. Every pixel has a purpose. Every interaction tells a story.
+            </p>
+          </div>
+
+          {/* Right Columns: 4 Clean Navigation Columns */}
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-6 lg:gap-8">
+
+            {/* 1. General */}
+            <div>
+              <h3 className="font-mono text-xs sm:text-sm font-semibold text-white tracking-wide mb-3 sm:mb-4">
+                General
+              </h3>
+              <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-[13px] text-text-muted">
+                <li>
+                  <a href="/#hero" className="hover:text-white transition-colors">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <Link to="/work" className="hover:text-white transition-colors">
+                    Work
+                  </Link>
+                </li>
+                <li>
+                  <a href="/#about" className="hover:text-white transition-colors">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <Link to="/skills" className="hover:text-white transition-colors">
+                    Skills
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/links" className="hover:text-white transition-colors">
+                    All Links
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* 2. About */}
+            <div>
+              <h3 className="font-mono text-xs sm:text-sm font-semibold text-white tracking-wide mb-3 sm:mb-4">
+                About
+              </h3>
+              <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-[13px] text-text-muted">
+                <li>
+                  <a href="/#about" className="hover:text-white transition-colors">
+                    About Me
+                  </a>
+                </li>
+                <li>
+                  <Link to="/work" className="hover:text-white transition-colors">
+                    Projects
+                  </Link>
+                </li>
+                <li>
+                  <a href="/#backend-devops" className="hover:text-white transition-colors">
+                    Architecture
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-[#01d8b4] transition-colors"
+                  >
+                    Resume (PDF)
+                  </a>
+                </li>
+                <li>
+                  <a href="/#contact" className="hover:text-white transition-colors">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* 3. Connect */}
+            <div>
+              <h3 className="font-mono text-xs sm:text-sm font-semibold text-white tracking-wide mb-3 sm:mb-4">
+                Connect
+              </h3>
+              <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-[13px] text-text-muted">
+                <li>
+                  <a
+                    href={portfolioData.socials.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackSocialClick("github", portfolioData.socials.github)}
+                    className="hover:text-[#01d8b4] transition-colors"
+                  >
+                    GitHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={portfolioData.socials.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackSocialClick("linkedin", portfolioData.socials.linkedin)}
+                    className="hover:text-[#0A66C2] transition-colors"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={portfolioData.socials.twitter}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackSocialClick("twitter", portfolioData.socials.twitter)}
+                    className="hover:text-white transition-colors"
+                  >
+                    Twitter / X
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={portfolioData.socials.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackSocialClick("instagram", portfolioData.socials.instagram)}
+                    className="hover:text-[#E4405F] transition-colors"
+                  >
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={portfolioData.socials.leetcode}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackSocialClick("leetcode", portfolioData.socials.leetcode)}
+                    className="hover:text-[#FFA116] transition-colors"
+                  >
+                    LeetCode
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* 4. Legal */}
+            <div>
+              <h3 className="font-mono text-xs sm:text-sm font-semibold text-white tracking-wide mb-3 sm:mb-4">
+                Legal
+              </h3>
+              <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-[13px] text-text-muted">
+                <li>
+                  <a href="#legal" className="hover:text-white transition-colors">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#legal" className="hover:text-white transition-colors">
+                    Terms &amp; Conditions
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Bottom Bar: Visitor Counter, Copyright, Attribution */}
+        <div className="border-t border-white/[0.08] mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted font-mono relative z-10">
+          <div className="flex items-center gap-3">
+            <VisitorCounter />
+          </div>
+
+          <div className="flex items-center gap-2 text-center text-text-secondary text-xs">
+            <span>&copy; {currentYear} Atharva Kote.</span>
+            <span className="hidden sm:inline">&bull;</span>
+            <span className="hidden sm:inline">Crafted with precision &amp; care.</span>
+          </div>
+        </div>
+      </motion.div>
+    </footer>
   );
 }

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Keyboard, X, Moon, Link2, Palette, Check } from "lucide-react";
+import { Keyboard, X, Moon, Link2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { COLOR_THEMES, applyColorTheme, getSavedColorTheme } from "../lib/theme";
 
 export function QuickAccess() {
   const navigate = useNavigate();
@@ -11,10 +10,6 @@ export function QuickAccess() {
 
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") !== "light";
-  });
-
-  const [activeColor, setActiveColor] = useState(() => {
-    return getSavedColorTheme();
   });
 
   useEffect(() => {
@@ -27,23 +22,6 @@ export function QuickAccess() {
       toast.warning("Fair warning! Light Attracts Bugs! 🐞");
     }
   }, [darkMode]);
-
-  useEffect(() => {
-    applyColorTheme(activeColor);
-  }, [activeColor]);
-
-  const handleSelectColor = (themeId: string) => {
-    const theme = applyColorTheme(themeId);
-    setActiveColor(theme.id);
-    toast.success(`Theme set to ${theme.label}!`, { duration: 1800 });
-  };
-
-  const handleCycleTheme = () => {
-    const currentIndex = COLOR_THEMES.findIndex((t) => t.id === activeColor);
-    const nextIndex = (currentIndex + 1) % COLOR_THEMES.length;
-    const nextTheme = COLOR_THEMES[nextIndex];
-    handleSelectColor(nextTheme.id);
-  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -60,8 +38,6 @@ export function QuickAccess() {
         setIsOpen(false);
       } else if (e.key.toLowerCase() === "d" && isOpen) {
         setDarkMode((prev) => !prev);
-      } else if (e.key.toLowerCase() === "t" && isOpen) {
-        handleCycleTheme();
       } else if (e.key.toLowerCase() === "l" && isOpen) {
         navigate("/links");
         setIsOpen(false);
@@ -76,7 +52,7 @@ export function QuickAccess() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, activeColor]);
+  }, [isOpen, navigate]);
 
   return (
     <AnimatePresence>
@@ -132,12 +108,6 @@ export function QuickAccess() {
                 </kbd>
               </div>
               <div className="flex justify-between items-center border-b border-border/50 pb-1">
-                <span className="text-text-primary text-xs">Cycle Theme Color</span>
-                <kbd className="px-2 py-1 bg-bg-elevated border border-border rounded text-xs font-semibold">
-                  T
-                </kbd>
-              </div>
-              <div className="flex justify-between items-center border-b border-border/50 pb-1">
                 <span className="text-text-primary text-xs">Go to Links</span>
                 <kbd className="px-2 py-1 bg-bg-elevated border border-border rounded text-xs font-semibold">
                   L
@@ -158,11 +128,11 @@ export function QuickAccess() {
             </div>
           </div>
 
-          {/* Right: Action Center & Theme Selector */}
+          {/* Right: Action Center */}
           <div className="flex flex-col gap-8 w-full md:w-[380px] animate-fade-up">
             <div>
               <h3 className="text-xl font-bold font-display mb-5">Action Center</h3>
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={() => setDarkMode((prev) => !prev)}
                   aria-label={`Toggle dark mode, currently ${darkMode ? "On" : "Off"}`}
@@ -174,53 +144,16 @@ export function QuickAccess() {
                   </span>
                 </button>
                 <button
-                  onClick={() => { navigate("/links"); setIsOpen(false); }}
+                  onClick={() => {
+                    navigate("/links");
+                    setIsOpen(false);
+                  }}
                   aria-label="Navigate to all links page"
                   className="flex flex-col justify-between p-5 bg-bg-elevated border border-border rounded-xl transition-all hover:border-primary/50 cursor-pointer text-left"
                 >
                   <Link2 className="w-6 h-6 mb-8 text-text-primary" aria-hidden="true" />
-                  <span className="text-sm font-semibold font-body">
-                    All Links
-                  </span>
+                  <span className="text-sm font-semibold font-body">All Links</span>
                 </button>
-              </div>
-
-              {/* Theme Accent Color Selector */}
-              <div className="p-4 bg-bg-elevated border border-border rounded-2xl">
-                <div className="flex items-center justify-between mb-3.5">
-                  <span className="text-xs font-mono font-bold tracking-wider uppercase text-text-muted flex items-center gap-2">
-                    <Palette size={15} className="text-primary" aria-hidden="true" />
-                    Primary Color
-                  </span>
-
-                </div>
-
-                <div className="grid grid-cols-6 gap-2">
-                  {COLOR_THEMES.map((theme) => {
-                    const isSelected = activeColor === theme.id;
-                    return (
-                      <button
-                        key={theme.id}
-                        onClick={() => handleSelectColor(theme.id)}
-                        aria-label={`Select ${theme.name} theme`}
-                        title={`${theme.name} (${theme.label})`}
-                        className={`group relative flex items-center justify-center h-10 rounded-xl transition-all duration-200 cursor-pointer ${isSelected
-                          ? "bg-primary/20 ring-2 ring-primary ring-offset-2 ring-offset-bg-elevated shadow-sm scale-105"
-                          : "hover:bg-white/5 hover:scale-105 border border-white/5 hover:border-white/20"
-                          }`}
-                      >
-                        <span
-                          className="w-5 h-5 rounded-md transition-transform duration-200 group-hover:scale-110 flex items-center justify-center shadow-md shrink-0"
-                          style={{ backgroundColor: theme.primary }}
-                        >
-                          {isSelected && (
-                            <Check size={12} className="text-white drop-shadow stroke-[3]" aria-hidden="true" />
-                          )}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
               </div>
             </div>
           </div>
@@ -229,3 +162,5 @@ export function QuickAccess() {
     </AnimatePresence>
   );
 }
+
+export default QuickAccess;

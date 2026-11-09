@@ -69,10 +69,14 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="relative group text-md flex items-center gap-1 font-bold text-primary"
+            className="relative group text-md flex items-center gap-2.5 font-bold text-text-primary"
           >
-            <span className=" text-md font-bold bg-primary text-bg px-2  rounded-lg">/</span>
-            atharva <span className="text-primary text-2xl">.</span>
+            <span className="text-xs font-bold font-mono bg-primary text-black px-2.5 py-1 rounded-lg tracking-wider uppercase shadow-[0_0_14px_var(--color-primary-glow)]">
+              /
+            </span>
+            <span className="font-display tracking-tight text-base font-bold text-text-primary">
+              Atharva Kote <span className="text-primary text-xl">.</span>
+            </span>
           </motion.a>
 
           {/* Desktop Links */}
@@ -180,7 +184,7 @@ export function Navbar() {
                   >
                     {/* Active indicator bar */}
                     <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[60%] rounded-r opacity-0 group-hover:opacity-100 transition-opacity"
-                      style={{ background: "linear-gradient(180deg, #a78bfa, #7c3aed)" }}
+                      style={{ background: "linear-gradient(180deg, var(--color-primary), var(--color-primary-dark))" }}
                     />
 
                     {/* Number */}

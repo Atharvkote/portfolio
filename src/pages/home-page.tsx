@@ -11,6 +11,7 @@ const TechStack = lazy(() => import("../components/tech-stack").then((m) => ({ d
 const Experience = lazy(() => import("../components/experience").then((m) => ({ default: m.Experience })));
 const Education = lazy(() => import("../components/education").then((m) => ({ default: m.Education })));
 const Projects = lazy(() => import("../components/project-showcase").then((m) => ({ default: m.Projects })));
+const GitHubContributionCalendar = lazy(() => import("../components/GitHubContributionCalendar").then((m) => ({ default: m.GitHubContributionCalendar })));
 const Contact = lazy(() => import("../components/contact").then((m) => ({ default: m.Contact })));
 const Footer = lazy(() => import("../components/contact").then((m) => ({ default: m.Footer })));
 const BackendDevops = lazy(() => import("../components/cards").then((m) => ({ default: m.BackendDevops })));
@@ -24,15 +25,18 @@ export function HomePage() {
       <SocialBar />
       <QuickAccess />
 
-      {/* Main Content */}
+      {/* Hero Section — Full Viewport Width */}
+      <Hero />
+
+      {/* Main Content Sections */}
       <main className="relative z-10 w-full max-w-[1100px] mx-auto px-6 sm:px-10 md:px-6 lg:px-0">
-        <Hero />
         <Suspense fallback={null}>
           <About />
           <TechStack />
-          <BackendDevops/>
+          <BackendDevops />
           <Experience />
           <Projects />
+          <GitHubContributionCalendar />
           <Education />
           <Contact />
         </Suspense>

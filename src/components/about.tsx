@@ -87,11 +87,11 @@ export function About() {
             <div className="h-[2px] w-16 bg-gray-600"></div>
 
             <p className="text-4xl md:text-5xl font-semibold font-display">
-              <span className="bg-gradient-to-r from-primary to-primary-light text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-primary font-extrabold to-primary-light text-transparent bg-clip-text">
                 Coffee
               </span>{" "}
               <span className="text-gray-400">into</span>{" "}
-              <span className="text-primary px-3 py-1 rounded-lg">
+              <span className="text-primary font-extrabold px-3 py-1 rounded-lg">
                 Code
               </span>
             </p>
@@ -102,7 +102,7 @@ export function About() {
           {/* then Magic */}
           <p className="flex justify-center gap-2 text-4xl md:text-5xl font-semibold font-display">
             <span className="text-gray-400">then </span>
-            <span className="bg-primary text-bg font-bold px-3 py-1 rounded-lg">
+            <span className="bg-primary  text-bg font-extrabold px-3 py-2 rounded-lg">
               Magic.
             </span>
           </p>
