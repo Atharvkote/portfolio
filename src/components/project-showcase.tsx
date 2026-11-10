@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Code2,
   Sparkles,
   ShieldCheck,
   Zap,
-  ArrowUpRight,
   ArrowRight,
+  ArrowUpRight,
+  ExternalLink,
   Network,
   Database,
   Activity,
@@ -17,6 +19,9 @@ import {
   Server,
   Cloud,
 } from "lucide-react";
+import { RxComponent1 } from "react-icons/rx";
+import { BiLinkExternal } from "react-icons/bi";
+
 import { FaGithub } from "react-icons/fa";
 import TechIcon from "./icon-provider";
 import { trackEvent } from "../lib/analytics";
@@ -34,17 +39,21 @@ interface ProjectShowcaseItem {
   name: string;
   tabTitle: string;
   tabSubtitle: string;
-  tabIconColor: string;
   badge: string;
   description: string;
   tech: string[];
   liveUrl?: string;
   githubUrl: string;
-  folderItems: FolderEntry[];
+  slug: string;
+  imagePrimary: string;
+  imageSecondary: string;
   pillars: Pillar[];
 }
 
 const rawProjects = portfolioData.projects;
+
+const getSlug = (title: string) =>
+  title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
 
 const PROJECTS: ProjectShowcaseItem[] = [
   // 1. JQube — AI-Assisted DevSecOps Platform (Featured)
@@ -53,7 +62,6 @@ const PROJECTS: ProjectShowcaseItem[] = [
     name: "JQube",
     tabTitle: "JQube",
     tabSubtitle: "AI DevSecOps Platform",
-    tabIconColor: "#00F0C0",
     badge: "FEATURED PROJECT",
     description:
       rawProjects[0]?.description ||
@@ -70,23 +78,9 @@ const PROJECTS: ProjectShowcaseItem[] = [
     ],
     liveUrl: rawProjects[0]?.link || "https://github.com/Atharvkote",
     githubUrl: rawProjects[0]?.github || "https://github.com/Atharvkote",
-    folderItems: [
-      {
-        image: "/jqube.png",
-        title: "JQube Dashboard",
-        alt: "JQube DevSecOps Dashboard",
-      },
-      {
-        image: "/jqube-preview.png",
-        title: "Scan Findings",
-        alt: "JQube Vulnerability Scan",
-      },
-      {
-        title: "SAST & Policy Engine",
-        description:
-          "Automated Semgrep, Gitleaks, and Trivy scan pipeline with verified PR remediation.",
-      },
-    ],
+    slug: getSlug(rawProjects[0]?.title || "JQube"),
+    imagePrimary: "/jqube.png",
+    imageSecondary: "/jqube-preview.png",
     pillars: [
       {
         icon: Code2,
@@ -117,7 +111,6 @@ const PROJECTS: ProjectShowcaseItem[] = [
     name: "VenDeX",
     tabTitle: "VenDeX",
     tabSubtitle: "Kafka Microservices Mesh",
-    tabIconColor: "#a855f7",
     badge: "EVENT-DRIVEN ARCHITECTURE",
     description:
       rawProjects[1]?.description ||
@@ -134,24 +127,10 @@ const PROJECTS: ProjectShowcaseItem[] = [
     ],
     liveUrl: rawProjects[1]?.link || "https://github.com/Atharvkote",
     githubUrl: rawProjects[1]?.github || "https://github.com/Atharvkote",
-    folderItems: [
-      {
-        image: "/vednex2.png",
-        title: "VenDeX Mesh Architecture",
-        alt: "VenDeX Kafka Architecture",
-      },
-      {
-        image:
-          "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png",
-        title: "Cluster Telemetry",
-        alt: "Kafka Cluster Monitor",
-      },
-      {
-        title: "Kafka & Redis Pipeline",
-        description:
-          "10,000+ msgs/min throughput across a 3-node cluster with RS256 zero-trust auth.",
-      },
-    ],
+    slug: getSlug(rawProjects[1]?.title || "VenDeX"),
+    imagePrimary: "/vednex2.png",
+    imageSecondary:
+      "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png",
     pillars: [
       {
         icon: Network,
@@ -182,7 +161,6 @@ const PROJECTS: ProjectShowcaseItem[] = [
     name: "ConcertSync",
     tabTitle: "ConcertSync",
     tabSubtitle: "Live Concert Ticketing",
-    tabIconColor: "#f43f5e",
     badge: "HIGH-CONCURRENCY TICKETING",
     description:
       rawProjects[2]?.description ||
@@ -199,23 +177,9 @@ const PROJECTS: ProjectShowcaseItem[] = [
     ],
     liveUrl: rawProjects[2]?.link || "https://github.com/Atharvkote",
     githubUrl: rawProjects[2]?.github || "https://github.com/Atharvkote",
-    folderItems: [
-      {
-        image: "/Ticket.jpg",
-        title: "Live Concert Ticketing Platform",
-        alt: "ConcertSync Live Ticketing",
-      },
-      {
-        image: "/Ticket-1.jpg",
-        title: "Gate Entry Verification",
-        alt: "Gate Ingress Scan",
-      },
-      {
-        title: "HMAC-SHA256 Passes",
-        description:
-          "11,000+ attendee registrations with sub-180ms offline turnstile verification.",
-      },
-    ],
+    slug: getSlug(rawProjects[2]?.title || "ConcertSync"),
+    imagePrimary: "/Ticket.jpg",
+    imageSecondary: "/Ticket-1.jpg",
     pillars: [
       {
         icon: QrCode,
@@ -246,7 +210,6 @@ const PROJECTS: ProjectShowcaseItem[] = [
     name: "FoodDash AI",
     tabTitle: "FoodDash AI",
     tabSubtitle: "Dining & Smart Kitchen",
-    tabIconColor: "#f97316",
     badge: "EDGE AI & REAL-TIME DINING",
     description:
       rawProjects[3]?.description ||
@@ -263,23 +226,9 @@ const PROJECTS: ProjectShowcaseItem[] = [
     ],
     liveUrl: rawProjects[3]?.link || "https://github.com/Atharvkote",
     githubUrl: rawProjects[3]?.github || "https://github.com/Atharvkote",
-    folderItems: [
-      {
-        image: "/FD-1.png",
-        title: "FoodDash AI Menu & Table QR",
-        alt: "FoodDash AI Menu",
-      },
-      {
-        image: "/FD-2.png",
-        title: "Smart Kitchen KDS Station",
-        alt: "Smart Kitchen KDS Display",
-      },
-      {
-        title: "TensorFlow.js Engine",
-        description:
-          "On-device recommendation in <120ms with 99.8% idempotent Razorpay webhooks.",
-      },
-    ],
+    slug: getSlug(rawProjects[3]?.title || "FoodDash AI"),
+    imagePrimary: "/FD-1.png",
+    imageSecondary: "/FD-2.png",
     pillars: [
       {
         icon: Cpu,
@@ -308,11 +257,142 @@ const PROJECTS: ProjectShowcaseItem[] = [
 export function Projects() {
   const [activeIdx, setActiveIdx] = useState(0);
   const currentProject = PROJECTS[activeIdx];
+  const navigate = useNavigate();
 
   const handleSelect = (idx: number) => {
     setActiveIdx(idx);
     trackEvent("project_tab_select", { project: PROJECTS[idx].name });
   };
+
+  const handleFolderItemClick = (_item: FolderEntry, index: number) => {
+    if (index === 0) {
+      // 1. View Details
+      trackEvent("project_view_details_click", { project: currentProject.name });
+      navigate(`/project/${currentProject.slug}`);
+    } else if (index === 1) {
+      // 2. Visit Project
+      trackEvent("project_visit_click", {
+        project: currentProject.name,
+        url: currentProject.liveUrl,
+      });
+      if (currentProject.liveUrl && currentProject.liveUrl !== "#") {
+        window.open(currentProject.liveUrl, "_blank", "noopener,noreferrer");
+      } else {
+        navigate(`/project/${currentProject.slug}`);
+      }
+    } else if (index === 2) {
+      // 3. Source Doc
+      trackEvent("project_source_doc_click", {
+        project: currentProject.name,
+        url: currentProject.githubUrl,
+      });
+      if (currentProject.githubUrl) {
+        window.open(currentProject.githubUrl, "_blank", "noopener,noreferrer");
+      }
+    }
+  };
+
+  // ── 3 Action Cards inside the Primary Color Folder (Icons only, no images) ──
+  const folderEntries: FolderEntry[] = [
+    // Card 1: View Details
+    {
+      title: "View Details",
+      content: (
+        <div className="absolute inset-[3px] rounded-[5px] bg-gradient-to-b from-[#0e1622] via-[#0a111a] to-[#070b10] border border-primary/40 p-3 flex flex-col justify-between group/card cursor-pointer shadow-md select-none transition-all duration-300 hover:border-primary">
+          {/* Top Tag */}
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[8px] font-bold tracking-wider uppercase text-primary/80">
+              Case Study
+            </span>
+          </div>
+
+          {/* Center Icon */}
+          <div className="flex flex-col items-center justify-center my-auto py-1">
+            <div className="w-16 h-16 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary group-hover/card:scale-110 group-hover/card:bg-primary/20 transition-all duration-300 shadow-[0_0_14px_rgba(1,216,180,0.25)]">
+              <RxComponent1 size={32} />
+            </div>
+          </div>
+
+          {/* Bottom Label & Action */}
+          <div className="pt-1.5 border-t border-white/[0.08]">
+            <div className="flex items-center justify-between text-xs font-bold text-white group-hover/card:text-primary transition-colors">
+              <span>View Details</span>
+              <ArrowUpRight
+                size={15}
+                className="text-primary transition-transform group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5"
+              />
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Card 2: Visit Project
+    {
+      title: "Visit Project",
+      content: (
+        <div className="absolute inset-[3px] rounded-[5px] bg-gradient-to-b from-[#0e1622] via-[#0a111a] to-[#070b10] border border-primary/40 p-3 flex flex-col justify-between group/card cursor-pointer shadow-md select-none transition-all duration-300 hover:border-primary">
+          {/* Top Tag & Live Badge */}
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[8px] font-bold tracking-wider uppercase text-primary/80">
+              Production
+            </span>
+          </div>
+
+          {/* Center Icon */}
+          <div className="flex flex-col items-center justify-center my-auto py-1">
+            <div className="w-16 h-16 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary group-hover/card:scale-110 group-hover/card:bg-primary/20 transition-all duration-300 shadow-[0_0_14px_rgba(1,216,180,0.25)]">
+              <BiLinkExternal size={32} />
+            </div>
+          </div>
+
+          {/* Bottom Label & Action */}
+          <div className="pt-1.5 border-t border-white/[0.08]">
+            <div className="flex items-center justify-between text-xs font-bold text-white group-hover/card:text-primary transition-colors">
+              <span>Visit Project</span>
+              <ExternalLink
+                size={15}
+                className="text-primary transition-transform group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5"
+              />
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Card 3: Source Code
+    {
+      title: "Source Code",
+      content: (
+        <div className="absolute inset-[3px] rounded-[5px] bg-gradient-to-b from-[#0e1622] via-[#0a111a] to-[#070b10] border border-primary/40 p-3 flex flex-col justify-between group/card cursor-pointer shadow-md select-none transition-all duration-300 hover:border-primary">
+          {/* Top Tag */}
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[8px] font-bold tracking-wider uppercase text-zinc-400">
+              GitHub
+            </span>
+          </div>
+
+          {/* Center Icon */}
+          <div className="flex flex-col items-center justify-center my-auto py-1">
+            <div className="w-16 h-16 rounded-xl bg-white/[0.06] border border-white/20 flex items-center justify-center text-white group-hover/card:scale-110 group-hover/card:text-primary group-hover/card:border-primary/40 group-hover/card:bg-primary/10 transition-all duration-300 shadow-[0_0_14px_rgba(255,255,255,0.08)]">
+              <FaGithub size={32} />
+            </div>
+          </div>
+
+          {/* Bottom Label & Action */}
+          <div className="pt-1.5 border-t border-white/[0.08]">
+            <div className="flex items-center justify-between text-xs font-bold text-white group-hover/card:text-primary transition-colors">
+              <span>Source Code</span>
+              <FaGithub
+                size={15}
+                className="text-white group-hover/card:text-primary transition-all duration-200 group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5"
+              />
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <section
@@ -354,9 +434,9 @@ export function Projects() {
           />
           <defs>
             <linearGradient id="topGlow" x1="500" y1="60" x2="180" y2="500" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#00F0C0" stopOpacity="0" />
-              <stop offset="0.5" stopColor="#00F0C0" stopOpacity="0.7" />
-              <stop offset="1" stopColor="#00F0C0" stopOpacity="0" />
+              <stop stopColor="#01d8b4" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#01d8b4" stopOpacity="0.7" />
+              <stop offset="1" stopColor="#01d8b4" stopOpacity="0" />
             </linearGradient>
           </defs>
         </svg>
@@ -369,7 +449,7 @@ export function Projects() {
       <div className="relative grid grid-cols-1 lg:grid-cols-[260px_1fr_360px] gap-7 lg:gap-8 xl:gap-9 items-center w-full">
         {/* ════════════════════════════════════════════════════
             COLUMN 1: VERTICAL PROJECT TAB SELECTOR (LEFT)
-            Icons removed; using numbers in primary text with a different font
+            Numbers in primary text with monospace font
         ════════════════════════════════════════════════════ */}
         <div className="flex items-center gap-3 w-full">
           {/* Milestone Step Indicator Spine */}
@@ -382,7 +462,7 @@ export function Projects() {
                   {isActive ? (
                     <motion.div
                       layoutId="activeSquare"
-                      className="w-3 h-3 rounded-[2.5px] bg-[#00F0C0] shadow-[0_0_12px_#00F0C0]"
+                      className="w-3 h-3 rounded-[2.5px] bg-primary shadow-[0_0_12px_var(--color-primary)]"
                     />
                   ) : (
                     <div className="w-2.5 h-2.5 rounded-[2px] border border-white/25 bg-[#060a0f]" />
@@ -401,20 +481,18 @@ export function Projects() {
                 <button
                   key={p.id}
                   onClick={() => handleSelect(idx)}
-                  className={`relative w-full text-left rounded-2xl p-3 sm:p-3.5 transition-all duration-300 flex items-center justify-between group cursor-pointer border ${
-                    isActive
-                      ? "border-[#00F0C0] bg-[#00F0C0]/[0.08] shadow-[0_0_24px_rgba(0,240,192,0.22)]"
-                      : "border-white/[0.06] bg-[#0c1015]/75 hover:border-white/20 hover:bg-white/[0.03]"
-                  }`}
+                  className={`relative w-full text-left rounded-2xl p-3 sm:p-3.5 transition-all duration-300 flex items-center justify-between group cursor-pointer border ${isActive
+                    ? "border-primary bg-primary/[0.08] shadow-[0_0_24px_rgba(1,216,180,0.22)]"
+                    : "border-white/[0.06] bg-[#0c1015]/75 hover:border-white/20 hover:bg-white/[0.03]"
+                    }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     {/* Numbers in primary text with monospace font */}
                     <span
-                      className={`font-mono text-lg sm:text-xl font-black shrink-0 tracking-tight transition-all duration-200 ${
-                        isActive
-                          ? "text-primary drop-shadow-[0_0_8px_rgba(1,216,180,0.5)]"
-                          : "text-primary/50 group-hover:text-primary"
-                      }`}
+                      className={`font-mono text-lg sm:text-xl font-black shrink-0 tracking-tight transition-all duration-200 ${isActive
+                        ? "text-primary drop-shadow-[0_0_8px_rgba(1,216,180,0.5)]"
+                        : "text-primary/50 group-hover:text-primary"
+                        }`}
                     >
                       0{idx + 1}
                     </span>
@@ -435,7 +513,7 @@ export function Projects() {
                     <motion.div
                       initial={{ opacity: 0, x: -4 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="text-[#00F0C0] shrink-0 ml-1.5 hidden sm:block"
+                      className="text-primary shrink-0 ml-1.5 hidden sm:block"
                     >
                       <ArrowRight size={16} />
                     </motion.div>
@@ -448,6 +526,7 @@ export function Projects() {
 
         {/* ════════════════════════════════════════════════════
             COLUMN 2: ACTIVE PROJECT DETAILS (MIDDLE)
+            Clean info presentation; redundant action buttons removed
         ════════════════════════════════════════════════════ */}
         <div className="w-full min-w-0 py-1">
           <AnimatePresence mode="wait">
@@ -460,7 +539,7 @@ export function Projects() {
               className="space-y-4"
             >
               {/* Featured Badge */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#00F0C0]/30 bg-[#00F0C0]/10 text-[#00F0C0] font-mono text-[11px] font-bold tracking-wider uppercase">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary font-mono text-[11px] font-bold tracking-wider uppercase">
                 <span>★</span> {currentProject.badge}
               </div>
 
@@ -486,52 +565,25 @@ export function Projects() {
                   </div>
                 ))}
               </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center gap-3.5 pt-2">
-                <a
-                  href={currentProject.liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() =>
-                    trackEvent("project_view_click", { project: currentProject.name })
-                  }
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00F0C0] text-black font-extrabold text-xs sm:text-[13px] shadow-[0_0_24px_rgba(0,240,192,0.4)] hover:bg-[#5eead4] hover:shadow-[0_0_32px_rgba(0,240,192,0.6)] active:scale-95 transition-all cursor-pointer"
-                >
-                  <span>View Project</span>
-                  <ArrowUpRight size={15} />
-                </a>
-
-                <a
-                  href={currentProject.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() =>
-                    trackEvent("project_github_click", { project: currentProject.name })
-                  }
-                  className="inline-flex items-center gap-2 px-3 py-2 text-zinc-300 hover:text-white text-xs sm:text-[13px] font-medium transition-colors cursor-pointer"
-                >
-                  <FaGithub size={15} />
-                  <span>Source Code</span>
-                </a>
-              </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* ════════════════════════════════════════════════════
-            COLUMN 3: INTERACTIVE 3D FOLDER (RIGHT)
-            Holds the project's content, screenshots & docs
+            COLUMN 3: PRIMARY COLOR FOLDER (RIGHT)
+            Holding 3 interactive action links:
+            1. View Details | 2. Visit Project | 3. Source Doc
         ════════════════════════════════════════════════════ */}
         <div className="relative w-full flex items-center justify-center py-6 min-h-[320px]">
           <Folder
             key={currentProject.id}
             label={currentProject.tabTitle}
-            items={currentProject.folderItems}
+            items={folderEntries}
+            onItemClick={handleFolderItemClick}
             variant="solid"
-            color={currentProject.tabIconColor || "#00F0C0"}
-            paperColor="#ffffff"
-            size={1.15}
+            color="#01d8b4"
+            paperColor="#01d8b4"
+            size={1.18}
             tabPosition="right"
             layout="spread"
             defaultOpen={true}
@@ -548,7 +600,7 @@ export function Projects() {
       ════════════════════════════════════════════════════ */}
       <div className="mt-12 pt-7 border-t border-teal-500/20 relative">
         {/* Subtle horizontal cyan glow line */}
-        <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#00F0C0]/60 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent pointer-events-none" />
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -563,7 +615,7 @@ export function Projects() {
               const PillarIcon = pillar.icon;
               return (
                 <div key={i} className="flex items-start gap-3 group">
-                  <div className="w-8 h-8 rounded-xl bg-[#00F0C0]/10 border border-[#00F0C0]/30 flex items-center justify-center text-[#00F0C0] shrink-0 group-hover:scale-105 group-hover:bg-[#00F0C0]/20 transition-all duration-300 shadow-[0_0_10px_rgba(0,240,192,0.15)]">
+                  <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary shrink-0 group-hover:scale-105 group-hover:bg-primary/20 transition-all duration-300 shadow-[0_0_10px_rgba(1,216,180,0.15)]">
                     <PillarIcon size={16} />
                   </div>
                   <div>
