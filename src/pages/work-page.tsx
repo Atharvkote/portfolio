@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
-import { Navbar } from "../components/navbar";
-import { SocialBar } from "../components/social-bar";
-import { QuickAccess } from "../components/quick-access";
-import { Footer } from "../components/contact";
+import { Navbar } from "../components/layout/navbar";
+import { SocialBar } from "../components/layout/social-bar";
+import { QuickAccess } from "../components/layout/quick-access";
+import { Footer } from "../components/layout/contact";
 import { portfolioData } from "../data/portfolio";
 import { Link } from "react-router-dom";
 import { ChevronRight, Calendar } from "lucide-react";
-import TechIcon from "../components/icon-provider";
-import { SEO } from "../components/seo";
+import TechIcon from "../components/ui/icon-provider";
+import { SEO } from "../components/layout/seo";
 import { trackProjectClick } from "../lib/analytics";
 
 // ─── Animation Variants ───
@@ -28,7 +28,7 @@ const fadeUp = {
 function ProjectCard({ project }: {
   project: (typeof portfolioData.projects)[number];
 }) {
-  const slug = project.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
+  const slug = project.slug || project.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
 
   return (
     <motion.div variants={fadeUp}>

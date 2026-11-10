@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.tsx'
+import App from './app'
 import { applyColorTheme, getSavedColorTheme } from './lib/theme'
 
 // Initialize user's chosen accent color theme

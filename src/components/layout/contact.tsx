@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { portfolioData } from "../data/portfolio";
+import { portfolioData } from "../../data/portfolio";
 import { FaMessage } from "react-icons/fa6";
 import { Link2 } from "lucide-react";
-import { trackContactClick, trackSocialClick } from "../lib/analytics";
-import { VisitorCounter } from "./VisitorCounter";
+import { trackContactClick, trackSocialClick } from "../../lib/analytics";
+import { VisitorCounter } from "../sections/visitor-counter";
 
 export function Contact() {
   return (

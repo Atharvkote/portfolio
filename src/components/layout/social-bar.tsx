@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
-import { portfolioData } from "../data/portfolio";
+import { portfolioData } from "../../data/portfolio";
 import { FaXTwitter } from "react-icons/fa6";
-import { trackSocialClick, trackContactClick } from "../lib/analytics";
+import { trackSocialClick, trackContactClick } from "../../lib/analytics";
 
 const SOCIALS = [
   { icon: FaGithub, href: portfolioData.socials.github, label: "GitHub" },

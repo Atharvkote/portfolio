@@ -1,21 +1,47 @@
 // techIcons.ts
 import {
-  FaReact, FaNodeJs, FaDocker, FaGithub, FaAws, FaJava, FaJenkins
+  FaReact,
+  FaNodeJs,
+  FaDocker,
+  FaGithub,
+  FaAws,
+  FaJava,
+  FaJenkins,
 } from "react-icons/fa";
 
 import {
-  SiNextdotjs, SiTypescript, SiTailwindcss, SiMongodb,
-  SiMysql, SiVercel, SiPython, SiJavascript,
-  SiTerraform, SiApachekafka, SiRazorpay, SiNginx, SiRedis, SiSocketdotio, SiRedux,
-  SiGrafana, SiPrometheus, SiGithubactions,
-
-  // ✅ NEW IMPORTS
-  SiPostgresql, SiSupabase, SiKubernetes, SiDigitalocean,
-  SiHtml5, SiSass,
-  SiVite, SiWebpack,
-  SiPostman, SiInsomnia,
-  SiJest, SiCypress,
-  SiLinux, SiUbuntu,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiMongodb,
+  SiMysql,
+  SiVercel,
+  SiPython,
+  SiJavascript,
+  SiTerraform,
+  SiApachekafka,
+  SiRazorpay,
+  SiNginx,
+  SiRedis,
+  SiSocketdotio,
+  SiRedux,
+  SiGrafana,
+  SiPrometheus,
+  SiGithubactions,
+  SiPostgresql,
+  SiSupabase,
+  SiKubernetes,
+  SiDigitalocean,
+  SiHtml5,
+  SiSass,
+  SiVite,
+  SiWebpack,
+  SiPostman,
+  SiInsomnia,
+  SiJest,
+  SiCypress,
+  SiLinux,
+  SiUbuntu,
   SiCloudflare,
   SiElectron,
   SiReduxsaga,
@@ -38,19 +64,40 @@ import {
   SiAppwrite,
   SiChartdotjs,
   SiSpringsecurity,
+  SiBootstrap,
+  SiOwasp,
+  SiBurpsuite,
+  SiKalilinux,
+  SiMetasploit,
+  SiWireshark,
+  SiSplunk,
+  SiElasticsearch,
+  SiAnthropic,
+  SiOllama,
+  SiSwagger,
+  SiShadcnui,
+  SiGithubcopilot,
 } from "react-icons/si";
-import { BsCss, } from "react-icons/bs";
+import { BsCss } from "react-icons/bs";
 import type { IconType } from "react-icons";
-import { QrCode, ShieldCheck } from "lucide-react";
+import {
+  QrCode,
+  ShieldCheck,
+  Eye,
+  ShieldAlert,
+  Terminal,
+  Zap,
+  Database,
+} from "lucide-react";
 import { MdHttp } from "react-icons/md";
 
-interface IconItem {
-  icon: IconType;
+export interface IconItem {
+  icon: IconType | React.ComponentType<{ size?: number; className?: string; color?: string; style?: React.CSSProperties }>;
   color: string;
 }
 
 export const TECH_ICONS: Record<string, IconItem> = {
-  // Languages
+  // ── Languages ──
   "Java": { icon: FaJava, color: "#ED8B00" },
   "JavaScript": { icon: SiJavascript, color: "#F7DF1E" },
   "TypeScript": { icon: SiTypescript, color: "#3178C6" },
@@ -58,34 +105,37 @@ export const TECH_ICONS: Record<string, IconItem> = {
   "PHP": { icon: SiPhp, color: "#4F5D95" },
   "YAML": { icon: SiYaml, color: "#DC382D" },
   "Bash": { icon: SiShell, color: "#47A248" },
+  "SQL": { icon: Database as unknown as IconType, color: "#4479A1" },
 
-
+  // ── Web Basics ──
   "HTML": { icon: SiHtml5, color: "#E34F26" },
   "CSS": { icon: BsCss, color: "#1572B6" },
+  "HTML/CSS": { icon: SiHtml5, color: "#E34F26" },
   "SASS": { icon: SiSass, color: "#CC6699" },
+  "Bootstrap": { icon: SiBootstrap, color: "#7952B3" },
 
-  // Frontend
+  // ── Frontend ──
   "React": { icon: FaReact, color: "#61DAFB" },
   "React.js": { icon: FaReact, color: "#61DAFB" },
   "Next.js": { icon: SiNextdotjs, color: "#ffffff" },
   "Redux": { icon: SiRedux, color: "#764ABC" },
   "Tailwind CSS": { icon: SiTailwindcss, color: "#06B6D4" },
+  "shadcn/ui": { icon: SiShadcnui, color: "#ffffff" },
   "Framer Motion": { icon: SiFramer, color: "#EA4C89" },
   "Appwrite": { icon: SiAppwrite, color: "#FD366E" },
   "chart.js": { icon: SiChartdotjs, color: "#FF6384" },
-
-
   "Vite": { icon: SiVite, color: "#646CFF" },
   "Webpack": { icon: SiWebpack, color: "#8DD6F9" },
   "Electron": { icon: SiElectron, color: "#47848F" },
 
-  // State Mgmt Advanced
+  // ── State Mgmt ──
   "Redux Thunk": { icon: SiRedux, color: "#764ABC" },
   "Redux Saga": { icon: SiReduxsaga, color: "#999999" },
 
-  // Backend
+  // ── Backend ──
   "Spring Boot": { icon: SiSpringboot, color: "#6DB33F" },
   "Spring Security": { icon: SiSpringsecurity, color: "#6DB33F" },
+  "Spring Data JPA": { icon: Database as unknown as IconType, color: "#6DB33F" },
   "Hibernate": { icon: SiHibernate, color: "#BCA57A" },
   "Flyway": { icon: SiFlyway, color: "#CC0200" },
   "RabbitMQ": { icon: SiRabbitmq, color: "#FF6600" },
@@ -93,65 +143,97 @@ export const TECH_ICONS: Record<string, IconItem> = {
   "Express.js": { icon: SiExpress, color: "#ffffff" },
   "Express": { icon: SiExpress, color: "#ffffff" },
   "Socket.io": { icon: SiSocketdotio, color: "#ffffff" },
+  "Socket.IO": { icon: SiSocketdotio, color: "#ffffff" },
   "Rest API": { icon: MdHttp, color: "#00FFFF" },
   "REST APIs": { icon: MdHttp, color: "#00FFFF" },
   "Firebase": { icon: SiFirebase, color: "#FFCA28" },
-  "TensorFlow.js": { icon: SiTensorflow, color: "#FF6F00" },
-  "TensorFlow": { icon: SiTensorflow, color: "#FF6F00" },
   "Kong API Gateway": { icon: SiKong, color: "#003366" },
   "JWT-RS256": { icon: ShieldCheck as unknown as IconType, color: "#01D8B4" },
 
-  // Databases
+  // ── AI & Machine Learning ──
+  "TensorFlow.js": { icon: SiTensorflow, color: "#FF6F00" },
+  "TensorFlow": { icon: SiTensorflow, color: "#FF6F00" },
+  "PyTorch": { icon: SiPytorch, color: "#FF6C37" },
+  "Claude": { icon: SiAnthropic, color: "#D97706" },
+  "GitHub Copilot": { icon: SiGithubcopilot, color: "#ffffff" },
+  "Cursor": { icon: Terminal as unknown as IconType, color: "#ffffff" },
+  "Ollama": { icon: SiOllama, color: "#ffffff" },
+  "Antigravity": { icon: Zap as unknown as IconType, color: "#01d8b4" },
+  "OpenAI": { icon: SiOpenai, color: "#412991" },
+
+  // ── Cybersecurity & Tools ──
+  "OWASP Top 10": { icon: SiOwasp, color: "#ffffff" },
+  "Burp Suite": { icon: SiBurpsuite, color: "#FF6633" },
+  "Nmap": { icon: Eye as unknown as IconType, color: "#00F0C0" },
+  "Kali Linux": { icon: SiKalilinux, color: "#557C94" },
+  "Metasploit": { icon: SiMetasploit, color: "#2596CD" },
+  "Wireshark": { icon: SiWireshark, color: "#1679A7" },
+  "Splunk": { icon: SiSplunk, color: "#65A637" },
+  "Splunk>": { icon: SiSplunk, color: "#65A637" },
+  "Snort": { icon: ShieldAlert as unknown as IconType, color: "#FF6B8B" },
+  "Snort®": { icon: ShieldAlert as unknown as IconType, color: "#FF6B8B" },
+  "ELK Stack": { icon: SiElasticsearch, color: "#005571" },
+  "Elasticsearch": { icon: SiElasticsearch, color: "#005571" },
+
+  // ── Databases ──
   "MongoDB": { icon: SiMongodb, color: "#47A248" },
   "MySQL": { icon: SiMysql, color: "#4479A1" },
   "Redis": { icon: SiRedis, color: "#DC382D" },
-
-
   "PostgreSQL": { icon: SiPostgresql, color: "#4169E1" },
   "Supabase": { icon: SiSupabase, color: "#3ECF8E" },
 
-  // DevOps
+  // ── DevOps & Cloud ──
   "Docker": { icon: FaDocker, color: "#2496ED" },
   "Jenkins": { icon: FaJenkins, color: "#D24939" },
   "GitHub Actions": { icon: SiGithubactions, color: "#2088FF" },
   "Terraform": { icon: SiTerraform, color: "#646CFF" },
+  "AWS": { icon: FaAws, color: "#FF9900" },
   "AWS EC2": { icon: FaAws, color: "#FF9900" },
   "AWS S3": { icon: FaAws, color: "#FF9900" },
   "NGINX": { icon: SiNginx, color: "#009639" },
-
-
   "Kubernetes": { icon: SiKubernetes, color: "#326CE5" },
   "DigitalOcean": { icon: SiDigitalocean, color: "#0080FF" },
   "Cloudflare": { icon: SiCloudflare, color: "#F38020" },
   "Linux": { icon: SiLinux, color: "#FCC624" },
   "Ubuntu": { icon: SiUbuntu, color: "#E95420" },
 
-  // Monitoring
+  // ── Monitoring ──
   "Prometheus": { icon: SiPrometheus, color: "#E6522C" },
   "Grafana": { icon: SiGrafana, color: "#F46800" },
   "Loki": { icon: SiGrafana, color: "#F46800" },
 
-  // Testing / API Tools
+  // ── Testing & API Tools ──
+  "Swagger Docs": { icon: SiSwagger, color: "#85EA2D" },
+  "Swagger": { icon: SiSwagger, color: "#85EA2D" },
   "Postman": { icon: SiPostman, color: "#FF6C37" },
   "Insomnia": { icon: SiInsomnia, color: "#4000BF" },
   "Jest": { icon: SiJest, color: "#C21325" },
   "Cypress": { icon: SiCypress, color: "#17202C" },
 
-  // Others
+  // ── Others ──
   "Kafka": { icon: SiApachekafka, color: "#FFFFFF" },
   "Apache Kafka": { icon: SiApachekafka, color: "#FFFFFF" },
   "Razorpay": { icon: SiRazorpay, color: "#0C2451" },
+  "Razorpay API": { icon: SiRazorpay, color: "#0C2451" },
   "Stripe": { icon: SiStripe, color: "#635BFF" },
   "Zod": { icon: SiZod, color: "#3E67B1" },
-  "OpenAI": { icon: SiOpenai, color: "#412991" },
-  "PyTorch": { icon: SiPytorch, color: "#FF6C37" },
   "Vercel": { icon: SiVercel, color: "#ffffff" },
   "QR/Barcode Systems": { icon: QrCode, color: "#ffffff" },
 
-  // Version Control
+  // ── Version Control ──
   "GitHub": { icon: FaGithub, color: "#ffffff" },
 };
 
-export function getTechIcon(techName: string) {
-  return TECH_ICONS[techName];
+export function getTechIcon(techName: string): IconItem | undefined {
+  if (!techName) return undefined;
+  if (TECH_ICONS[techName]) return TECH_ICONS[techName];
+
+  // Case-insensitive & normalized lookup
+  const clean = techName.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const matchKey = Object.keys(TECH_ICONS).find(
+    (k) => k.toLowerCase().replace(/[^a-z0-9]/g, "") === clean
+  );
+  if (matchKey) return TECH_ICONS[matchKey];
+
+  return undefined;
 }

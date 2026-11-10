@@ -4,7 +4,7 @@ import {
   ArrowUpRight, Mail, ArrowLeft,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "../components/seo";
+import { SEO } from "../components/layout/seo";
 import { trackSocialClick } from "../lib/analytics";
 
 // ─── Animations ───

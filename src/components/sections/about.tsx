@@ -1,61 +1,30 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import CircularCarousel, { type CircularCarouselItem } from "./ui/circular-carousel";
-import { portfolioData } from "../data/portfolio";
+import CircularCarousel from "../ui/circular-carousel";
+import { portfolioData, aboutCarouselItems } from "../../data/portfolio";
 
-const CAROUSEL_ITEMS: CircularCarouselItem[] = [
-  {
-    src: "https://res.cloudinary.com/dgz7hqbl9/image/upload/w_600,c_limit,q_auto,f_auto/v1776017613/WhatsApp_Image_2026-04-12_at_11.41.15_PM_sxrxmm.jpg",
-    alt: "Atharva Kote — Java Backend Developer",
-    title: "Atharva Kote",
-    subtitle: "Software Engineer",
-  },
-  {
-    src: "/boat.jpg",
-    alt: "Mountain sunset horizon",
-    title: "Horizons",
-    subtitle: "Exploration",
-  },
-  {
-    src: "/green.png",
-    alt: "Milky way over snowy mountain peaks",
-    title: "Night Sky",
-    subtitle: "Vision",
-  },
-  // {
-  //   src: "/moon.png",
-  //   alt: "Milky way over snowy mountain peaks",
-  //   title: "Night Sky",
-  //   subtitle: "Vision",
-  // },
-  // {
-  //   src: "/tree.png",
-  //   alt: "Milky way over snowy mountain peaks",
-  //   title: "Night Sky",
-  //   subtitle: "Vision",
-  // },
-];
+const CAROUSEL_ITEMS = aboutCarouselItems;
 
 const SOCIAL_LINKS = [
   {
     name: "LinkedIn",
-    url: "https://www.linkedin.com/in/atharvakote",
+    url: portfolioData.socials.linkedin,
     icon: FaLinkedinIn,
   },
   {
     name: "GitHub",
-    url: "https://github.com/Atharvkote",
+    url: portfolioData.socials.github,
     icon: FaGithub,
   },
   {
     name: "X (Twitter)",
-    url: "https://x.com/ImAtharva81",
+    url: portfolioData.socials.twitter,
     icon: FaXTwitter,
   },
   {
     name: "Instagram",
-    url: "https://www.instagram.com/___atharv_81",
+    url: portfolioData.socials.instagram,
     icon: FaInstagram,
   },
 ];

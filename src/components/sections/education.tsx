@@ -9,7 +9,7 @@ import {
   School,
   CheckCircle2,
 } from "lucide-react";
-import { portfolioData } from "../data/portfolio";
+import { portfolioData } from "../../data/portfolio";
 
 export function Education() {
   const [btech, hsc, ssc] = portfolioData.education;

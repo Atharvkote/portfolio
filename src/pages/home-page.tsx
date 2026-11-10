@@ -1,20 +1,20 @@
 import { lazy, Suspense } from "react";
-import { Navbar } from "../components/navbar";
-import { SocialBar } from "../components/social-bar";
-import { QuickAccess } from "../components/quick-access";
-import { SEO } from "../components/seo";
-import { Hero } from "../components/hero";
+import { Navbar } from "../components/layout/navbar";
+import { SocialBar } from "../components/layout/social-bar";
+import { QuickAccess } from "../components/layout/quick-access";
+import { SEO } from "../components/layout/seo";
+import { Hero } from "../components/sections/hero";
 
 // Lazy loaded below-the-fold components for optimized initial load
-const About = lazy(() => import("../components/about").then((m) => ({ default: m.About })));
-const TechStack = lazy(() => import("../components/tech-stack").then((m) => ({ default: m.TechStack })));
-const Experience = lazy(() => import("../components/experience").then((m) => ({ default: m.Experience })));
-const Education = lazy(() => import("../components/education").then((m) => ({ default: m.Education })));
-const Projects = lazy(() => import("../components/project-showcase").then((m) => ({ default: m.Projects })));
-const GitHubContributionCalendar = lazy(() => import("../components/GitHubContributionCalendar").then((m) => ({ default: m.GitHubContributionCalendar })));
-const Contact = lazy(() => import("../components/contact").then((m) => ({ default: m.Contact })));
-const Footer = lazy(() => import("../components/contact").then((m) => ({ default: m.Footer })));
-const BackendDevops = lazy(() => import("../components/cards").then((m) => ({ default: m.BackendDevops })));
+const About = lazy(() => import("../components/sections/about").then((m) => ({ default: m.About })));
+const TechStack = lazy(() => import("../components/sections/tech-stack").then((m) => ({ default: m.TechStack })));
+const Experience = lazy(() => import("../components/sections/experience").then((m) => ({ default: m.Experience })));
+const Education = lazy(() => import("../components/sections/education").then((m) => ({ default: m.Education })));
+const Projects = lazy(() => import("../components/sections/project-showcase").then((m) => ({ default: m.Projects })));
+const GitHubContributionCalendar = lazy(() => import("../components/sections/github-contribution-calendar").then((m) => ({ default: m.GitHubContributionCalendar })));
+const Contact = lazy(() => import("../components/layout/contact").then((m) => ({ default: m.Contact })));
+const Footer = lazy(() => import("../components/layout/contact").then((m) => ({ default: m.Footer })));
+const BackendDevops = lazy(() => import("../components/sections/cards").then((m) => ({ default: m.BackendDevops })));
 
 export function HomePage() {
   return (

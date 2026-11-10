@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Navbar } from "../components/navbar";
-import { SocialBar } from "../components/social-bar";
-import { QuickAccess } from "../components/quick-access";
-import { Footer } from "../components/contact";
-import TechIcon from "../components/icon-provider";
-import { SEO } from "../components/seo";
+import { Navbar } from "../components/layout/navbar";
+import { SocialBar } from "../components/layout/social-bar";
+import { QuickAccess } from "../components/layout/quick-access";
+import { Footer } from "../components/layout/contact";
+import TechIcon from "../components/ui/icon-provider";
+import { SEO } from "../components/layout/seo";
 import {
-  ChevronRight, Search,
+  ChevronRight, Search, Sparkles,
 } from "lucide-react";
 import { skillSections, type SkillSection } from "../data/portfolio";
 
@@ -295,50 +295,71 @@ export function SkillsPage() {
         {/* ── Exploring ── */}
         <ExploringMarquee />
 
-        {/* ── Quote ── */}
-        <div className="max-w-3xl flex flex-col items-center gap-2 text-center  space-y-4">
+        {/* ── Quote / Philosophy Showcase ── */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="relative w-full max-w-2xl mx-auto mt-12 mb-8 p-8 sm:p-12 rounded-3xl border border-primary/25 bg-gradient-to-b from-bg-card/90 via-bg-card/50 to-bg-elevated/30 backdrop-blur-xl shadow-[0_0_60px_rgba(1,216,180,0.07)] overflow-hidden text-center select-none"
+        >
+          {/* Ambient background glows */}
+          <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-36 bg-primary/15 rounded-full blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 left-1/2 -translate-x-1/2 w-80 h-36 bg-primary/10 rounded-full blur-3xl" />
 
-          {/* Top line */}
-          <div className="flex items-center gap-4">
-            <div className="flex gap-1">
-              <div className="w-6 h-10 bg-gray-700 skew-x-[-20deg] opacity-50"></div>
-              <div className="w-6 h-10 bg-gray-700 skew-x-[-20deg] opacity-30"></div>
+          {/* Top line: Stylized Cyber Code Slashes + Development: Turning */}
+          <div className="relative z-10 flex items-center justify-center gap-3 mb-4">
+            <div className="flex gap-1.5 items-center">
+              <span className="w-2 sm:w-2.5 h-7 sm:h-8 -skew-x-[20deg] rounded-sm bg-primary shadow-[0_0_14px_var(--color-primary-glow)] block" />
+              <span className="w-2 sm:w-2.5 h-7 sm:h-8 -skew-x-[20deg] rounded-sm bg-primary/35 block" />
             </div>
-
-            <p className="text-4xl font-semibold md:text-4xl italic text-gray-400">
-              Development: Turning
-            </p>
-          </div>
-
-          <div className="flex justify-center flex-col gap-3 ">
-
-            {/* Coffee into Code */}
-            <div className="flex items-center gap-4 justify-center text-center">
-              <div className="h-[2px] w-16 bg-gray-600"></div>
-
-              <p className="text-4xl md:text-5xl font-semibold font-display">
-                <span className="bg-gradient-to-r from-primary to-primary-light text-transparent bg-clip-text">
-                  Coffee
-                </span>{" "}
-                <span className="text-gray-400">into</span>{" "}
-                <span className="text-primary px-3 py-1 rounded-lg">
-                  Code
-                </span>
-              </p>
-
-              <div className="h-[2px] w-16 bg-gray-600"></div>
-            </div>
-
-            {/* then Magic */}
-            <p className="text-4xl md:text-5xl font-semibold font-display">
-              <span className="text-gray-400">then </span>
-              <span className="bg-primary text-bg font-bold px-3 py-1 rounded-lg">
-                Magic.
+            <p className="text-2xl sm:text-3xl md:text-4xl font-display font-medium italic text-text-secondary tracking-tight">
+              Development:{" "}
+              <span className="text-text-primary not-italic font-semibold">
+                Turning
               </span>
             </p>
           </div>
 
-        </div>
+          {/* Middle: Coffee into Code with gradient divider lines */}
+          <div className="relative z-10 flex items-center justify-center gap-3 sm:gap-5 my-3">
+            <div className="h-[1.5px] w-8 sm:w-16 bg-gradient-to-r from-transparent via-primary/50 to-primary/20 rounded-full" />
+
+            <div className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight flex items-baseline gap-2.5 sm:gap-3">
+              <span className="bg-gradient-to-r from-primary via-primary-light to-white bg-clip-text text-transparent drop-shadow-[0_0_18px_var(--color-primary-glow)]">
+                Coffee
+              </span>
+              <span className="badone-font italic font-normal text-text-muted text-2xl sm:text-3xl md:text-4xl">
+                into
+              </span>
+              <span className="text-text-primary">
+                Code
+              </span>
+            </div>
+
+            <div className="h-[1.5px] w-8 sm:w-16 bg-gradient-to-l from-transparent via-primary/50 to-primary/20 rounded-full" />
+          </div>
+
+          {/* Bottom: then Magic. */}
+          <div className="relative z-10 flex items-center justify-center gap-3 mt-3">
+            <span className="badone-font italic font-normal text-text-muted text-2xl sm:text-3xl md:text-4xl">
+              then
+            </span>
+            <span className="relative inline-flex items-center gap-2 px-5 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-primary via-primary-light to-primary text-black font-display font-extrabold text-2xl sm:text-3xl md:text-4xl tracking-tight shadow-[0_0_30px_var(--color-primary-glow)] hover:shadow-[0_0_45px_var(--color-primary-glow)] hover:scale-105 transition-all duration-300">
+              <Sparkles size={22} className="text-black/85 shrink-0" />
+              <span>Magic.</span>
+            </span>
+          </div>
+
+          {/* Subtle cyber metadata footer */}
+          <div className="relative z-10 mt-7 pt-5 border-t border-border/40 flex items-center justify-center gap-2 font-mono text-[11px] tracking-widest text-text-dim uppercase">
+            <span>0xCOFFEE</span>
+            <span className="text-primary font-bold">→</span>
+            <span>0xBYTECODE</span>
+            <span className="text-primary font-bold">→</span>
+            <span className="text-primary font-semibold">0xIMPACT</span>
+          </div>
+        </motion.div>
       </main>
 
       <Footer />

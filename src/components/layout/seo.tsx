@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { updateSEO } from "../lib/seo";
+import { updateSEO } from "../../lib/seo";
 
 interface SEOProps {
   title?: string;

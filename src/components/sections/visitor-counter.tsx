@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { recordVisitor } from "../lib/visitor";
+import { recordVisitor } from "../../lib/visitor";
 import { Users } from "lucide-react";
 
 interface VisitorCounterProps {

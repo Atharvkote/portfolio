@@ -1,9 +1,37 @@
+import React from "react";
 import {
-  Code2, Server, Cloud, Braces,
+  Code2,
+  Server,
+  Cloud,
+  Braces,
+  Sparkles,
+  ShieldCheck,
+  Zap,
+  Network,
+  Database,
+  Activity,
+  Lock,
+  QrCode,
+  Cpu,
+  Radio,
+  Layers,
+  Workflow,
+  ArrowRightLeft,
+  KeyRound,
+  ScrollText,
 } from "lucide-react";
-import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedinIn,
+  FaDocker,
+} from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { SiLeetcode, SiStackoverflow } from "react-icons/si";
+import {
+  SiLeetcode,
+  SiStackoverflow,
+  SiApachekafka,
+} from "react-icons/si";
 import type { IconType } from "react-icons";
 
 // ─── Link Item Interface ───
@@ -20,8 +48,65 @@ export interface SkillSection {
   title: string;
   subtitle: string;
   description: string;
-  icon: React.FC<{ size?: number; className?: string }>;
+  icon: React.FC<{ size?: number; className?: string }> | React.ComponentType<{ size?: number; className?: string }>;
   skills: string[];
+}
+
+// ─── Project Pillar Interface ───
+export interface ProjectPillar {
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  title: string;
+  desc: string;
+}
+
+// ─── Project Item Interface ───
+export interface ProjectItem {
+  id: string;
+  name: string;
+  tabTitle: string;
+  tabSubtitle: string;
+  badge: string;
+  title: string;
+  slug: string;
+  duration: string;
+  description: string;
+  highlights: string[];
+  tech: string[];
+  github: string;
+  link: string;
+  liveUrl?: string;
+  githubUrl: string;
+  featured: boolean;
+  logo: string;
+  imagePrimary: string;
+  imageSecondary: string;
+  imageOne: string;
+  imageTwo: string;
+  pillars: ProjectPillar[];
+}
+
+// ─── Architecture Tab Item Interface ───
+export interface BackendTabItem {
+  id: string;
+  title: string;
+  desc: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+}
+
+export interface BackendTab {
+  id: string;
+  label: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  metric: string;
+  items: BackendTabItem[];
+}
+
+// ─── About Carousel Item Interface ───
+export interface CarouselItem {
+  src: string;
+  alt: string;
+  title: string;
+  subtitle: string;
 }
 
 // Icon components for skill sections
@@ -47,14 +132,59 @@ export const portfolioData = {
   about:
     "Passionate about building impactful software that bridges technology and real-world challenges. Expertise in web development, cloud computing, DevOps, and cybersecurity. Dedicated to crafting scalable and user-centric solutions.",
   skills: [
-    { category: "Languages", items: ["Java", "JavaScript", "PHP", "SQL"] },
     {
-      category: "Frameworks",
-      items: ["React", "Next.js", "Node.js", "Tailwind CSS"],
+      category: "Backend Engineering",
+      items: [
+        "Spring Boot",
+        "Spring Security",
+        "Spring Data JPA",
+        "Hibernate",
+        "Flyway",
+        "REST APIs",
+        "Node.js",
+        "Express",
+        "Swagger Docs",
+        "Postman",
+        "Socket.IO",
+      ],
     },
     {
-      category: "Tools",
-      items: ["IoT (Arduino, ESP32)", "Cloud Computing", "DSA (200+ LeetCode)", "Bootstrap"],
+      category: "Frontend",
+      items: ["React", "Next.js", "Vite", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
+    },
+    {
+      category: "Databases",
+      items: ["PostgreSQL", "MongoDB", "Redis", "MySQL"],
+    },
+    {
+      category: "DevOps & Monitoring",
+      items: ["Docker", "AWS", "Jenkins", "GitHub Actions", "Prometheus", "Grafana", "Loki"],
+    },
+    {
+      category: "Messaging & Streaming",
+      items: ["Apache Kafka", "RabbitMQ"],
+    },
+    {
+      category: "Security & Tools",
+      items: [
+        "OWASP Top 10",
+        "Burp Suite",
+        "Nmap",
+        "Kali Linux",
+        "Metasploit",
+        "Wireshark",
+        "Splunk",
+        "Snort",
+        "ELK Stack",
+      ],
+    },
+    {
+      category: "Languages",
+      items: ["Java", "JavaScript", "TypeScript", "Python", "SQL"],
+    },
+    {
+      category: "AI Coding Agents",
+      items: ["Claude", "GitHub Copilot", "Cursor", "Ollama", "Antigravity"],
     },
   ],
   // ── Detailed Skills for Skills Page ──
@@ -171,43 +301,46 @@ export const portfolioData = {
         skills: [
           { name: "Java", level: 90 },
           { name: "JavaScript", level: 85 },
-          { name: "TypeScript", level: 75 },
+          { name: "TypeScript", level: 80 },
           { name: "PHP", level: 70 },
-          { name: "SQL", level: 80 },
-          { name: "Python", level: 65 },
+          { name: "SQL", level: 85 },
+          { name: "Python", level: 75 },
         ],
       },
       {
         name: "Frontend",
         skills: [
-          { name: "React", level: 88 },
-          { name: "Next.js", level: 80 },
+          { name: "React", level: 90 },
+          { name: "Next.js", level: 85 },
           { name: "HTML/CSS", level: 95 },
-          { name: "Tailwind CSS", level: 90 },
-          { name: "Bootstrap", level: 85 },
-          { name: "Framer Motion", level: 70 },
+          { name: "Tailwind CSS", level: 92 },
+          { name: "shadcn/ui", level: 88 },
+          { name: "Framer Motion", level: 82 },
         ],
       },
       {
         name: "Backend & Database",
         skills: [
-          { name: "Node.js", level: 82 },
-          { name: "Express.js", level: 80 },
-          { name: "MySQL", level: 78 },
-          { name: "Firebase", level: 75 },
-          { name: "MongoDB", level: 70 },
-          { name: "REST APIs", level: 85 },
+          { name: "Spring Boot", level: 90 },
+          { name: "Spring Security", level: 85 },
+          { name: "Hibernate / JPA", level: 85 },
+          { name: "Node.js", level: 85 },
+          { name: "Express.js", level: 82 },
+          { name: "PostgreSQL", level: 88 },
+          { name: "Redis", level: 85 },
+          { name: "MongoDB", level: 80 },
+          { name: "REST APIs", level: 90 },
         ],
       },
       {
         name: "DevOps & Tools",
         skills: [
-          { name: "Git & GitHub", level: 90 },
-          { name: "Docker", level: 65 },
-          { name: "Linux", level: 70 },
-          { name: "VS Code", level: 95 },
-          { name: "Arduino / ESP32", level: 80 },
-          { name: "Cloud Computing", level: 72 },
+          { name: "Docker", level: 82 },
+          { name: "Apache Kafka", level: 85 },
+          { name: "GitHub Actions", level: 85 },
+          { name: "AWS EC2 / S3", level: 80 },
+          { name: "Linux / Kali Linux", level: 82 },
+          { name: "Prometheus & Grafana", level: 78 },
         ],
       },
     ],
@@ -276,19 +409,27 @@ export const portfolioData = {
       status: "Completed",
     },
   ],
+  // ── 4 Flagship Projects (Curated, Complete & Unified) ──
   projects: [
+    // 1. JQube — AI-Assisted DevSecOps Platform (Featured)
     {
-      "logo": "ShieldCheck",
-      "title": "JQube — AI-Assisted DevSecOps Platform",
-      "duration": "Jan 2026 – Present",
-      "description": "A policy-controlled, AI-assisted DevSecOps platform that detects vulnerabilities and generates verified remediation PRs for GitHub workflows.",
-      "highlights": [
+      id: "jqube",
+      name: "JQube",
+      tabTitle: "JQube",
+      tabSubtitle: "AI DevSecOps Platform",
+      badge: "FEATURED PROJECT",
+      title: "JQube — AI-Assisted DevSecOps Platform",
+      slug: "jqube",
+      duration: "Jan 2026 – Present",
+      description:
+        "A policy-controlled, AI-assisted DevSecOps platform that detects vulnerabilities and generates verified remediation PRs for GitHub workflows.",
+      highlights: [
         "Automated SAST scans with Semgrep, Gitleaks, and Trivy",
         "AI remediation: Generate, validate and raise secure pull requests",
         "Enforce organizational security and review policies",
-        "Asynchronous & scalable queue-based scan pipeline with Kafka"
+        "Asynchronous & scalable queue-based scan pipeline with Kafka",
       ],
-      "tech": [
+      tech: [
         "Java",
         "Spring Boot",
         "Spring Security",
@@ -296,64 +437,127 @@ export const portfolioData = {
         "PostgreSQL",
         "Redis",
         "Apache Kafka",
-        "GitHub Actions"
+        "GitHub Actions",
       ],
-      "github": "https://github.com/Atharvkote",
-      "link": "https://github.com/Atharvkote",
-      "featured": true,
-      "imageOne": "/jqube.png",
-      "imageTwo": "/jqube.png"
+      github: "https://github.com/Atharvkote",
+      link: "https://github.com/Atharvkote",
+      liveUrl: "https://github.com/Atharvkote",
+      githubUrl: "https://github.com/Atharvkote",
+      featured: true,
+      logo: "ShieldCheck",
+      imagePrimary: "/jqube.png",
+      imageSecondary: "/jqube-preview.png",
+      imageOne: "/jqube.png",
+      imageTwo: "/jqube-preview.png",
+      pillars: [
+        {
+          icon: Code2,
+          title: "Automated Scanning",
+          desc: "SAST scans with Semgrep, Gitleaks and Trivy.",
+        },
+        {
+          icon: Sparkles,
+          title: "AI Remediation",
+          desc: "Generate, validate and raise secure pull requests.",
+        },
+        {
+          icon: ShieldCheck,
+          title: "Policy Control",
+          desc: "Enforce security and review policies at organization level.",
+        },
+        {
+          icon: Zap,
+          title: "Asynchronous & Scalable",
+          desc: "Queue-based, resilient and production ready.",
+        },
+      ],
     },
+
+    // 2. VenDeX — Distributed Microservices Architecture with Apache Kafka
     {
-      "logo": "Kafka",
-      "title": "Distributed Microservices Architecture with Apache Kafka",
-      "duration": "Ongoing",
-      "description": "Event-driven microservices system with Kafka-based communication, Redis caching, and full observability stack.",
-      "highlights": [
+      id: "vendex",
+      name: "VenDeX",
+      tabTitle: "VenDeX",
+      tabSubtitle: "Kafka Microservices Mesh",
+      badge: "EVENT-DRIVEN ARCHITECTURE",
+      title: "VenDeX — Kafka Microservices Mesh",
+      slug: "vendex",
+      duration: "Ongoing",
+      description:
+        "High-throughput event-driven microservices architecture powered by Apache Kafka, Redis cluster caching, and Kong API Gateway with sub-20ms distributed message dispatch.",
+      highlights: [
         "Improved response times by 70% using Redis caching",
         "Handled 10,000+ messages per minute via 3-node Kafka cluster",
         "Implemented JWT-RS256 secure inter-service authentication",
         "Centralized routing with Kong API Gateway",
         "Built CI/CD pipelines using Jenkins and GitHub Actions",
-        "Integrated Prometheus, Grafana, and Loki for monitoring"
+        "Integrated Prometheus, Grafana, and Loki for monitoring",
       ],
-      "tech": [
-        "React.js",
+      tech: [
         "Node.js",
         "Express.js",
-        "Redis",
         "Apache Kafka",
-        "Socket.io",
+        "Redis",
         "Docker",
         "MongoDB",
-        "AWS EC2",
-        "AWS S3",
         "Kong API Gateway",
-        "Jenkins",
-        "GitHub Actions",
-        "Prometheus",
-        "Grafana",
-        "Loki",
-        "JWT-RS256"
+        "JWT-RS256",
       ],
-      "github": "https://github.com/Atharvkote",
-      "link": "#",
-      "featured": true,
-      "imageOne": "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png",
-      "imageTwo": "/vednex2.png"
+      github: "https://github.com/Atharvkote",
+      link: "https://github.com/Atharvkote",
+      liveUrl: "https://github.com/Atharvkote",
+      githubUrl: "https://github.com/Atharvkote",
+      featured: true,
+      logo: "Kafka",
+      imagePrimary: "/vednex2.png",
+      imageSecondary:
+        "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png",
+      imageOne: "/vednex2.png",
+      imageTwo:
+        "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png",
+      pillars: [
+        {
+          icon: Network,
+          title: "Kafka Event Streaming",
+          desc: "10,000+ messages/min across 3-node quorum cluster.",
+        },
+        {
+          icon: Database,
+          title: "Redis Cache-Aside",
+          desc: "70% latency cut via pub/sub caching & invalidation.",
+        },
+        {
+          icon: Lock,
+          title: "Zero-Trust RS256",
+          desc: "Asymmetric cryptographic inter-service authentication.",
+        },
+        {
+          icon: Activity,
+          title: "Full Observability",
+          desc: "Prometheus, Grafana and Loki tracing pipeline.",
+        },
+      ],
     },
+
+    // 3. ConcertSync — Ticket Booking Platform for Live Concerts
     {
-      "logo": "React.js",
-      "title": "Ticket Booking Platform for Live Concerts",
-      "duration": "Feb 2025 – Mar 2025",
-      "description": "Scalable full-stack ticketing platform with barcode-based entry verification, dynamic seat allocation, and real-time analytics dashboards.",
-      "highlights": [
+      id: "concertsync",
+      name: "ConcertSync",
+      tabTitle: "ConcertSync",
+      tabSubtitle: "Live Concert Ticketing",
+      badge: "HIGH-CONCURRENCY TICKETING",
+      title: "ConcertSync — Live Concert Ticketing Platform",
+      slug: "concertsync",
+      duration: "Feb 2025 – Mar 2025",
+      description:
+        "Scalable full-stack ticketing platform engineered for high-concurrency seat reservation, offline HMAC-SHA256 encrypted QR gate verification, and real-time sales analytics.",
+      highlights: [
         "Handled 11,000+ user registrations with high availability",
         "Reduced entry delays by 60% using barcode verification",
         "Processed 2,000+ ticket transactions with real-time analytics",
-        "Optimized backend for peak concurrent traffic handling"
+        "Optimized backend for peak concurrent traffic handling",
       ],
-      "tech": [
+      tech: [
         "React.js",
         "Node.js",
         "Express.js",
@@ -361,59 +565,238 @@ export const portfolioData = {
         "AWS EC2",
         "AWS S3",
         "Socket.io",
-        "QR/Barcode Systems",
-        "Docker"
+        "Docker",
       ],
-      "github": "https://github.com/Atharvkote",
-      "link": "#",
-      "featured": true,
-      "imageOne": "/Ticket-1.jpg",
-      "imageTwo": "/Ticket.jpg"
-
+      github: "https://github.com/Atharvkote",
+      link: "https://github.com/Atharvkote",
+      liveUrl: "https://github.com/Atharvkote",
+      githubUrl: "https://github.com/Atharvkote",
+      featured: true,
+      logo: "React.js",
+      imagePrimary: "/Ticket.jpg",
+      imageSecondary: "/Ticket-1.jpg",
+      imageOne: "/Ticket.jpg",
+      imageTwo: "/Ticket-1.jpg",
+      pillars: [
+        {
+          icon: QrCode,
+          title: "Offline HMAC QR Scans",
+          desc: "Turnstile verification in < 180ms slashing gate delay by 60%.",
+        },
+        {
+          icon: Lock,
+          title: "Atomic Seat Holds",
+          desc: "Concurrency-safe TTL locks preventing double bookings.",
+        },
+        {
+          icon: Server,
+          title: "11,000+ Ingress Peak",
+          desc: "High availability during flash registration drops.",
+        },
+        {
+          icon: Cloud,
+          title: "AWS EC2 Deployment",
+          desc: "Containerized micro-services with automated S3 snapshots.",
+        },
+      ],
     },
+
+    // 4. FoodDash AI — AI-Powered Contactless Ordering & Recommendation System
     {
-      "logo": "PyTorch",
-      "title": "AI-Powered Contactless Ordering & Recommendation System",
-      "duration": "Apr 2025 – Jun 2025",
-      "description": "Contactless dining platform with QR-based ordering and AI-driven menu recommendations.",
-      "highlights": [
+      id: "fooddash",
+      name: "FoodDash AI",
+      tabTitle: "FoodDash AI",
+      tabSubtitle: "Dining & Smart Kitchen",
+      badge: "EDGE AI & REAL-TIME DINING",
+      title: "FoodDash AI — Contactless Dining & Kitchen Platform",
+      slug: "fooddash-ai",
+      duration: "Apr 2025 – Jun 2025",
+      description:
+        "Contactless dining and smart kitchen platform with QR-based instant ordering, client-side TensorFlow.js recommendation engine, and real-time WebSocket kitchen display.",
+      highlights: [
         "Improved table turnover by 35%",
         "Built AI recommendation engine using TensorFlow.js",
         "Processed 500+ transactions with 99.8% success rate",
         "Implemented real-time order tracking with Socket.io",
-        "Integrated TOTP-based authentication and Razorpay payments"
+        "Integrated TOTP-based authentication and Razorpay payments",
       ],
-      "tech": [
+      tech: [
         "Next.js",
         "Express.js",
         "MongoDB",
-        "Razorpay API",
+        "TensorFlow.js",
         "Socket.io",
+        "Razorpay API",
         "Tailwind CSS",
         "Firebase",
-        "REST APIs",
-        "TensorFlow.js"
       ],
-      "github": "https://github.com/Atharvkote",
-      "link": "#",
-      "featured": true,
-      "imageOne": "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1777659486/FD-1_y8pi1t.png",
-      "imageTwo": "/FD-2.png"
-    }
-
-  ]
+      github: "https://github.com/Atharvkote",
+      link: "https://github.com/Atharvkote",
+      liveUrl: "https://github.com/Atharvkote",
+      githubUrl: "https://github.com/Atharvkote",
+      featured: true,
+      logo: "PyTorch",
+      imagePrimary: "/FD-1.png",
+      imageSecondary: "/FD-2.png",
+      imageOne: "/FD-1.png",
+      imageTwo: "/FD-2.png",
+      pillars: [
+        {
+          icon: Cpu,
+          title: "Client-Side TensorFlow.js",
+          desc: "On-device AI recommendation model serving picks in < 120ms.",
+        },
+        {
+          icon: Zap,
+          title: "35% Faster Turnover",
+          desc: "QR self-ordering pipeline eliminating ordering friction.",
+        },
+        {
+          icon: ShieldCheck,
+          title: "Idempotent Webhooks",
+          desc: "500+ live transactions with 99.8% Razorpay success rate.",
+        },
+        {
+          icon: Radio,
+          title: "Real-Time KDS Push",
+          desc: "Instant WebSocket synchronization directly to kitchen stations.",
+        },
+      ],
+    },
+  ] as ProjectItem[],
 };
 
-// ─── Skill Sections for Skills Page ───
-export interface SkillSection {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  icon: React.FC<{ size?: number; className?: string }>;
-  skills: string[];
-}
+// ─── Architecture Tabs for Backend & DevOps Component ───
+export const backendTabs: BackendTab[] = [
+  {
+    id: "architecture",
+    label: "Architecture",
+    icon: Layers,
+    metric: "Modular & Decoupled",
+    items: [
+      {
+        id: "monolith",
+        title: "Monolith Architecture",
+        desc: "Layered domain structure with high cohesion and fast in-memory execution.",
+        icon: Layers,
+      },
+      {
+        id: "microservice",
+        title: "Microservices",
+        desc: "Independent service boundaries with gRPC/REST APIs and resilient isolation.",
+        icon: Network,
+      },
+      {
+        id: "worker-based",
+        title: "Worker-Based Architecture",
+        desc: "Background job consumers and task queues offloading heavy operations.",
+        icon: Workflow,
+      },
+    ],
+  },
+  {
+    id: "data",
+    label: "Data Flow",
+    icon: Zap,
+    metric: "< 15ms Latency",
+    items: [
+      {
+        id: "async-pipeline",
+        title: "Async Data Pipeline",
+        desc: "Asynchronous stream ingestion ensuring zero request-response blocking.",
+        icon: ArrowRightLeft,
+      },
+      {
+        id: "high-throughput",
+        title: "High Throughput Data Pipeline",
+        desc: "Connection pooling, batch serialization, and low-latency data throughput.",
+        icon: Zap,
+      },
+      {
+        id: "cache-optimization",
+        title: "Cache Optimization",
+        desc: "Distributed caching with LRU eviction and smart cache invalidation.",
+        icon: Database,
+      },
+    ],
+  },
+  {
+    id: "security",
+    label: "Security",
+    icon: ShieldCheck,
+    metric: "Zero-Trust Guard",
+    items: [
+      {
+        id: "zero-trust",
+        title: "Zero Trust Architecture",
+        desc: "Mutual TLS, continuous verification, and end-to-end cryptographic guardrails.",
+        icon: ShieldCheck,
+      },
+      {
+        id: "iam",
+        title: "IAM & Access Control",
+        desc: "Granular role-based policies, least-privilege tokens, and secure auth flows.",
+        icon: KeyRound,
+      },
+      {
+        id: "log-audits",
+        title: "Log Audits & Compliance",
+        desc: "Immutable audit trails, structured security logging, and anomaly alerts.",
+        icon: ScrollText,
+      },
+    ],
+  },
+  {
+    id: "scaling",
+    label: "Scaling",
+    icon: Server,
+    metric: "Auto-Scaled Cluster",
+    items: [
+      {
+        id: "kafka",
+        title: "Kafka Event Streaming",
+        desc: "Partitioned distributed event logs for massive parallel event delivery.",
+        icon: SiApachekafka,
+      },
+      {
+        id: "async-processing",
+        title: "Async Processing",
+        desc: "Non-blocking event loop workers handling concurrent spikes seamlessly.",
+        icon: Cpu,
+      },
+      {
+        id: "docker-replication",
+        title: "Docker Replication",
+        desc: "Container replica sets and horizontal autoscaling across multi-zones.",
+        icon: FaDocker,
+      },
+    ],
+  },
+];
 
+// ─── Carousel Items for About Section ───
+export const aboutCarouselItems: CarouselItem[] = [
+  {
+    src: "https://res.cloudinary.com/dgz7hqbl9/image/upload/w_600,c_limit,q_auto,f_auto/v1776017613/WhatsApp_Image_2026-04-12_at_11.41.15_PM_sxrxmm.jpg",
+    alt: "Atharva Kote — Java Backend Developer",
+    title: "Atharva Kote",
+    subtitle: "Software Engineer",
+  },
+  {
+    src: "/boat.jpg",
+    alt: "Mountain sunset horizon",
+    title: "Horizons",
+    subtitle: "Exploration",
+  },
+  {
+    src: "/green.png",
+    alt: "Milky way over snowy mountain peaks",
+    title: "Night Sky",
+    subtitle: "Vision",
+  },
+];
+
+// ─── Skill Sections for Skills Page ───
 export const skillSections: SkillSection[] = [
   {
     id: "backend",
@@ -423,13 +806,26 @@ export const skillSections: SkillSection[] = [
       "Building event-driven microservices, real-time communication layers, caching pipelines, and robust API architectures designed for scale.",
     icon: SkillIcons.Server,
     skills: [
-      "Spring Boot", "Hibernate", "Flyway", "RabbitMQ", "Node.js", "Socket.io", "Apache Kafka", "Redis",
-      "PostgreSQL", "MongoDB", "MySQL",
-      "Razorpay",
+      "Spring Boot",
+      "Spring Security",
+      "Spring Data JPA",
+      "Hibernate",
+      "Flyway",
+      "Node.js",
+      "Express",
+      "REST APIs",
+      "Socket.IO",
+      "Apache Kafka",
+      "RabbitMQ",
+      "Redis",
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "Swagger Docs",
+      "Postman",
     ],
   },
   {
-
     id: "frontend",
     title: "Front-End",
     subtitle: "Pixel-Perfect & Interactive UIs",
@@ -437,20 +833,59 @@ export const skillSections: SkillSection[] = [
       "Crafting responsive, animated, and accessible user interfaces with modern component-driven frameworks.",
     icon: SkillIcons.Code2,
     skills: [
-      "React.js", "Next.js", "Redux", "Tailwind CSS", "SASS", "Vite", "Electron",
+      "React.js",
+      "Next.js",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Framer Motion",
+      "HTML/CSS",
+      "Bootstrap",
     ],
   },
   {
     id: "devops",
-    title: "DevOps & Monitering",
+    title: "DevOps & Monitoring",
     subtitle: "Automated CI/CD & Infrastructure",
     description:
       "Containerization, orchestration, monitoring, and cloud-native infrastructure for zero-downtime delivery.",
     icon: SkillIcons.Cloud,
     skills: [
-      "Docker", "Kubernetes", "AWS EC2", "AWS S3", "Terraform",
-      "GitHub Actions", "Jenkins", "NGINX", "Cloudflare",
-      "Prometheus", "Grafana", "Loki", "Linux", "Ubuntu",
+      "Docker",
+      "Kubernetes",
+      "AWS EC2",
+      "AWS S3",
+      "Terraform",
+      "GitHub Actions",
+      "Jenkins",
+      "NGINX",
+      "Cloudflare",
+      "Prometheus",
+      "Grafana",
+      "Loki",
+      "Linux",
+      "Ubuntu",
+    ],
+  },
+  {
+    id: "security",
+    title: "Cybersecurity & Tools",
+    subtitle: "Application Security & Threat Detection",
+    description:
+      "Penetration testing, application security, network auditing, and real-time threat detection.",
+    icon: ShieldCheck,
+    skills: [
+      "OWASP Top 10",
+      "Burp Suite",
+      "Nmap",
+      "Kali Linux",
+      "Metasploit",
+      "Wireshark",
+      "Splunk",
+      "Snort",
+      "ELK Stack",
+      "JWT-RS256",
     ],
   },
   {
@@ -460,9 +895,16 @@ export const skillSections: SkillSection[] = [
     description:
       "The foundational languages I write production code in — from systems to scripting to full-stack web.",
     icon: SkillIcons.Braces,
-    skills: [
-      "Java", "JavaScript", "YAML", "Bash",
-    ],
+    skills: ["Java", "JavaScript", "TypeScript", "Python", "SQL", "YAML", "Bash"],
+  },
+  {
+    id: "ai",
+    title: "AI & Modern Tooling",
+    subtitle: "Autonomous Agents & Machine Learning",
+    description:
+      "Client-side ML models, AI-assisted development workflows, and pair-programming agents.",
+    icon: Zap,
+    skills: ["TensorFlow.js", "Claude", "GitHub Copilot", "Cursor", "Ollama", "Antigravity"],
   },
 ];
 

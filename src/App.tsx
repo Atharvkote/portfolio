@@ -1,7 +1,7 @@
 import { useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
-import { Loader } from "./components/loader";
+import { Loader } from "./components/layout/loader";
 import Option from "./lib/toast";
 import { Toaster } from "sonner";
 import { initGA, trackPageView } from "./lib/analytics";
@@ -89,8 +89,12 @@ function AppContent() {
 
       <Suspense
         fallback={
-          <div className="min-h-screen bg-bg flex items-center justify-center">
-            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          <div className="min-h-screen bg-bg flex flex-col items-center justify-center gap-3 select-none">
+            <div className="relative w-8 h-8 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full border border-primary/20" />
+              <div className="absolute inset-0 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+            </div>
+            <span className="font-mono text-[11px] text-primary/70 tracking-widest uppercase">Loading route...</span>
           </div>
         }
       >

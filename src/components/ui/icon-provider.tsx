@@ -1,6 +1,7 @@
 // TechIcon.tsx
 import React from "react";
-import { TECH_ICONS } from "../lib/tech-icons";
+import { getTechIcon, TECH_ICONS } from "../../lib/tech-icons";
+import { Code2 } from "lucide-react";
 
 interface Props {
   name: string;
@@ -17,9 +18,19 @@ const TechIcon: React.FC<Props> = ({
   "aria-hidden": ariaHidden = true,
   "aria-label": ariaLabel,
 }) => {
-  const tech = TECH_ICONS[name];
+  const tech = getTechIcon(name) || TECH_ICONS[name];
 
-  if (!tech) return null;
+  if (!tech) {
+    return (
+      <Code2
+        size={size}
+        color="#01d8b4"
+        className={className}
+        aria-hidden={ariaHidden ? "true" : undefined}
+        aria-label={!ariaHidden ? ariaLabel || name : undefined}
+      />
+    );
+  }
 
   const Icon = tech.icon;
 
@@ -29,7 +40,7 @@ const TechIcon: React.FC<Props> = ({
       color={tech.color}
       className={className}
       aria-hidden={ariaHidden ? "true" : undefined}
-      aria-label={!ariaHidden ? (ariaLabel || name) : undefined}
+      aria-label={!ariaHidden ? ariaLabel || name : undefined}
     />
   );
 };

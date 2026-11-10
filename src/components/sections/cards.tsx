@@ -4,28 +4,19 @@ import { SiGmail } from "react-icons/si";
 
 import {
   Server,
-  ShieldCheck,
-  Zap,
-  Layers,
   Copy,
   Check,
   ArrowUpRight,
   Radio,
-  Network,
-  Workflow,
-  ArrowRightLeft,
-  Database,
-  KeyRound,
-  ScrollText,
-  Cpu,
   Book,
 } from "lucide-react";
-import { FaLinkedinIn, FaDocker, FaGithub, FaInstagram } from "react-icons/fa";
+import { FaLinkedinIn, FaGithub, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { SiApachekafka, SiLeetcode } from "react-icons/si";
+import { SiLeetcode } from "react-icons/si";
 import { toast } from "sonner";
-import CrystalizedBall from "./ui/crystalized-ball";
-import Shredder from "./ui/shredder";
+import CrystalizedBall from "../ui/crystalized-ball";
+import Shredder from "../ui/shredder";
+import { backendTabs, portfolioData } from "../../data/portfolio";
 
 export function BackendDevops() {
   const [copied, setCopied] = useState(false);
@@ -66,148 +57,29 @@ export function BackendDevops() {
     hour12: true,
   });
 
-  // Tab data with exact items requested by the user
-  const backendTabs: Array<{
-    id: string;
-    label: string;
-    icon: React.ComponentType<{ size?: number; className?: string }>;
-    metric: string;
-    items: Array<{
-      id: string;
-      title: string;
-      desc: string;
-      icon: React.ComponentType<{ size?: number; className?: string }>;
-    }>;
-  }> = [
-      {
-        id: "architecture",
-        label: "Architecture",
-        icon: Layers,
-        metric: "Modular & Decoupled",
-        items: [
-          {
-            id: "monolith",
-            title: "Monolith Architecture",
-            desc: "Layered domain structure with high cohesion and fast in-memory execution.",
-            icon: Layers,
-          },
-          {
-            id: "microservice",
-            title: "Microservices",
-            desc: "Independent service boundaries with gRPC/REST APIs and resilient isolation.",
-            icon: Network,
-          },
-          {
-            id: "worker-based",
-            title: "Worker-Based Architecture",
-            desc: "Background job consumers and task queues offloading heavy operations.",
-            icon: Workflow,
-          },
-        ],
-      },
-      {
-        id: "data",
-        label: "Data Flow",
-        icon: Zap,
-        metric: "< 15ms Latency",
-        items: [
-          {
-            id: "async-pipeline",
-            title: "Async Data Pipeline",
-            desc: "Asynchronous stream ingestion ensuring zero request-response blocking.",
-            icon: ArrowRightLeft,
-          },
-          {
-            id: "high-throughput",
-            title: "High Throughput Data Pipeline",
-            desc: "Connection pooling, batch serialization, and low-latency data throughput.",
-            icon: Zap,
-          },
-          {
-            id: "cache-optimization",
-            title: "Cache Optimization",
-            desc: "Distributed caching with LRU eviction and smart cache invalidation.",
-            icon: Database,
-          },
-        ],
-      },
-      {
-        id: "security",
-        label: "Security",
-        icon: ShieldCheck,
-        metric: "Zero-Trust Guard",
-        items: [
-          {
-            id: "zero-trust",
-            title: "Zero Trust Architecture",
-            desc: "Mutual TLS, continuous verification, and end-to-end cryptographic guardrails.",
-            icon: ShieldCheck,
-          },
-          {
-            id: "iam",
-            title: "IAM & Access Control",
-            desc: "Granular role-based policies, least-privilege tokens, and secure auth flows.",
-            icon: KeyRound,
-          },
-          {
-            id: "log-audits",
-            title: "Log Audits & Compliance",
-            desc: "Immutable audit trails, structured security logging, and anomaly alerts.",
-            icon: ScrollText,
-          },
-        ],
-      },
-      {
-        id: "scaling",
-        label: "Scaling",
-        icon: Server,
-        metric: "Auto-Scaled Cluster",
-        items: [
-          {
-            id: "kafka",
-            title: "Kafka Event Streaming",
-            desc: "Partitioned distributed event logs for massive parallel event delivery.",
-            icon: SiApachekafka,
-          },
-          {
-            id: "async-processing",
-            title: "Async Processing",
-            desc: "Non-blocking event loop workers handling concurrent spikes seamlessly.",
-            icon: Cpu,
-          },
-          {
-            id: "docker-replication",
-            title: "Docker Replication",
-            desc: "Container replica sets and horizontal autoscaling across multi-zones.",
-            icon: FaDocker,
-          },
-        ],
-      },
-    ];
-
   const socialLinks = [
     {
       name: "GitHub",
       shortName: "GitHub",
-      url: "https://github.com/Atharvkote",
+      url: portfolioData.socials.github,
       icon: FaGithub,
     },
     {
       name: "Instagram",
       shortName: "Insta",
-      url: "https://www.instagram.com/___atharv_81",
+      url: portfolioData.socials.instagram,
       icon: FaInstagram,
     },
     {
       name: "X (Twitter)",
       shortName: "X",
-      url: "https://x.com/ImAtharva81",
+      url: portfolioData.socials.twitter,
       icon: FaXTwitter,
     },
     {
       name: "LinkedIn",
       shortName: "LinkedIn",
-      url: "https://www.linkedin.com/in/atharvakote",
+      url: portfolioData.socials.linkedin,
       icon: FaLinkedinIn,
     },
   ];

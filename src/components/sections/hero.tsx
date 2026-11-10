@@ -2,8 +2,8 @@ import { motion, type Variants } from "framer-motion";
 import { ChevronRight, Layers } from "lucide-react";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { toast } from "sonner";
-import { trackResumeDownload } from "../lib/analytics";
-import GlowHorizonFM from "./ui/glow-horizon";
+import { trackResumeDownload } from "../../lib/analytics";
+import GlowHorizonFM from "../ui/glow-horizon";
 import { FaTerminal } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 
@@ -58,15 +58,20 @@ export function Hero() {
             </span>
           </motion.div>
 
-          {/* Overlapping Typography: ATHARVA with overlapping Kote & signature swoosh */}
+          {/* Main Headline: ATHARVA Image with Kote Signature Overlay */}
           <motion.div
             variants={item}
             className="relative flex flex-col items-center justify-center w-full mt-2 mb-10 sm:mb-14 pb-2 sm:pb-4"
           >
-            {/* Dominant Headline: ATHARVA */}
-            <h1 className="font-['Manrope'] font-extrabold text-[clamp(4.2rem,13vw,11.5rem)] tracking-tighter leading-[0.88] uppercase bg-gradient-to-b from-[#FFFFFF] via-[#E4E4E7] to-[#A7A7A7] bg-clip-text text-transparent select-none drop-shadow-[0_12px_35px_rgba(0,0,0,0.85)]">
-              ATHARVA
-            </h1>
+            <h1 className="sr-only">Atharva Kote - Software Engineer</h1>
+            <div className="w-full max-w-[320px] sm:max-w-[480px] md:max-w-[680px] lg:max-w-[840px] xl:max-w-[920px] px-2 flex justify-center">
+              <img
+                src="/ATHARVA.png"
+                alt="ATHARVA"
+                className="w-full h-auto select-none pointer-events-none drop-shadow-[0_12px_40px_rgba(0,0,0,0.85)] filter brightness-105"
+                draggable={false}
+              />
+            </div>
 
             {/* Overlay Signature: Kote */}
             <div

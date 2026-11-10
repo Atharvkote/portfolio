@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, RefreshCw, Calendar as CalendarIcon } from "lucide-react";
-import { portfolioData } from "../data/portfolio";
-import { trackEvent } from "../lib/analytics";
+import { portfolioData } from "../../data/portfolio";
+import { trackEvent } from "../../lib/analytics";
 
 export type IntensityLevel = 0 | 1 | 2 | 3 | 4;
 

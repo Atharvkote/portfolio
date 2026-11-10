@@ -5,9 +5,9 @@ import { TbLayoutFilled } from "react-icons/tb";
 import { toast } from "sonner";
 import { FaGithub, FaHeart, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
-import { portfolioData } from "../data/portfolio";
+import { portfolioData } from "../../data/portfolio";
 import { FaXTwitter } from "react-icons/fa6";
-import { trackSocialClick } from "../lib/analytics";
+import { trackSocialClick } from "../../lib/analytics";
 
 
 const NAV_LINKS = [

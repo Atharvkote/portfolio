@@ -1,12 +1,12 @@
 import { useParams, Navigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { portfolioData } from "../data/portfolio";
-import { Navbar } from "../components/navbar";
-import { SocialBar } from "../components/social-bar";
-import { QuickAccess } from "../components/quick-access";
-import { Footer } from "../components/contact";
-import TechIcon from "../components/icon-provider";
-import { SEO } from "../components/seo";
+import { Navbar } from "../components/layout/navbar";
+import { SocialBar } from "../components/layout/social-bar";
+import { QuickAccess } from "../components/layout/quick-access";
+import { Footer } from "../components/layout/contact";
+import TechIcon from "../components/ui/icon-provider";
+import { SEO } from "../components/layout/seo";
 import { trackEvent } from "../lib/analytics";
 import {
   Code, ExternalLink, ChevronRight, ArrowLeft,
@@ -35,7 +35,11 @@ export default function ProjectDetailsPage() {
   const { slug } = useParams<{ slug: string }>();
 
   const project = portfolioData.projects.find(
-    (p) => p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "") === slug
+    (p) =>
+      p.slug === slug ||
+      p.id === slug ||
+      p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "") === slug ||
+      p.name.toLowerCase() === slug
   );
 
   if (!project) {
@@ -45,7 +49,7 @@ export default function ProjectDetailsPage() {
   // Find next/prev project for navigation
   const currentIndex = portfolioData.projects.indexOf(project);
   const nextProject = portfolioData.projects[(currentIndex + 1) % portfolioData.projects.length];
-  const nextSlug = nextProject.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
+  const nextSlug = nextProject.slug || nextProject.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
 
   return (
     <div className="relative bg-bg min-h-screen text-text-primary overflow-x-clip font-body">
