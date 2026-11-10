@@ -13,7 +13,7 @@ export function Projects() {
         transition={{ duration: 0.5 }}
         className="section-heading"
       >
-        <span className="num">04.</span> Some Things I've Built
+        <span className="num">05.</span> Some Things I've Built
       </motion.h2>
 
       <div className="space-y-28 md:space-y-36">

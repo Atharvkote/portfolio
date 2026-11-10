@@ -171,7 +171,7 @@ export function Projects() {
         className="text-center mb-10 sm:mb-14"
       >
         <span className="font-mono text-xs sm:text-[13px] tracking-[0.25em] text-primary uppercase mb-2 block">
-          03. FEATURED WORK
+          05. FEATURED WORK
         </span>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
           Projects I've <span className="badone-font italic font-normal text-primary">Engineered</span>
