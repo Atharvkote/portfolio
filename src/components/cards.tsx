@@ -232,27 +232,24 @@ export function BackendDevops() {
 
   return (
     <section id="backend-devops" className="py-20 sm:py-24 relative overflow-hidden select-none">
-      {/* Section Header */}
-      <div className="mb-10 sm:mb-12">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.35 }}
-          className="section-heading"
-        >
-          <span className="num">03.</span> Backend & <span>DevOps</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35, delay: 0.1 }}
-          className="text-text-muted text-sm sm:text-base max-w-2xl mt-2"
-        >
-          Architecting resilient backend systems and cloud delivery pipelines engineered for scalability, reliability, and clean execution.
-        </motion.p>
-      </div>
+      {/* ── Section Title & Header ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.4 }}
+        className="text-center mb-10 sm:mb-14"
+      >
+        <span className="font-mono text-xs sm:text-[13px] tracking-[0.25em] text-primary uppercase mb-2 block">
+          03. ARCHITECTURE & SYSTEMS
+        </span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          Design Principles &amp; <span className="badone-font italic font-normal text-primary">Profiles</span>
+        </h2>
+        <p className="text-text-muted text-sm sm:text-base mt-2 max-w-md sm:max-w-lg mx-auto leading-relaxed">
+          Architecting resilient backend microservices and automated cloud delivery pipelines.
+        </p>
+      </motion.div>
 
       {/* Bento Grid */}
       <div className="flex flex-col gap-5 sm:gap-6">
@@ -852,150 +849,116 @@ export function BackendDevops() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.28 }}
-            className="order-3 md:col-span-12 lg:col-span-4 rounded-3xl border border-white/[0.08] bg-[#0c0c0e]/85 backdrop-blur-xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group hover:border-[#FFA116]/40 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-h-[420px]"
+            className="order-3 md:col-span-12 lg:col-span-4 rounded-3xl border border-white/[0.08] bg-[#0c0c0e]/85 backdrop-blur-xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden group hover:border-[#FFA116]/40 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-h-[420px]"
           >
             <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-[#FFA116]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#FFA116]/20 transition-all duration-500" />
 
             <div>
-              {/* Header Badge */}
-              <div className="flex items-center justify-between gap-2 mb-3.5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-[#FFA116]  bg-linear-to-l from-[#FFA116] to-bg">
-                  <SiLeetcode size={13} className="text-[#FFA116]" />
-                  <span className="font-mono text-xs text-text tracking-wide uppercase">
-                    Problem Solving
+              {/* Header: 02 LEETCODE (Left) & Profile Link (Right) */}
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06]">
+                <div className="flex items-center gap-2">
+                  <SiLeetcode className="text-[#FFA116]" />
+                  <span className="font-mono text-xs font-bold text-white tracking-widest uppercase">
+                    LEETCODE
                   </span>
                 </div>
-
+                <a
+                  href="https://leetcode.com/u/AtharvaKote81/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-mono text-[11px] text-text-muted hover:text-[#FFA116] transition-colors"
+                >
+                  <span>@AtharvaKote81</span>
+                  <ArrowUpRight size={12} />
+                </a>
               </div>
 
-              {/* Title & Description */}
-              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">
-                LeetCode &amp; <span className="badone-font italic font-normal text-[#FFA116]">DSA Core</span>
-              </h3>
-              <p className="text-text-muted text-xs sm:text-sm leading-relaxed mt-1">
-                Data structures, time/space complexity optimization, and algorithmic patterns in Java.
-              </p>
+              {/* Solved Metric Headline */}
+              <div className="flex items-center gap-2.5 mb-5">
+                <span className="text-4xl sm:text-5xl font-extrabold text-[#FFA116] font-['Manrope'] tracking-tight">
+                  300+
+                </span>
+                <span className="text-text-muted text-xs sm:text-sm font-medium">
+                  problems solved
+                </span>
+              </div>
 
-              {/* Circular Gauge & Difficulty Meters Container */}
-              <div className="mt-4 p-3.5 rounded-2xl border border-white/[0.08] bg-black/60 flex items-center gap-4">
-                {/* SVG Radial Donut Gauge */}
-                <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
-                  <svg viewBox="0 0 110 110" className="w-full h-full">
-                    {/* Background Track */}
-                    <circle
-                      cx="55"
-                      cy="55"
-                      r="44"
-                      stroke="#ffffff"
-                      strokeOpacity="0.08"
-                      strokeWidth="8"
-                      fill="none"
+              {/* Difficulty Progress Bars */}
+              <div className="space-y-3.5 mb-5">
+                {/* EASY */}
+                <div>
+                  <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                    <span className="text-white font-bold tracking-wider">EASY</span>
+                    <span className="text-text-muted text-[11px]">144 / 975</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-white/[0.08] overflow-hidden">
+                    <div
+                      className="h-full bg-[#00B8A3] rounded-full shadow-[0_0_10px_rgba(0,184,163,0.5)]"
+                      style={{ width: "42%" }}
                     />
-
-                    {/* Donut Segments (Rotated to start at 12 o'clock) */}
-                    <g transform="rotate(-90 55 55)">
-                      {/* Easy Arc (42.5%) */}
-                      <circle
-                        cx="55"
-                        cy="55"
-                        r="44"
-                        stroke="#00B8A3"
-                        strokeWidth="8"
-                        strokeDasharray="112 165"
-                        strokeDashoffset="0"
-                        strokeLinecap="round"
-                        fill="none"
-                      />
-                      {/* Medium Arc (50%) */}
-                      <circle
-                        cx="55"
-                        cy="55"
-                        r="44"
-                        stroke="#FFC01E"
-                        strokeWidth="8"
-                        strokeDasharray="132 145"
-                        strokeDashoffset="-117.5"
-                        strokeLinecap="round"
-                        fill="none"
-                      />
-                      {/* Hard Arc (7.5%) */}
-                      <circle
-                        cx="55"
-                        cy="55"
-                        r="44"
-                        stroke="#FF375F"
-                        strokeWidth="8"
-                        strokeDasharray="15 262"
-                        strokeDashoffset="-255.7"
-                        strokeLinecap="round"
-                        fill="none"
-                      />
-                    </g>
-
-                    {/* Center Typography */}
-                    <text
-                      x="55"
-                      y="51"
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      className="font-['Manrope'] font-extrabold text-[20px] fill-white"
-                    >
-                      300+
-                    </text>
-                    <text
-                      x="55"
-                      y="66"
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      className="font-mono text-[8px] tracking-widest uppercase fill-[#888899]"
-                    >
-                      SOLVED
-                    </text>
-                  </svg>
+                  </div>
                 </div>
 
-                {/* Vertical Difficulty Bars */}
-                <div className="flex-1 space-y-2">
-                  {/* Easy Row */}
-                  <div>
-                    <div className="flex items-center justify-between font-mono text-[11px] mb-1">
-                      <span className="text-[#00B8A3] font-medium">Easy</span>
-                      <span className="text-white font-bold">130+</span>
-                    </div>
-                    <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                      <div className="w-[42.5%] h-full bg-[#00B8A3] rounded-full shadow-[0_0_8px_#00B8A3]" />
-                    </div>
+                {/* MEDIUM */}
+                <div>
+                  <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                    <span className="text-white font-bold tracking-wider">MEDIUM</span>
+                    <span className="text-text-muted text-[11px]">155 / 2,145</span>
                   </div>
-
-                  {/* Medium Row */}
-                  <div>
-                    <div className="flex items-center justify-between font-mono text-[11px] mb-1">
-                      <span className="text-[#FFC01E] font-medium">Medium</span>
-                      <span className="text-white font-bold">150+</span>
-                    </div>
-                    <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                      <div className="w-[50%] h-full bg-[#FFC01E] rounded-full shadow-[0_0_8px_#FFC01E]" />
-                    </div>
+                  <div className="w-full h-2 rounded-full bg-white/[0.08] overflow-hidden">
+                    <div
+                      className="h-full bg-[#FFA116] rounded-full shadow-[0_0_10px_rgba(255,161,22,0.5)]"
+                      style={{ width: "52%" }}
+                    />
                   </div>
+                </div>
 
-                  {/* Hard Row */}
-                  <div>
-                    <div className="flex items-center justify-between font-mono text-[11px] mb-1">
-                      <span className="text-[#FF375F] font-medium">Hard</span>
-                      <span className="text-white font-bold">15+</span>
-                    </div>
-                    <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                      <div className="w-[8%] h-full bg-[#FF375F] rounded-full shadow-[0_0_8px_#FF375F]" />
-                    </div>
+                {/* HARD */}
+                <div>
+                  <div className="flex items-center justify-between font-mono text-xs mb-1.5">
+                    <span className="text-white font-bold tracking-wider">HARD</span>
+                    <span className="text-text-muted text-[11px]">15 / 989</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-white/[0.08] overflow-hidden">
+                    <div
+                      className="h-full bg-[#FF375F] rounded-full shadow-[0_0_10px_rgba(255,55,95,0.5)]"
+                      style={{ width: "18%" }}
+                    />
                   </div>
                 </div>
               </div>
 
-
+              {/* 3 Stats Boxes */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+                <div className="p-2.5 sm:p-3 rounded-2xl border border-white/[0.08] bg-black/50 text-left">
+                  <div className="font-['Manrope'] text-base sm:text-lg font-bold text-white tracking-tight">
+                    1,449
+                  </div>
+                  <div className="font-mono text-[9px] tracking-wider text-text-muted uppercase mt-0.5">
+                    CONTEST RATING
+                  </div>
+                </div>
+                <div className="p-2.5 sm:p-3 rounded-2xl border border-white/[0.08] bg-black/50 text-left">
+                  <div className="font-['Manrope'] text-base sm:text-lg font-bold text-white tracking-tight">
+                    5
+                  </div>
+                  <div className="font-mono text-[9px] tracking-wider text-text-muted uppercase mt-0.5">
+                    CONTESTS
+                  </div>
+                </div>
+                <div className="p-2.5 sm:p-3 rounded-2xl border border-white/[0.08] bg-black/50 text-left">
+                  <div className="font-['Manrope'] text-base sm:text-lg font-bold text-white tracking-tight">
+                    281
+                  </div>
+                  <div className="font-mono text-[9px] tracking-wider text-text-muted uppercase mt-0.5">
+                    ACTIVE DAYS
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Bottom Profile CTA Link */}
-            <div className="pt-3.5 border-t border-white/[0.08] mt-3">
+            <div className="pt-3.5 border-t border-white/[0.08] mt-4">
               <a
                 href="https://leetcode.com/u/AtharvaKote81/"
                 target="_blank"

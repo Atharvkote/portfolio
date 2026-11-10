@@ -278,6 +278,33 @@ export const portfolioData = {
   ],
   projects: [
     {
+      "logo": "ShieldCheck",
+      "title": "JQube — AI-Assisted DevSecOps Platform",
+      "duration": "Jan 2026 – Present",
+      "description": "A policy-controlled, AI-assisted DevSecOps platform that detects vulnerabilities and generates verified remediation PRs for GitHub workflows.",
+      "highlights": [
+        "Automated SAST scans with Semgrep, Gitleaks, and Trivy",
+        "AI remediation: Generate, validate and raise secure pull requests",
+        "Enforce organizational security and review policies",
+        "Asynchronous & scalable queue-based scan pipeline with Kafka"
+      ],
+      "tech": [
+        "Java",
+        "Spring Boot",
+        "Spring Security",
+        "Hibernate",
+        "PostgreSQL",
+        "Redis",
+        "Apache Kafka",
+        "GitHub Actions"
+      ],
+      "github": "https://github.com/Atharvkote",
+      "link": "https://github.com/Atharvkote",
+      "featured": true,
+      "imageOne": "/jqube.png",
+      "imageTwo": "/jqube.png"
+    },
+    {
       "logo": "Kafka",
       "title": "Distributed Microservices Architecture with Apache Kafka",
       "duration": "Ongoing",

@@ -9,16 +9,24 @@ export function Experience() {
 
   return (
     <section id="experience" className="py-24 md:py-32">
-      {/* Heading */}
-      <motion.h2
+      {/* ── Section Title & Header ── */}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.35 }}
-        className="section-heading"
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.4 }}
+        className="text-center mb-10 sm:mb-14"
       >
-        <span className="num">03.</span> Where I've Worked
-      </motion.h2>
+        <span className="font-mono text-xs sm:text-[13px] tracking-[0.25em] text-primary uppercase mb-2 block">
+          04. CAREER & EXPERIENCE
+        </span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          Where I've <span className="badone-font italic font-normal text-primary">Worked</span>
+        </h2>
+        <p className="text-text-muted text-sm sm:text-base mt-2 max-w-md sm:max-w-lg mx-auto leading-relaxed">
+          Production software engineering, team collaboration, and real-world system deployments.
+        </p>
+      </motion.div>
 
       {/* Main Layout */}
       <motion.div

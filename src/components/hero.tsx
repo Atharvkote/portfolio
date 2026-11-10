@@ -1,10 +1,11 @@
 import { motion, type Variants } from "framer-motion";
-import { ChevronRight, MapPin, Layers } from "lucide-react";
+import { ChevronRight, Layers } from "lucide-react";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { toast } from "sonner";
 import { trackResumeDownload } from "../lib/analytics";
 import GlowHorizonFM from "./ui/glow-horizon";
 import { FaTerminal } from "react-icons/fa";
+import { IoLocationSharp } from "react-icons/io5";
 
 const container = {
   hidden: { opacity: 0 },
@@ -148,9 +149,9 @@ export function Hero() {
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 flex justify-between items-center z-20 pb-2 pointer-events-none shrink-0">
         {/* Left: Location */}
         <div className="flex items-center gap-2.5 text-left pointer-events-auto ml-0 lg:ml-6">
-          <MapPin size={18} className="text-[#01d8b4] shrink-0 drop-shadow-[0_0_12px_rgba(1,216,180,0.5)]" />
+          <IoLocationSharp size={18} className="text-[#01d8b4] shrink-0 drop-shadow-[0_0_12px_rgba(1,216,180,0.5)]" />
           <div className="font-mono text-xs">
-            <div className="text-[#F5F5F5] font-medium leading-snug">Based in Pune,</div>
+            <div className="text-[#F5F5F5] font-medium leading-snug uppercase">Based in Maharasthra,</div>
             <div className="text-[#92999A] text-[11px] leading-snug">India</div>
           </div>
         </div>

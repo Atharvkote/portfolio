@@ -9,33 +9,60 @@ import { VisitorCounter } from "./VisitorCounter";
 export function Contact() {
   return (
     <section id="contact" className="py-24 md:py-32">
+      {/* ── Section Title & Header ── */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
+        viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.4 }}
-        className="max-w-[600px] mx-auto text-center"
+        className="text-center mb-10 sm:mb-12 max-w-[650px] mx-auto"
       >
-        <p className="font-mono text-primary text-sm mb-4">06. What's Next?</p>
-        <h2 className="font-display text-[clamp(36px,6vw,56px)] font-bold tracking-tight mb-6">
-          Get In Touch
+        <span className="font-mono text-xs sm:text-[13px] tracking-[0.25em] text-primary uppercase mb-2 block">
+          08. WHAT'S NEXT?
+        </span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          Get In <span className="badone-font italic font-normal text-primary">Touch</span>
         </h2>
-        <p className="text-text-secondary text-base md:text-lg leading-relaxed mb-12">
-          I'm currently looking for new opportunities and my inbox is always
-          open. Whether you have a question or just want to say hi, I'll try my
-          best to get back to you!
+        <p className="text-text-muted text-sm sm:text-base mt-2 leading-relaxed">
+          I'm actively exploring new engineering opportunities, distributed systems projects, and open-source collaborations.
         </p>
+      </motion.div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
-          {/* Say Hello (Gmail Compose) */}
-          <motion.a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${portfolioData.email}`}
-            onClick={() => trackContactClick("email", portfolioData.email)}
-            initial={{ opacity: 0, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
+      <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
+        {/* Say Hello (Gmail Compose) */}
+        <motion.a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${portfolioData.email}`}
+          onClick={() => trackContactClick("email", portfolioData.email)}
+          initial={{ opacity: 0, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className="relative inline-block group"
+        >
+          <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
+            {/* Background layer */}
+            <span className="absolute inset-0 bg-bg z-0 transition-all duration-300 group-hover:scale-105"></span>
+
+            {/* Text */}
+            <span className="relative z-10 font-medium">
+              Say Hello <FaMessage className="inline-block ml-1 text-base text-primary" aria-hidden="true" />
+            </span>
+          </span>
+
+          {/* Shadow / offset layer */}
+          <span className="absolute inset-0 border border-primary/30 rounded-lg translate-x-1 translate-y-1 transition-all duration-300 group-hover:bg-primary"></span>
+        </motion.a>
+
+        {/* All Links page */}
+        <motion.div
+          initial={{ opacity: 0, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: 0.1 }}
+          className="relative inline-block"
+        >
+          <Link
+            to="/links"
             className="relative inline-block group"
           >
             <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
@@ -44,41 +71,15 @@ export function Contact() {
 
               {/* Text */}
               <span className="relative z-10 font-medium">
-                Say Hello <FaMessage className="inline-block ml-1 text-base text-primary" aria-hidden="true" />
+                All Links <Link2 className="inline-block ml-1 text-lg text-primary" aria-hidden="true" />
               </span>
             </span>
 
             {/* Shadow / offset layer */}
             <span className="absolute inset-0 border border-primary/30 rounded-lg translate-x-1 translate-y-1 transition-all duration-300 group-hover:bg-primary"></span>
-          </motion.a>
-
-          {/* All Links page */}
-          <motion.div
-            initial={{ opacity: 0, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.1 }}
-            className="relative inline-block"
-          >
-            <Link
-              to="/links"
-              className="relative inline-block group"
-            >
-              <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
-                {/* Background layer */}
-                <span className="absolute inset-0 bg-bg z-0 transition-all duration-300 group-hover:scale-105"></span>
-
-                {/* Text */}
-                <span className="relative z-10 font-medium">
-                  All Links <Link2 className="inline-block ml-1 text-lg text-primary" aria-hidden="true" />
-                </span>
-              </span>
-
-              {/* Shadow / offset layer */}
-              <span className="absolute inset-0 border border-primary/30 rounded-lg translate-x-1 translate-y-1 transition-all duration-300 group-hover:bg-primary"></span>
-            </Link>
-          </motion.div>
-        </div>
-      </motion.div>
+          </Link>
+        </motion.div>
+      </div>
     </section>
   );
 }
@@ -103,9 +104,9 @@ export function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 relative z-10">
 
           {/* Left Column: Signature & Philosophy */}
-          <div className="lg:col-span-5 flex flex-col justify-start">
+          <div className="lg:col-span-5 flex flex-col text-center md:text-left md:justify-start">
             {/* Signature using Bonheur Royale font */}
-            <h2 className="font-bonheur text-6xl sm:text-7xl md:text-8xl lg:text-[88px] text-white  select-none -ml-1 py-1 drop-shadow-[0_4px_24px_rgba(255,255,255,0.15)]">
+            <h2 className="font-bonheur text-6xl sm:text-7xl md:text-8xl lg:text-[88px]  select-none -ml-1 py-1 drop-shadow-[0_4px_24px_rgba(255,255,255,0.15)]">
               Atharva Kote
             </h2>
 
@@ -118,7 +119,7 @@ export function Footer() {
           </div>
 
           {/* Right Columns: 4 Clean Navigation Columns */}
-          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-6 lg:gap-8">
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 mx-auto md:mx-0 gap-6 sm:gap-6 lg:gap-8">
 
             {/* 1. General */}
             <div>
@@ -148,7 +149,7 @@ export function Footer() {
                 </li>
                 <li>
                   <Link to="/links" className="hover:text-white transition-colors">
-                    All Links
+                    Socials
                   </Link>
                 </li>
               </ul>
@@ -175,16 +176,7 @@ export function Footer() {
                     Architecture
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="/resume.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-[#01d8b4] transition-colors"
-                  >
-                    Resume (PDF)
-                  </a>
-                </li>
+
                 <li>
                   <a href="/#contact" className="hover:text-white transition-colors">
                     Contact
@@ -271,6 +263,11 @@ export function Footer() {
                 <li>
                   <a href="#legal" className="hover:text-white transition-colors">
                     Terms &amp; Conditions
+                  </a>
+                </li>
+                <li>
+                  <a href="#legal" className="hover:text-white transition-colors">
+                    License
                   </a>
                 </li>
               </ul>

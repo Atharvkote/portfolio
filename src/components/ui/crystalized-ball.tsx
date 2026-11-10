@@ -30,8 +30,8 @@ import CrystalizedBall from './CrystalizedBall';
 
 */
 
-import { useEffect, useMemo, useRef } from 'react';
-import type { CSSProperties } from 'react';
+import { Component, useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { Renderer, Program, Mesh, Triangle, Geometry, RenderTarget, Texture } from 'ogl';
 
 type Preset = 'plasma' | 'aurora' | 'nebula' | 'ember' | 'frost' | 'solar' | 'eclipse' | 'abyss';
@@ -69,6 +69,37 @@ export interface CrystalizedBallProps extends Partial<PresetValues> {
     paused?: boolean;
     className?: string;
     style?: CSSProperties;
+}
+
+class CrystalizedBallErrorBoundary extends Component<
+    { children: ReactNode; fallback?: ReactNode },
+    { hasError: boolean }
+> {
+    constructor(props: { children: ReactNode; fallback?: ReactNode }) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError() {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error: unknown) {
+        console.warn('CrystalizedBall WebGL context error handled gracefully:', error);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return (
+                this.props.fallback || (
+                    <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
+                        <div className="w-40 h-40 rounded-full bg-gradient-to-tr from-[#01d8b4]/20 via-[#01d8b4]/40 to-cyan-400/25 blur-2xl animate-pulse" />
+                    </div>
+                )
+            );
+        }
+        return this.props.children;
+    }
 }
 
 interface Palette {
@@ -928,7 +959,7 @@ void main() {
 }
 `;
 
-const CrystalizedBall = ({
+const CrystalizedBallInner = ({
     preset = 'plasma',
     color,
     theme = 'dark',
@@ -958,6 +989,7 @@ const CrystalizedBall = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const settingsRef = useRef<Settings | null>(null);
     const wakeRef = useRef<(() => void) | null>(null);
+    const [hasWebGL, setHasWebGL] = useState(true);
 
     const base = BALL_PRESETS[preset] || BALL_PRESETS.plasma;
     const pick = <K extends keyof PresetValues>(value: PresetValues[K] | undefined, key: K): PresetValues[K] =>
@@ -1000,13 +1032,40 @@ const CrystalizedBall = ({
         const container = containerRef.current;
         if (!container) return undefined;
 
-        const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: false, depth: false });
-        const gl = renderer.gl;
-        const gl2 = gl as unknown as WebGL2RenderingContext;
-        if (!renderer.isWebgl2) {
-            gl.getExtension('WEBGL_lose_context')?.loseContext();
+        // Proactively probe WebGL2 availability to avoid OGL throwing on null gl
+        let gl2Available = false;
+        try {
+            const probeCanvas = document.createElement('canvas');
+            const probeGl = probeCanvas.getContext('webgl2', { alpha: true });
+            if (probeGl) {
+                gl2Available = true;
+                probeGl.getExtension('WEBGL_lose_context')?.loseContext();
+            }
+        } catch {
+            gl2Available = false;
+        }
+
+        if (!gl2Available) {
+            setHasWebGL(false);
             return undefined;
         }
+
+        let renderer: Renderer;
+        try {
+            renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: false, depth: false });
+        } catch (err) {
+            console.warn('CrystalizedBall: WebGL2 Renderer creation failed:', err);
+            setHasWebGL(false);
+            return undefined;
+        }
+
+        const gl = renderer.gl;
+        if (!gl || !renderer.isWebgl2) {
+            gl?.getExtension('WEBGL_lose_context')?.loseContext();
+            setHasWebGL(false);
+            return undefined;
+        }
+        const gl2 = gl as unknown as WebGL2RenderingContext;
         const canvas = gl.canvas;
         canvas.style.display = 'block';
         canvas.style.width = '100%';
@@ -1578,8 +1637,18 @@ const CrystalizedBall = ({
     }, []);
 
     return (
-        <div ref={containerRef} className={`relative w-full h-full overflow-hidden ${className}`.trim()} style={style} />
+        <div ref={containerRef} className={`relative w-full h-full overflow-hidden flex items-center justify-center ${className}`.trim()} style={style}>
+            {!hasWebGL && (
+                <div className="relative w-40 h-40 rounded-full bg-gradient-to-tr from-[#01d8b4]/20 via-[#01d8b4]/40 to-cyan-400/25 blur-2xl animate-pulse pointer-events-none" />
+            )}
+        </div>
     );
 };
+
+export const CrystalizedBall = (props: CrystalizedBallProps) => (
+    <CrystalizedBallErrorBoundary>
+        <CrystalizedBallInner {...props} />
+    </CrystalizedBallErrorBoundary>
+);
 
 export default CrystalizedBall;

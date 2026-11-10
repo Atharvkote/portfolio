@@ -18,7 +18,7 @@ const BackendDevops = lazy(() => import("../components/cards").then((m) => ({ de
 
 export function HomePage() {
   return (
-    <div className="relative bg-bg min-h-screen text-text-primary overflow-x-hidden">
+    <div className="relative bg-bg min-h-screen text-text-primary overflow-x-clip">
       <SEO path="/" />
       {/* Fixed Elements */}
       <Navbar />
@@ -32,9 +32,9 @@ export function HomePage() {
       <main className="relative z-10 w-full max-w-[1100px] mx-auto px-6 sm:px-10 md:px-6 lg:px-0">
         <Suspense fallback={null}>
           <About />
-          <TechStack />
           <BackendDevops />
           <Experience />
+          <TechStack />
           <Projects />
           <GitHubContributionCalendar />
           <Education />

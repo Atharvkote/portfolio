@@ -63,7 +63,7 @@ function AppContent() {
   }, []);
 
   return (
-    <div className="relative bg-bg min-h-screen text-text-primary overflow-x-hidden">
+    <div className="relative bg-bg min-h-screen text-text-primary overflow-x-clip">
       {/* Background Effects */}
       <div className="grain-overlay" />
 

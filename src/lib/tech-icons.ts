@@ -29,11 +29,19 @@ import {
   SiHibernate,
   SiFlyway,
   SiRabbitmq,
-  SiPytorch
+  SiPytorch,
+  SiExpress,
+  SiTensorflow,
+  SiFirebase,
+  SiKong,
+  SiFramer,
+  SiAppwrite,
+  SiChartdotjs,
+  SiSpringsecurity,
 } from "react-icons/si";
 import { BsCss, } from "react-icons/bs";
 import type { IconType } from "react-icons";
-import { QrCode } from "lucide-react";
+import { QrCode, ShieldCheck } from "lucide-react";
 import { MdHttp } from "react-icons/md";
 
 interface IconItem {
@@ -57,10 +65,14 @@ export const TECH_ICONS: Record<string, IconItem> = {
   "SASS": { icon: SiSass, color: "#CC6699" },
 
   // Frontend
+  "React": { icon: FaReact, color: "#61DAFB" },
   "React.js": { icon: FaReact, color: "#61DAFB" },
   "Next.js": { icon: SiNextdotjs, color: "#ffffff" },
   "Redux": { icon: SiRedux, color: "#764ABC" },
   "Tailwind CSS": { icon: SiTailwindcss, color: "#06B6D4" },
+  "Framer Motion": { icon: SiFramer, color: "#EA4C89" },
+  "Appwrite": { icon: SiAppwrite, color: "#FD366E" },
+  "chart.js": { icon: SiChartdotjs, color: "#FF6384" },
 
 
   "Vite": { icon: SiVite, color: "#646CFF" },
@@ -73,12 +85,21 @@ export const TECH_ICONS: Record<string, IconItem> = {
 
   // Backend
   "Spring Boot": { icon: SiSpringboot, color: "#6DB33F" },
+  "Spring Security": { icon: SiSpringsecurity, color: "#6DB33F" },
   "Hibernate": { icon: SiHibernate, color: "#BCA57A" },
   "Flyway": { icon: SiFlyway, color: "#CC0200" },
   "RabbitMQ": { icon: SiRabbitmq, color: "#FF6600" },
   "Node.js": { icon: FaNodeJs, color: "#339933" },
+  "Express.js": { icon: SiExpress, color: "#ffffff" },
+  "Express": { icon: SiExpress, color: "#ffffff" },
   "Socket.io": { icon: SiSocketdotio, color: "#ffffff" },
   "Rest API": { icon: MdHttp, color: "#00FFFF" },
+  "REST APIs": { icon: MdHttp, color: "#00FFFF" },
+  "Firebase": { icon: SiFirebase, color: "#FFCA28" },
+  "TensorFlow.js": { icon: SiTensorflow, color: "#FF6F00" },
+  "TensorFlow": { icon: SiTensorflow, color: "#FF6F00" },
+  "Kong API Gateway": { icon: SiKong, color: "#003366" },
+  "JWT-RS256": { icon: ShieldCheck as unknown as IconType, color: "#01D8B4" },
 
   // Databases
   "MongoDB": { icon: SiMongodb, color: "#47A248" },

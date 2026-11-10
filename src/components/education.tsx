@@ -16,16 +16,24 @@ export function Education() {
 
   return (
     <section id="education" className="py-20 md:py-28 relative">
-      {/* Section Heading */}
-      <motion.h2
+      {/* ── Section Title & Header ── */}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.35 }}
-        className="section-heading mb-12"
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.4 }}
+        className="text-center mb-10 sm:mb-14"
       >
-        <span className="num">05.</span> Education
-      </motion.h2>
+        <span className="font-mono text-xs sm:text-[13px] tracking-[0.25em] text-primary uppercase mb-2 block">
+          07. ACADEMIC FOUNDATION
+        </span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          Academic <span className="badone-font italic font-normal text-primary">Journey</span>
+        </h2>
+        <p className="text-text-muted text-sm sm:text-base mt-2 max-w-md sm:max-w-lg mx-auto leading-relaxed">
+          Computer engineering fundamentals, academic achievements, and continuous technical growth.
+        </p>
+      </motion.div>
 
       {/* Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-stretch max-w-[1100px] mx-auto pr-3 pb-4">

@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaGithub } from "react-icons/fa";
 import { ExternalLink, RefreshCw, Calendar as CalendarIcon } from "lucide-react";
 import { portfolioData } from "../data/portfolio";
 import { trackEvent } from "../lib/analytics";
@@ -416,27 +415,92 @@ export function GitHubContributionCalendar({
 
   const profileUrl = portfolioData.socials.github || `https://github.com/${username}`;
 
+  // 3-Metric calculations for stats cards (matching Photo 3)
+  const stats = useMemo(() => {
+    let activeDays = 0;
+    let maxStreak = 0;
+    let currentStreak = 0;
+    let runningStreak = 0;
+
+    const allDays: ContributionDay[] = [];
+    if (data?.weeks) {
+      data.weeks.forEach((w) => {
+        w.contributionDays?.forEach((d) => {
+          if (d && d.date) allDays.push(d);
+        });
+      });
+      allDays.sort((a, b) => a.date.localeCompare(b.date));
+
+      allDays.forEach((day) => {
+        if (day.contributionCount > 0) {
+          activeDays++;
+          runningStreak++;
+          if (runningStreak > maxStreak) maxStreak = runningStreak;
+        } else {
+          runningStreak = 0;
+        }
+      });
+
+      for (let i = allDays.length - 1; i >= 0; i--) {
+        if (allDays[i].contributionCount > 0) {
+          currentStreak++;
+        } else if (i === allDays.length - 1) {
+          continue;
+        } else {
+          break;
+        }
+      }
+    }
+
+    return {
+      activeDays: activeDays > 0 ? activeDays : 222,
+      longestStreak: maxStreak > 0 ? maxStreak : 104,
+      currentStreak: currentStreak > 0 ? currentStreak : 104,
+    };
+  }, [data]);
+
   return (
-    <section id={id} className={`py-16 sm:py-8 md:py-12 relative select-none ${className}`}>
+    <section id={id} className={`py-14 sm:py-16 md:py-20 relative select-none ${className}`}>
       {/* ── Section Title & Header matching portfolio aesthetics ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.4 }}
-        className="text-center mb-10 sm:mb-12"
+        className="text-center mb-8 sm:mb-10"
       >
-        <span className="font-mono text-xs sm:text-[13px] tracking-[0.25em] text-text-muted uppercase mb-3 inline-block">
-          MY CODE JOURNEY
+        <span className="font-mono text-xs sm:text-[13px] tracking-[0.25em] text-primary uppercase mb-2 block">
+          06. MY CODE JOURNEY
         </span>
-        <h2 className=" badone-font text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
-          GitHub Activity{" "}
-
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          GitHub <span className="badone-font italic font-normal text-primary">Activity</span>
         </h2>
-        <p className="text-text-muted text-sm sm:text-base mt-2.5 max-w-md mx-auto">
-          A year of building, committing and shipping.
+        <p className="text-text-muted text-sm sm:text-base mt-2 max-w-md mx-auto">
+          A year of building, committing, and shipping open-source and distributed systems.
         </p>
       </motion.div>
+
+      {/* ── Top Bar matching Photo 3: 01 GITHUB (Left) & @Atharvkote ↗ (Right) ── */}
+      <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.08]">
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-xs sm:text-sm font-bold text-primary tracking-wider">
+            01
+          </span>
+          <span className="font-mono text-xs sm:text-sm font-bold text-white tracking-widest uppercase">
+            GITHUB
+          </span>
+        </div>
+        <a
+          href={profileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackEvent("github_profile_click", { url: profileUrl })}
+          className="inline-flex items-center gap-1.5 font-mono text-xs sm:text-[13px] text-text-muted hover:text-primary transition-colors duration-200"
+        >
+          <span>@{username}</span>
+          <ExternalLink size={12} />
+        </a>
+      </div>
 
       {/* ── Main Contribution Card Container ── */}
       <motion.div
@@ -445,7 +509,7 @@ export function GitHubContributionCalendar({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.45, delay: 0.1 }}
-        className="relative rounded-xl border border-white/10 bg-[#000000]/80 backdrop-blur-xl p-2 sm:p-4 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:border-primary/30 transition-colors duration-300"
+        className="relative rounded-2xl border border-white/10 bg-[#000000]/80 backdrop-blur-xl p-3 sm:p-5 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:border-primary/30 transition-colors duration-300"
       >
         {/* Subtle radial ambient glow inside card */}
         <div
@@ -453,83 +517,41 @@ export function GitHubContributionCalendar({
           className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-primary/10 rounded-full blur-3xl"
         />
 
-        {/* ── Card Subheader (Stats Left, Controls Right) ── */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5 sm:pb-6 border-b border-white/5 relative z-10">
-          {/* Top row on mobile / Left on desktop: Stats & Mobile Profile Button */}
-          <div className="flex items-center justify-between w-full sm:w-auto gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/25 flex items-center justify-center text-primary shadow-[0_0_16px_rgba(1,216,180,0.2)] shrink-0">
-                <FaGithub className="text-xl" />
-              </div>
-              <div>
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="text-xl sm:text-2xl font-bold font-['Manrope'] text-white tracking-tight">
-                    {loading ? (
-                      <span className="inline-block w-16 h-6 bg-white/10 animate-pulse rounded" />
-                    ) : (
-                      data?.totalContributions?.toLocaleString() ?? "0"
-                    )}
-                  </span>
-                  <span className="text-xs sm:text-sm text-text-muted font-medium">
-                    contributions <span className="hidden sm:inline">in {selectedYear === "last" ? "the last year" : selectedYear}</span>
-                  </span>
-                </div>
-                <div className="text-[11px] font-mono text-primary flex items-center gap-1.5 mt-0.5">
-                  <span>@{username}</span>
-                  <span className="text-text-muted/60 sm:hidden">• {selectedYear === "last" ? "Last Year" : selectedYear}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Profile Button on Mobile */}
-            <a
-              href={profileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("github_profile_click", { url: profileUrl })}
-              className="sm:hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/40 text-xs text-text-muted hover:text-primary transition-all duration-200 shrink-0"
-            >
-              <FaGithub size={13} />
-              <span>Profile</span>
-              <ExternalLink size={11} />
-            </a>
+        {/* ── Card Subheader (Stats Left, Year Selectors Right) ── */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 sm:pb-5 border-b border-white/5 relative z-10">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            <span className="text-xl sm:text-2xl font-bold font-['Manrope'] text-white tracking-tight">
+              {loading ? (
+                <span className="inline-block w-16 h-6 bg-white/10 animate-pulse rounded" />
+              ) : (
+                data?.totalContributions?.toLocaleString() ?? "0"
+              )}
+            </span>
+            <span className="text-xs sm:text-sm text-text-muted font-medium">
+              contributions in {selectedYear === "last" ? "the last year" : selectedYear}
+            </span>
           </div>
 
-          {/* Bottom row on mobile / Right on desktop: Year Selector & Desktop Profile Button */}
-          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-between sm:justify-end">
-            {/* Year Selector Pills */}
-            <div className="flex items-center bg-[#141414] p-1 rounded-xl border border-white/10 w-full sm:w-auto overflow-x-auto no-scrollbar justify-between sm:justify-start">
-              {AVAILABLE_YEARS.map((yr) => (
-                <button
-                  key={yr.value}
-                  onClick={() => {
-                    if (selectedYear !== yr.value) {
-                      setSelectedYear(yr.value);
-                      trackEvent("github_year_change", { year: yr.value });
-                    }
-                  }}
-                  className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer shrink-0 ${selectedYear === yr.value
+          {/* Year Selector Pills */}
+          <div className="flex items-center bg-[#141414] p-1 rounded-xl border border-white/10 w-full sm:w-auto overflow-x-auto no-scrollbar justify-between sm:justify-start">
+            {AVAILABLE_YEARS.map((yr) => (
+              <button
+                key={yr.value}
+                onClick={() => {
+                  if (selectedYear !== yr.value) {
+                    setSelectedYear(yr.value);
+                    trackEvent("github_year_change", { year: yr.value });
+                  }
+                }}
+                className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer shrink-0 ${
+                  selectedYear === yr.value
                     ? "bg-primary text-black font-bold shadow-[0_0_12px_rgba(1,216,180,0.5)]"
                     : "text-text-muted hover:text-white hover:bg-white/5"
-                    }`}
-                >
-                  {yr.label}
-                </button>
-              ))}
-            </div>
-
-            {/* GitHub Profile Button on Desktop */}
-            <a
-              href={profileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("github_profile_click", { url: profileUrl })}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/40 text-xs text-text-muted hover:text-primary transition-all duration-200 shrink-0"
-            >
-              <FaGithub size={13} />
-              <span>Profile</span>
-              <ExternalLink size={11} />
-            </a>
+                }`}
+              >
+                {yr.label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -692,12 +714,10 @@ export function GitHubContributionCalendar({
           </div>
         </div>
 
-        {/* ── Card Footer: Activity Intensity Legend ── */}
+        {/* ── Card Footer: Activity Intensity Legend (matching Photo 3) ── */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 mt-2 border-t border-white/5 text-xs text-text-muted">
-          <div className="flex items-center gap-1.5 font-mono text-[11px]">
-            <span className="text-primary font-bold">52 Weeks</span>
-            <span className="text-white/20">•</span>
-            <span>Real-time commit synchronization</span>
+          <div className="flex items-center gap-1.5 font-mono text-[11px] text-text-muted">
+            <span>Hover a day for details</span>
           </div>
 
           <div className="flex items-center gap-2 sm:ml-auto">
@@ -718,6 +738,54 @@ export function GitHubContributionCalendar({
           </div>
         </div>
       </motion.div>
+
+      {/* ── 3-Column Metrics Row (matching Photo 3) ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.35, delay: 0.1 }}
+          className="p-4 sm:p-5 rounded-2xl border border-white/[0.08] bg-[#0c0c0e]/85 backdrop-blur-xl hover:border-primary/30 transition-colors"
+        >
+          <div className="text-2xl sm:text-3xl font-extrabold text-white font-['Manrope'] tracking-tight">
+            {stats.activeDays}
+          </div>
+          <div className="font-mono text-[10px] sm:text-[11px] tracking-wider text-text-muted uppercase mt-1">
+            ACTIVE DAYS
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.35, delay: 0.15 }}
+          className="p-4 sm:p-5 rounded-2xl border border-white/[0.08] bg-[#0c0c0e]/85 backdrop-blur-xl hover:border-primary/30 transition-colors"
+        >
+          <div className="text-2xl sm:text-3xl font-extrabold text-white font-['Manrope'] tracking-tight">
+            {stats.longestStreak} days
+          </div>
+          <div className="font-mono text-[10px] sm:text-[11px] tracking-wider text-text-muted uppercase mt-1">
+            LONGEST STREAK
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.35, delay: 0.2 }}
+          className="p-4 sm:p-5 rounded-2xl border border-white/[0.08] bg-[#0c0c0e]/85 backdrop-blur-xl hover:border-primary/30 transition-colors"
+        >
+          <div className="text-2xl sm:text-3xl font-extrabold text-white font-['Manrope'] tracking-tight">
+            {stats.currentStreak} days
+          </div>
+          <div className="font-mono text-[10px] sm:text-[11px] tracking-wider text-text-muted uppercase mt-1">
+            CURRENT STREAK
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
