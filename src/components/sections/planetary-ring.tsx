@@ -11,7 +11,6 @@ import {
 export function PlanetaryRing() {
   const shouldReduceMotion = useReducedMotion();
 
-  // 1. Scroll tracking
   const { scrollY, scrollYProgress } = useScroll();
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -20,7 +19,6 @@ export function PlanetaryRing() {
     mass: 0.5,
   });
 
-  // 2. Scroll velocity
   const scrollVelocity = useVelocity(scrollY);
 
   const smoothVelocity = useSpring(scrollVelocity, {
@@ -28,7 +26,6 @@ export function PlanetaryRing() {
     stiffness: 200,
   });
 
-  // 3. Combined scroll energy
   const energy = useTransform(
     [smoothProgress, smoothVelocity],
     ([progress, velocity]: number[]) => {
@@ -42,14 +39,12 @@ export function PlanetaryRing() {
     }
   );
 
-  // 4. Line opacity
   const lineOpacity = useTransform(
     energy,
     [0, 1],
     [0.8, 1]
   );
 
-  // 5. Wide, diffused primary teal drop-shadow
   const glowFilter = useTransform(energy, (value) => {
     const e = shouldReduceMotion ? 0 : value;
 
@@ -103,7 +98,6 @@ export function PlanetaryRing() {
             height="1300%"
             colorInterpolationFilters="sRGB"
           >
-            {/* Wide atmospheric glow */}
             <feGaussianBlur
               in="SourceGraphic"
               stdDeviation="65"
@@ -113,7 +107,6 @@ export function PlanetaryRing() {
               <feFuncA type="linear" slope="0.12" />
             </feComponentTransfer>
 
-            {/* Medium glow */}
             <feGaussianBlur
               in="SourceGraphic"
               stdDeviation="32"
@@ -123,7 +116,6 @@ export function PlanetaryRing() {
               <feFuncA type="linear" slope="0.22" />
             </feComponentTransfer>
 
-            {/* Inner glow */}
             <feGaussianBlur
               in="SourceGraphic"
               stdDeviation="12"
@@ -133,7 +125,6 @@ export function PlanetaryRing() {
               <feFuncA type="linear" slope="0.45" />
             </feComponentTransfer>
 
-            {/* Sharp core */}
             <feMerge>
               <feMergeNode in="wideDim" />
               <feMergeNode in="mediumDim" />
@@ -143,7 +134,6 @@ export function PlanetaryRing() {
           </filter>
         </defs>
 
-        {/* Exactly ONE path */}
         <motion.path
           d="M -40 205 Q 720 68 1480 205"
           fill="none"

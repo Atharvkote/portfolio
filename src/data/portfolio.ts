@@ -34,7 +34,6 @@ import {
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 
-// ─── Link Item Interface ───
 export interface LinkItem {
   label: string;
   handle: string;
@@ -42,7 +41,6 @@ export interface LinkItem {
   icon: IconType | React.FC<{ size?: number; className?: string }>;
 }
 
-// ─── Skill Section Interface ───
 export interface SkillSection {
   id: string;
   title: string;
@@ -52,14 +50,12 @@ export interface SkillSection {
   skills: string[];
 }
 
-// ─── Project Pillar Interface ───
 export interface ProjectPillar {
   icon: React.ComponentType<{ size?: number; className?: string }>;
   title: string;
   desc: string;
 }
 
-// ─── Project Item Interface ───
 export interface ProjectItem {
   id: string;
   name: string;
@@ -85,7 +81,6 @@ export interface ProjectItem {
   pillars: ProjectPillar[];
 }
 
-// ─── Architecture Tab Item Interface ───
 export interface BackendTabItem {
   id: string;
   title: string;
@@ -101,7 +96,6 @@ export interface BackendTab {
   items: BackendTabItem[];
 }
 
-// ─── About Carousel Item Interface ───
 export interface CarouselItem {
   src: string;
   alt: string;
@@ -109,7 +103,6 @@ export interface CarouselItem {
   subtitle: string;
 }
 
-// Icon components for skill sections
 const SkillIcons = {
   Braces: Braces,
   Code2: Code2,
@@ -187,7 +180,6 @@ export const portfolioData = {
       items: ["Claude", "GitHub Copilot", "Cursor", "Ollama", "Antigravity"],
     },
   ],
-  // ── Detailed Skills for Skills Page ──
   skillsDetailed: {
     quote: "Development: Turning Coffee into Code then Magic.",
     columns: [
@@ -294,7 +286,6 @@ export const portfolioData = {
         ],
       },
     ],
-    // Full categorized skills list
     categories: [
       {
         name: "Programming Languages",
@@ -351,7 +342,7 @@ export const portfolioData = {
       role: "Competitive Programmer",
       period: "November 2024 — Present",
       type: "Community",
-      image: "/gdsc.png",
+      image: "/image/gdsc.png",
       link: "https://www.linkedin.com/company/google-developer-group-sanjivani-coe",
       description: [
         "Organized a 5-week competitive programming series with 100+ weekly participants, designing multiple HackerRank-style contests.",
@@ -365,7 +356,7 @@ export const portfolioData = {
       role: "Technical Co-Lead",
       period: "February 2025 — March 2025",
       type: "Leadership",
-      image: "/university.png",
+      image: "/image/university.png",
       link: "https://www.sanjivaniuniversity.edu.in/",
       description: [
         "Co-led development and deployment of a full-scale ticket booking platform handling 11,000+ user registrations and 2,000+ ticket sales.",
@@ -409,9 +400,7 @@ export const portfolioData = {
       status: "Completed",
     },
   ],
-  // ── 4 Flagship Projects (Curated, Complete & Unified) ──
   projects: [
-    // 1. JQube — AI-Assisted DevSecOps Platform (Featured)
     {
       id: "jqube",
       name: "JQube",
@@ -445,10 +434,10 @@ export const portfolioData = {
       githubUrl: "https://github.com/Atharvkote",
       featured: true,
       logo: "ShieldCheck",
-      imagePrimary: "/jqube.png",
-      imageSecondary: "/jqube-preview.png",
-      imageOne: "/jqube.png",
-      imageTwo: "/jqube-preview.png",
+      imagePrimary: "/image/jqube.png",
+      imageSecondary: "/image/jqube-preview.png",
+      imageOne: "/image/jqube.png",
+      imageTwo: "/image/jqube-preview.png",
       pillars: [
         {
           icon: Code2,
@@ -473,7 +462,6 @@ export const portfolioData = {
       ],
     },
 
-    // 2. VenDeX — Distributed Microservices Architecture with Apache Kafka
     {
       id: "vendex",
       name: "VenDeX",
@@ -509,10 +497,10 @@ export const portfolioData = {
       githubUrl: "https://github.com/Atharvkote",
       featured: true,
       logo: "Kafka",
-      imagePrimary: "/vednex2.png",
+      imagePrimary: "/image/vednex2.png",
       imageSecondary:
         "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png",
-      imageOne: "/vednex2.png",
+      imageOne: "/image/vednex2.png",
       imageTwo:
         "https://res.cloudinary.com/dgz7hqbl9/image/upload/v1776587018/copy_of_screenshot_2026-03-22_232641_n4ppii_de8edb.png",
       pillars: [
@@ -539,7 +527,6 @@ export const portfolioData = {
       ],
     },
 
-    // 3. ConcertSync — Ticket Booking Platform for Live Concerts
     {
       id: "concertsync",
       name: "ConcertSync",
@@ -573,10 +560,10 @@ export const portfolioData = {
       githubUrl: "https://github.com/Atharvkote",
       featured: true,
       logo: "React.js",
-      imagePrimary: "/Ticket.jpg",
-      imageSecondary: "/Ticket-1.jpg",
-      imageOne: "/Ticket.jpg",
-      imageTwo: "/Ticket-1.jpg",
+      imagePrimary: "/image/Ticket.jpg",
+      imageSecondary: "/image/Ticket-1.jpg",
+      imageOne: "/image/Ticket.jpg",
+      imageTwo: "/image/Ticket-1.jpg",
       pillars: [
         {
           icon: QrCode,
@@ -601,7 +588,6 @@ export const portfolioData = {
       ],
     },
 
-    // 4. FoodDash AI — AI-Powered Contactless Ordering & Recommendation System
     {
       id: "fooddash",
       name: "FoodDash AI",
@@ -636,10 +622,10 @@ export const portfolioData = {
       githubUrl: "https://github.com/Atharvkote",
       featured: true,
       logo: "PyTorch",
-      imagePrimary: "/FD-1.png",
-      imageSecondary: "/FD-2.png",
-      imageOne: "/FD-1.png",
-      imageTwo: "/FD-2.png",
+      imagePrimary: "/image/FD-1.png",
+      imageSecondary: "/image/FD-2.png",
+      imageOne: "/image/FD-1.png",
+      imageTwo: "/image/FD-2.png",
       pillars: [
         {
           icon: Cpu,
@@ -666,7 +652,6 @@ export const portfolioData = {
   ] as ProjectItem[],
 };
 
-// ─── Architecture Tabs for Backend & DevOps Component ───
 export const backendTabs: BackendTab[] = [
   {
     id: "architecture",
@@ -774,7 +759,6 @@ export const backendTabs: BackendTab[] = [
   },
 ];
 
-// ─── Carousel Items for About Section ───
 export const aboutCarouselItems: CarouselItem[] = [
   {
     src: "https://res.cloudinary.com/dgz7hqbl9/image/upload/w_600,c_limit,q_auto,f_auto/v1776017613/WhatsApp_Image_2026-04-12_at_11.41.15_PM_sxrxmm.jpg",
@@ -783,20 +767,19 @@ export const aboutCarouselItems: CarouselItem[] = [
     subtitle: "Software Engineer",
   },
   {
-    src: "/boat.jpg",
+    src: "/image/boat.jpg",
     alt: "Mountain sunset horizon",
     title: "Horizons",
     subtitle: "Exploration",
   },
   {
-    src: "/green.png",
+    src: "/image/green.png",
     alt: "Milky way over snowy mountain peaks",
     title: "Night Sky",
     subtitle: "Vision",
   },
 ];
 
-// ─── Skill Sections for Skills Page ───
 export const skillSections: SkillSection[] = [
   {
     id: "backend",
@@ -908,7 +891,6 @@ export const skillSections: SkillSection[] = [
   },
 ];
 
-// ─── Social Links ───
 export const socialLinks: LinkItem[] = [
   {
     label: "GitHub",

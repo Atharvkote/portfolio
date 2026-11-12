@@ -16,7 +16,6 @@ const SOCIALS = [
 export function SocialBar() {
   return (
     <>
-      {/* Left — Social Icons */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -41,7 +40,6 @@ export function SocialBar() {
         <div className="w-px h-24 bg-text-muted/40" />
       </motion.div>
 
-      {/* Right — Email */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

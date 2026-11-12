@@ -4,7 +4,6 @@ import './index.css'
 import App from './app'
 import { applyColorTheme, getSavedColorTheme } from './lib/theme'
 
-// Initialize user's chosen accent color theme
 applyColorTheme(getSavedColorTheme());
 
 createRoot(document.getElementById('root')!).render(

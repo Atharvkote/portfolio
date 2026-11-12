@@ -29,7 +29,6 @@ export function Projects() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="relative grid grid-cols-12 items-center"
             >
-              {/* ───── Image ───── */}
               <div
                 className={`col-span-12 md:col-span-7 relative group rounded-lg overflow-hidden aspect-[16/10] ${isEven ? "md:col-start-1" : "md:col-start-6"
                   } row-start-1`}
@@ -45,7 +44,6 @@ export function Projects() {
                 </a>
               </div>
 
-              {/* ───── Content ───── */}
               <div
                 className={`col-span-12 md:col-span-7 relative z-20  flex flex-col ${isEven
                   ? "md:col-start-6 md:items-end md:text-right"
@@ -61,12 +59,10 @@ export function Projects() {
                   </a>
                 </h3>
 
-                {/* Description Card */}
                 <div className="glass-card p-5 md:p-6 mb-5 !rounded-lg text-text-secondary text-sm leading-relaxed !transform-none hover:!translate-y-0 w-full md:w-auto">
                   {project.description}
                 </div>
 
-                {/* Tech Stack */}
                 <ul
                   className={`flex flex-wrap gap-x-4 gap-y-1.5 font-mono text-xs text-text-muted mb-5 ${isEven ? "md:justify-end" : "md:justify-start"
                     }`}
@@ -79,7 +75,6 @@ export function Projects() {
                   ))}
                 </ul>
 
-                {/* Links */}
                 <div className={`flex gap-4 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
                   <a
                     href={project.github || "#"}

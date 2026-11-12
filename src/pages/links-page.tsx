@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { SEO } from "../components/layout/seo";
 import { trackSocialClick } from "../lib/analytics";
 
-// ─── Animations ───
 const stagger = {
   hidden: { opacity: 0 },
   show: {
@@ -21,7 +20,6 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
 };
 
-// ─── Link Card ───
 function LinkCard({ item }: { item: LinkItem }) {
   const Icon = item.icon;
 
@@ -38,14 +36,12 @@ function LinkCard({ item }: { item: LinkItem }) {
                  hover:border-primary/30 hover:bg-bg-card/50
                  transition-all duration-300"
     >
-      {/* Icon */}
       <div className="w-10 h-10 rounded-xl bg-primary/8 border border-primary/12
                       flex items-center justify-center shrink-0
                       group-hover:bg-primary/15 transition-colors duration-300">
         <Icon size={18} aria-hidden="true" className="text-text-secondary group-hover:text-primary transition-colors" />
       </div>
 
-      {/* Text */}
       <div className="flex-1 min-w-0">
         <span className="text-[14px] font-body font-bold text-text-primary block">
           {item.label}
@@ -55,7 +51,6 @@ function LinkCard({ item }: { item: LinkItem }) {
         </span>
       </div>
 
-      {/* Arrow */}
       <ArrowUpRight
         size={16}
         aria-hidden="true"
@@ -67,7 +62,6 @@ function LinkCard({ item }: { item: LinkItem }) {
   );
 }
 
-// ─── Page ───
 export function LinksPage() {
   return (
     <div className="relative bg-bg min-h-screen text-text-primary font-body overflow-x-clip">
@@ -76,7 +70,6 @@ export function LinksPage() {
         description="Connect with Atharva Kote across GitHub, LinkedIn, Twitter, LeetCode, and Stack Overflow."
         path="/links"
       />
-      {/* Subtle background glow */}
       <div
         className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
@@ -86,7 +79,6 @@ export function LinksPage() {
 
       <main className="relative z-10 w-full max-w-3xl mx-auto px-6 pt-12 pb-20 flex flex-col items-center">
 
-        {/* Back to Home Button */}
         <motion.div
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
@@ -106,14 +98,12 @@ export function LinksPage() {
           </Link>
         </motion.div>
 
-        {/* Profile Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center text-center mb-10"
         >
-          {/* Avatar */}
           <div className="relative mb-5">
             <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-primary/25
                             shadow-[0_0_40px_rgba(167,139,250,0.1)]">
@@ -126,17 +116,14 @@ export function LinksPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* Online indicator */}
             <div className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-green-500
                             border-2 border-bg" />
           </div>
 
-          {/* Name */}
           <h1 className="text-2xl md:text-3xl font-display font-bold text-text-primary mb-2">
             {portfolioData.name}
           </h1>
 
-          {/* Role badges */}
           <div className="flex flex-wrap justify-center gap-2 mb-6">
             {["Developer","Free Lancer", "Software Engineer"].map((tag) => (
               <span
@@ -149,7 +136,6 @@ export function LinksPage() {
             ))}
           </div>
 
-          {/* Quick action buttons */}
           <div className="flex items-center gap-3">
             <Link
               to="/"
@@ -175,7 +161,6 @@ export function LinksPage() {
           </div>
         </motion.div>
 
-        {/* Social Links Grid */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -187,7 +172,6 @@ export function LinksPage() {
           ))}
         </motion.div>
 
-        {/* Resume CTA */}
         <motion.a
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -205,7 +189,6 @@ export function LinksPage() {
           <ArrowUpRight size={14} aria-hidden="true" />
         </motion.a>
 
-        {/* Footer */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

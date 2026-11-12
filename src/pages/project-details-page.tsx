@@ -46,7 +46,6 @@ export default function ProjectDetailsPage() {
     return <Navigate to="/work" replace />;
   }
 
-  // Find next/prev project for navigation
   const currentIndex = portfolioData.projects.indexOf(project);
   const nextProject = portfolioData.projects[(currentIndex + 1) % portfolioData.projects.length];
   const nextSlug = nextProject.slug || nextProject.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
@@ -65,7 +64,6 @@ export default function ProjectDetailsPage() {
 
       <main className="relative z-10 w-full max-w-[1000px] mx-auto px-6 sm:px-10 lg:px-6 pt-28 pb-32">
 
-        {/* ── Back link ── */}
         <motion.div
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
@@ -80,14 +78,12 @@ export default function ProjectDetailsPage() {
           </Link>
         </motion.div>
 
-        {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8"
         >
-          {/* Meta row */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-widest
                                bg-primary/12 text-primary border border-primary/20 flex items-center gap-1">
@@ -95,18 +91,15 @@ export default function ProjectDetailsPage() {
             </span>
           </div>
 
-          {/* Title */}
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold font-display text-text-primary
                          tracking-tight mb-4 leading-tight max-w-[800px]">
             {project.title}
           </h1>
 
-          {/* Description */}
           <p className="text-text-secondary text-[15px] leading-relaxed max-w-[700px] mb-6">
             {project.description}
           </p>
 
-          {/* Action buttons */}
           <div className="flex flex-wrap items-center gap-3">
             {project.github && project.github !== "#" && (
               <a
@@ -141,7 +134,6 @@ export default function ProjectDetailsPage() {
           </div>
         </motion.div>
 
-        {/* ── Image Gallery ── */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -188,13 +180,10 @@ export default function ProjectDetailsPage() {
           )}
         </motion.div>
 
-        {/* ── Content Grid: Highlights + Tech ── */}
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
 
-          {/* Left: Overview + Highlights */}
           <div className="flex-1 space-y-12">
 
-            {/* Overview */}
             <motion.section
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -220,7 +209,6 @@ export default function ProjectDetailsPage() {
               </div>
             </motion.section>
 
-            {/* Highlights */}
             {project.highlights && project.highlights.length > 0 && (
               <motion.section
                 variants={stagger}
@@ -261,7 +249,6 @@ export default function ProjectDetailsPage() {
             )}
           </div>
 
-          {/* Right: Sticky Tech Sidebar */}
           <aside className="w-full lg:w-[300px] shrink-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -311,7 +298,6 @@ export default function ProjectDetailsPage() {
           </aside>
         </div>
 
-        {/* ── Next Project ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

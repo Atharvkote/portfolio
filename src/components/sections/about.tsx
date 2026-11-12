@@ -33,7 +33,6 @@ export function About() {
   return (
     <section id="about" className="py-12 md:py-20 relative overflow-hidden select-none">
       <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-        {/* ── Left Column: Storytelling Content & Social Links ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,18 +40,15 @@ export function About() {
           transition={{ duration: 0.4 }}
           className="lg:col-span-6 space-y-6"
         >
-          {/* Overline Badge */}
           <span className="font-mono text-xs sm:text-[13px] tracking-[0.25em] text-primary uppercase block">
             01. A QUICK GLANCE
           </span>
 
-          {/* Large Hero Headline */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold tracking-tight text-white leading-[1.14]">
             From abstract ideas to{" "}
             <span className="badone-font italic font-normal text-primary"> real solutions.</span>
           </h2>
 
-          {/* Narrative Body Copy */}
           <div className="space-y-4 text-text-muted text-sm sm:text-base leading-relaxed font-normal">
             <p>
               I'm <span className="text-white font-semibold">{portfolioData.name}</span>, an engineering-driven developer who turns complex architectural challenges into high-speed, scalable systems. I architect enterprise backends with a relentless focus on clean, decoupled code, robust design patterns, and seamless performance.
@@ -66,7 +62,6 @@ export function About() {
             </p>
           </div>
 
-          {/* Social Links matching the reference */}
           <div className="flex items-center gap-3 pt-2">
             {SOCIAL_LINKS.map((link) => {
               const Icon = link.icon;
@@ -88,7 +83,6 @@ export function About() {
           </div>
         </motion.div>
 
-        {/* ── Right Column: 3D Curved Circular Carousel ── */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -96,7 +90,6 @@ export function About() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="lg:col-span-6 relative w-full h-[560px] sm:h-[630px] md:h-[690px] flex items-center justify-center"
         >
-          {/* Ambient Background Glow behind 3D Carousel */}
           <div className="absolute w-80 h-80 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
 
           <CircularCarousel

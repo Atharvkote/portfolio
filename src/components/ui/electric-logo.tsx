@@ -1,28 +1,3 @@
-/**
- * import ElectricLogo from './ElectricLogo';
-
-<div style={{ width: '100%', height: '480px', position: 'relative' }}>
-  <ElectricLogo
-    src="/logo.svg"
-    color="#ffcdd2"
-    glowColor="#ff5260"
-    scale={0.7}
-    strands={4}
-    bend={0.6}
-    crackle={1.5}
-    arcs={1}
-    speed={2.5}
-    interactive
-    intensity={1}
-    glow={1}
-    thickness={1.5}
-    flicker={0.6}
-    fill={0}
-    cursorIntensity={0.75}
-    cursorRadius={100}
-/>
-</div>
- */
 
 
 import { useEffect, useRef } from 'react';

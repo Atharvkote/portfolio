@@ -21,7 +21,6 @@ export function VisitorCounter({ className = "" }: VisitorCounterProps) {
           setCount(result.uniqueVisitors);
         }
       } catch {
-        // Safe silent fail
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -36,7 +35,6 @@ export function VisitorCounter({ className = "" }: VisitorCounterProps) {
     };
   }, []);
 
-  // Graceful loading skeleton
   if (isLoading) {
     return (
       <div
@@ -49,7 +47,6 @@ export function VisitorCounter({ className = "" }: VisitorCounterProps) {
     );
   }
 
-  // Graceful error fallback: if API or Redis is unavailable, hide smoothly without breaking the layout
   if (count === null) {
     return null;
   }

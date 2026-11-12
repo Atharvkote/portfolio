@@ -29,11 +29,9 @@ export function Projects() {
 
   const handleFolderItemClick = (_item: FolderEntry, index: number) => {
     if (index === 0) {
-      // 1. View Details
       trackEvent("project_view_details_click", { project: currentProject.name });
       navigate(`/project/${currentProject.slug}`);
     } else if (index === 1) {
-      // 2. Visit Project
       trackEvent("project_visit_click", {
         project: currentProject.name,
         url: currentProject.liveUrl,
@@ -44,7 +42,6 @@ export function Projects() {
         navigate(`/project/${currentProject.slug}`);
       }
     } else if (index === 2) {
-      // 3. Source Doc
       trackEvent("project_source_doc_click", {
         project: currentProject.name,
         url: currentProject.githubUrl,
@@ -55,28 +52,23 @@ export function Projects() {
     }
   };
 
-  // ── 3 Action Cards inside the Primary Color Folder (Icons only, no images) ──
   const folderEntries: FolderEntry[] = [
-    // Card 1: View Details
     {
       title: "View Details",
       content: (
         <div className="absolute inset-[3px] rounded-[5px] bg-gradient-to-b from-[#0e1622] via-[#0a111a] to-[#070b10] border border-primary/40 p-3 flex flex-col justify-between group/card cursor-pointer shadow-md select-none transition-all duration-300 hover:border-primary">
-          {/* Top Tag */}
           <div className="flex items-center justify-between">
             <span className="font-mono text-[8px] font-bold tracking-wider uppercase text-primary/80">
               Case Study
             </span>
           </div>
 
-          {/* Center Icon */}
           <div className="flex flex-col items-center justify-center my-auto py-1">
             <div className="w-16 h-16 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary group-hover/card:scale-110 group-hover/card:bg-primary/20 transition-all duration-300 shadow-[0_0_14px_rgba(1,216,180,0.25)]">
               <RxComponent1 size={32} />
             </div>
           </div>
 
-          {/* Bottom Label & Action */}
           <div className="pt-1.5 border-t border-white/[0.08]">
             <div className="flex items-center justify-between text-xs font-bold text-white group-hover/card:text-primary transition-colors">
               <span>View Details</span>
@@ -90,26 +82,22 @@ export function Projects() {
       ),
     },
 
-    // Card 2: Visit Project
     {
       title: "Visit Project",
       content: (
         <div className="absolute inset-[3px] rounded-[5px] bg-gradient-to-b from-[#0e1622] via-[#0a111a] to-[#070b10] border border-primary/40 p-3 flex flex-col justify-between group/card cursor-pointer shadow-md select-none transition-all duration-300 hover:border-primary">
-          {/* Top Tag & Live Badge */}
           <div className="flex items-center justify-between">
             <span className="font-mono text-[8px] font-bold tracking-wider uppercase text-primary/80">
               Production
             </span>
           </div>
 
-          {/* Center Icon */}
           <div className="flex flex-col items-center justify-center my-auto py-1">
             <div className="w-16 h-16 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary group-hover/card:scale-110 group-hover/card:bg-primary/20 transition-all duration-300 shadow-[0_0_14px_rgba(1,216,180,0.25)]">
               <BiLinkExternal size={32} />
             </div>
           </div>
 
-          {/* Bottom Label & Action */}
           <div className="pt-1.5 border-t border-white/[0.08]">
             <div className="flex items-center justify-between text-xs font-bold text-white group-hover/card:text-primary transition-colors">
               <span>Visit Project</span>
@@ -123,26 +111,22 @@ export function Projects() {
       ),
     },
 
-    // Card 3: Source Code
     {
       title: "Source Code",
       content: (
         <div className="absolute inset-[3px] rounded-[5px] bg-gradient-to-b from-[#0e1622] via-[#0a111a] to-[#070b10] border border-primary/40 p-3 flex flex-col justify-between group/card cursor-pointer shadow-md select-none transition-all duration-300 hover:border-primary">
-          {/* Top Tag */}
           <div className="flex items-center justify-between">
             <span className="font-mono text-[8px] font-bold tracking-wider uppercase text-zinc-400">
               GitHub
             </span>
           </div>
 
-          {/* Center Icon */}
           <div className="flex flex-col items-center justify-center my-auto py-1">
             <div className="w-16 h-16 rounded-xl bg-white/[0.06] border border-white/20 flex items-center justify-center text-white group-hover/card:scale-110 group-hover/card:text-primary group-hover/card:border-primary/40 group-hover/card:bg-primary/10 transition-all duration-300 shadow-[0_0_14px_rgba(255,255,255,0.08)]">
               <FaGithub size={32} />
             </div>
           </div>
 
-          {/* Bottom Label & Action */}
           <div className="pt-1.5 border-t border-white/[0.08]">
             <div className="flex items-center justify-between text-xs font-bold text-white group-hover/card:text-primary transition-colors">
               <span>Source Code</span>
@@ -162,7 +146,6 @@ export function Projects() {
       id="projects"
       className="py-16 sm:py-20 md:py-24 relative select-none w-full"
     >
-      {/* ── Section Title & Header ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -181,7 +164,6 @@ export function Projects() {
         </p>
       </motion.div>
 
-      {/* ── Ambient Background Cyber Curved Light Rays ── */}
       <div className="absolute top-1/3 right-0 w-[420px] h-[420px] pointer-events-none -z-10 opacity-40">
         <svg
           viewBox="0 0 500 500"
@@ -205,17 +187,8 @@ export function Projects() {
         </svg>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
-          MAIN 3-COLUMN SHOWCASE (PERFECTLY EVEN & BALANCED SPACING)
-          Column 1 (260px)  ─── gap-8 ───  Column 2 (1fr)  ─── gap-8 ───  Column 3 (Folder)
-      ══════════════════════════════════════════════════════════════ */}
       <div className="relative grid grid-cols-1 lg:grid-cols-[260px_1fr_360px] gap-7 lg:gap-8 xl:gap-9 items-center w-full">
-        {/* ════════════════════════════════════════════════════
-            COLUMN 1: VERTICAL PROJECT TAB SELECTOR (LEFT)
-            Numbers in primary text with monospace font
-        ════════════════════════════════════════════════════ */}
         <div className="flex items-center gap-3 w-full">
-          {/* Milestone Step Indicator Spine */}
           <div className="hidden lg:flex flex-col items-center justify-between self-stretch py-4 relative">
             <div className="absolute top-5 bottom-5 w-[1.5px] bg-white/10 z-0" />
             {PROJECTS.map((p, idx) => {
@@ -235,7 +208,6 @@ export function Projects() {
             })}
           </div>
 
-          {/* Vertical Stack of Project Tabs */}
           <div className="grid grid-cols-2 lg:flex lg:flex-col gap-2.5 sm:gap-3 w-full">
             {PROJECTS.map((p, idx) => {
               const isActive = activeIdx === idx;
@@ -250,7 +222,6 @@ export function Projects() {
                     }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    {/* Numbers in primary text with monospace font */}
                     <span
                       className={`font-mono text-lg sm:text-xl font-black shrink-0 tracking-tight transition-all duration-200 ${isActive
                         ? "text-primary drop-shadow-[0_0_8px_rgba(1,216,180,0.5)]"
@@ -260,7 +231,6 @@ export function Projects() {
                       0{idx + 1}
                     </span>
 
-                    {/* Titles */}
                     <div className="min-w-0">
                       <h4 className="font-bold text-white text-sm sm:text-[15px] tracking-tight leading-snug truncate">
                         {p.tabTitle}
@@ -271,7 +241,6 @@ export function Projects() {
                     </div>
                   </div>
 
-                  {/* Active Arrow Indicator */}
                   {isActive && (
                     <motion.div
                       initial={{ opacity: 0, x: -4 }}
@@ -287,10 +256,6 @@ export function Projects() {
           </div>
         </div>
 
-        {/* ════════════════════════════════════════════════════
-            COLUMN 2: ACTIVE PROJECT DETAILS (MIDDLE)
-            Clean info presentation; redundant action buttons removed
-        ════════════════════════════════════════════════════ */}
         <div className="w-full min-w-0 py-1">
           <AnimatePresence mode="wait">
             <motion.div
@@ -301,22 +266,18 @@ export function Projects() {
               transition={{ duration: 0.25 }}
               className="space-y-4"
             >
-              {/* Featured Badge */}
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary font-mono text-[11px] font-bold tracking-wider uppercase">
                 <span>★</span> {currentProject.badge}
               </div>
 
-              {/* Project Title */}
               <h3 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
                 {currentProject.name}
               </h3>
 
-              {/* Description */}
               <p className="text-zinc-300 text-xs sm:text-[13.5px] leading-relaxed font-normal">
                 {currentProject.description}
               </p>
 
-              {/* Tech Stack Pills */}
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {currentProject.tech.map((tech) => (
                   <div
@@ -332,11 +293,6 @@ export function Projects() {
           </AnimatePresence>
         </div>
 
-        {/* ════════════════════════════════════════════════════
-            COLUMN 3: PRIMARY COLOR FOLDER (RIGHT)
-            Holding 3 interactive action links:
-            1. View Details | 2. Visit Project | 3. Source Doc
-        ════════════════════════════════════════════════════ */}
         <div className="relative w-full flex items-center justify-center py-6 min-h-[320px]">
           <Folder
             key={currentProject.id}
@@ -358,11 +314,7 @@ export function Projects() {
         </div>
       </div>
 
-      {/* ════════════════════════════════════════════════════
-          BOTTOM FEATURE PILLARS (4-COL BALANCED GRID)
-      ════════════════════════════════════════════════════ */}
       <div className="mt-12 pt-7 border-t border-teal-500/20 relative">
-        {/* Subtle horizontal cyan glow line */}
         <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent pointer-events-none" />
 
         <AnimatePresence mode="wait">

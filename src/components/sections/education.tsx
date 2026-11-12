@@ -16,7 +16,6 @@ export function Education() {
 
   return (
     <section id="education" className="py-20 md:py-28 relative">
-      {/* ── Section Title & Header ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -35,9 +34,7 @@ export function Education() {
         </p>
       </motion.div>
 
-      {/* Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-stretch max-w-[1100px] mx-auto pr-3 pb-4">
-        {/* LEFT COLUMN: Featured Engineering Card */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -45,10 +42,8 @@ export function Education() {
           transition={{ duration: 0.4 }}
           className="lg:col-span-7 relative group h-full flex flex-col"
         >
-          {/* Front Content Card */}
           <div className="relative z-10 h-full rounded-xl bg-bg-card border-1 border-primary/20 p-6 sm:p-8 flex flex-col justify-between transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1">
             <div>
-              {/* Header */}
               <div className="flex items-center justify-between gap-3 mb-5">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xs font-semibold text-primary tracking-wider uppercase">
@@ -61,12 +56,10 @@ export function Education() {
 
               </div>
 
-              {/* Title */}
               <h3 className="font-display text-2xl sm:text-3xl font-bold text-text-primary group-hover:text-primary transition-colors leading-tight mb-3">
                 {btech.degree}
               </h3>
 
-              {/* Specialization Badge */}
               {btech.specialization && (
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/25 text-primary font-mono text-xs sm:text-sm font-semibold mb-6">
                   <ShieldCheck size={16} className="text-primary shrink-0" />
@@ -74,7 +67,6 @@ export function Education() {
                 </div>
               )}
 
-              {/* College & University */}
               <div className="space-y-1.5 mb-6 text-sm sm:text-base">
                 <div className="flex items-start gap-2.5 text-text-primary font-medium">
                   <Building2 size={17} className="text-primary mt-0.5 shrink-0" />
@@ -87,7 +79,6 @@ export function Education() {
                 )}
               </div>
 
-              {/* Key Coursework / Specializations */}
               {btech.highlights && (
                 <div className="space-y-2 mb-6 pt-4 border-t border-white/5">
                   <p className="font-mono text-xs text-text-muted uppercase tracking-wider flex items-center gap-1.5">
@@ -107,7 +98,6 @@ export function Education() {
               )}
             </div>
 
-            {/* Bottom Stats Footer */}
             <div className="grid grid-cols-2 gap-4 pt-5 border-t border-white/10 mt-auto">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 text-primary">
@@ -139,13 +129,10 @@ export function Education() {
             </div>
           </div>
 
-          {/* Signature Offset Border Effect */}
           <div className="absolute inset-0 border-1 border-primary/30 rounded-xl translate-x-3 translate-y-3 lg:translate-x-4 lg:translate-y-4 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:bg-primary" />
         </motion.div>
 
-        {/* RIGHT COLUMN: HSC & SSC Stack */}
         <div className="lg:col-span-5 flex flex-col gap-10 lg:gap-8 h-full justify-between">
-          {/* TOP RIGHT: HSC */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -153,10 +140,8 @@ export function Education() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="flex-1 relative group flex flex-col"
           >
-            {/* Front Card */}
             <div className="relative z-10 h-full rounded-xl bg-bg-card border-1 border-primary/20 p-6 sm:p-7 flex flex-col justify-between transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1">
               <div>
-                {/* Header */}
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <span className="font-mono text-xs font-semibold text-primary/70 tracking-wider uppercase">
                     02 // Higher Secondary
@@ -166,7 +151,6 @@ export function Education() {
                   </span>
                 </div>
 
-                {/* Title */}
                 <h3 className="font-display text-lg sm:text-xl font-bold text-text-primary group-hover:text-primary transition-colors mb-1">
                   {hsc.degree}
                 </h3>
@@ -176,7 +160,6 @@ export function Education() {
                   </span>
                 )}
 
-                {/* College & Board */}
                 <div className="space-y-1 text-xs sm:text-sm text-text-secondary mb-4">
                   <div className="flex items-start gap-2 text-text-primary font-medium">
                     <School size={15} className="text-primary/70 mt-0.5 shrink-0" />
@@ -190,7 +173,6 @@ export function Education() {
                 </div>
               </div>
 
-              {/* Footer */}
               <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs mt-auto">
                 <span className="text-text-muted flex items-center gap-1.5">
                   <Calendar size={13} className="text-primary/60" /> {hsc.period}
@@ -201,11 +183,9 @@ export function Education() {
               </div>
             </div>
 
-            {/* Signature Offset Border Effect */}
             <div className="absolute inset-0 border-1 border-primary/30 rounded-xl translate-x-3 translate-y-3 lg:translate-x-4 lg:translate-y-4 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:bg-primary" />
           </motion.div>
 
-          {/* BOTTOM RIGHT: SSC */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -213,10 +193,8 @@ export function Education() {
             transition={{ duration: 0.4, delay: 0.15 }}
             className="flex-1 relative group flex flex-col"
           >
-            {/* Front Card */}
             <div className="relative z-10 h-full rounded-xl bg-bg-card border-1 border-primary/20 p-6 sm:p-7 flex flex-col justify-between transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1">
               <div>
-                {/* Header */}
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <span className="font-mono text-xs font-semibold text-primary/70 tracking-wider uppercase">
                     03 // Secondary School
@@ -226,12 +204,10 @@ export function Education() {
                   </span>
                 </div>
 
-                {/* Title */}
                 <h3 className="font-display text-lg sm:text-xl font-bold text-text-primary group-hover:text-primary transition-colors mb-2">
                   {ssc.degree}
                 </h3>
 
-                {/* School & Board */}
                 <div className="space-y-1 text-xs sm:text-sm text-text-secondary mb-4">
                   <div className="flex items-start gap-2 text-text-primary font-medium">
                     <School size={15} className="text-primary/70 mt-0.5 shrink-0" />
@@ -245,7 +221,6 @@ export function Education() {
                 </div>
               </div>
 
-              {/* Footer */}
               <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs mt-auto">
                 <span className="text-text-muted flex items-center gap-1.5">
                   <Calendar size={13} className="text-primary/60" /> {ssc.period}
@@ -256,7 +231,6 @@ export function Education() {
               </div>
             </div>
 
-            {/* Signature Offset Border Effect */}
             <div className="absolute inset-0 border-1 border-primary/30 rounded-xl translate-x-3 translate-y-3 lg:translate-x-4 lg:translate-y-4 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:bg-primary" />
           </motion.div>
         </div>

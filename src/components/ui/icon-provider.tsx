@@ -1,4 +1,3 @@
-// TechIcon.tsx
 import React from "react";
 import { getTechIcon, TECH_ICONS } from "../../lib/tech-icons";
 import { Code2 } from "lucide-react";

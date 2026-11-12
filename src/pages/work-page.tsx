@@ -10,7 +10,6 @@ import TechIcon from "../components/ui/icon-provider";
 import { SEO } from "../components/layout/seo";
 import { trackProjectClick } from "../lib/analytics";
 
-// ─── Animation Variants ───
 const stagger = {
   hidden: { opacity: 0 },
   show: {
@@ -24,7 +23,6 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
 };
 
-// ─── Project Card ───
 function ProjectCard({ project }: {
   project: (typeof portfolioData.projects)[number];
 }) {
@@ -39,9 +37,7 @@ function ProjectCard({ project }: {
                    overflow-hidden transition-all duration-400
                    hover:border-primary/35 hover:shadow-[0_0_48px_rgba(167,139,250,0.06)]"
       >
-        {/* Content */}
         <div className="p-5 sm:p-6">
-          {/* Meta badges */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="flex items-center gap-1 text-[11px] font-mono text-text-dim">
               <Calendar size={10} aria-hidden="true" />
@@ -49,7 +45,6 @@ function ProjectCard({ project }: {
             </span>
           </div>
 
-          {/* Logo + Title */}
           <div className="flex items-start gap-3 mb-3">
             <div className="w-10 h-10 rounded-xl bg-primary/8 border border-primary/15 flex items-center
                             justify-center shrink-0 mt-0.5
@@ -65,12 +60,10 @@ function ProjectCard({ project }: {
           
           </div>
 
-          {/* Description */}
           <p className="text-[13px] text-text-secondary leading-relaxed mb-4 line-clamp-2">
             {project.description}
           </p>
 
-          {/* Tech chips */}
           <div className="flex flex-wrap gap-1.5">
             {project.tech.slice(0, 5).map((tech) => (
               <span
@@ -96,7 +89,6 @@ function ProjectCard({ project }: {
   );
 }
 
-// ─── Stats Row ───
 function ProjectStats() {
   const stats = [
     { label: "Total Projects", value: `${portfolioData.projects.length}` },
@@ -127,7 +119,6 @@ function ProjectStats() {
   );
 }
 
-// ─── Page ───
 export default function WorkPage() {
   return (
     <div className="relative bg-bg min-h-screen text-text-primary font-body overflow-x-clip">
@@ -141,7 +132,6 @@ export default function WorkPage() {
       <QuickAccess />
 
       <main className="relative z-10 w-full max-w-[1000px] mx-auto px-6 sm:px-10 lg:px-6 pt-32 pb-32">
-        {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -160,10 +150,8 @@ export default function WorkPage() {
           </p>
         </motion.div>
 
-        {/* ── Stats ── */}
         <ProjectStats />
 
-        {/* ── Project Grid ── */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -176,7 +164,6 @@ export default function WorkPage() {
           ))}
         </motion.div>
 
-        {/* ── View All CTA ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

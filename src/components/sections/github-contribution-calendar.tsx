@@ -31,11 +31,8 @@ export interface GitHubContributionsData {
 }
 
 export interface GitHubContributionCalendarProps {
-  /** GitHub username (defaults to Atharvkote from portfolioData) */
   username?: string;
-  /** Section HTML id */
   id?: string;
-  /** Additional container classes */
   className?: string;
 }
 
@@ -47,7 +44,6 @@ const LEVEL_MAP: Record<string, IntensityLevel> = {
   FOURTH_QUARTILE: 4,
 };
 
-// Strict portfolio palette: Charcoal -> Deep Teal -> Medium Teal -> Bright Teal -> Neon Turquoise
 const INTENSITY_STYLES: Record<
   IntensityLevel,
   { bg: string; border: string; glow?: string; label: string }
@@ -184,7 +180,6 @@ export function GitHubContributionCalendar({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Tooltip state
   const [tooltip, setTooltip] = useState<{
     day: ContributionDay;
     level: IntensityLevel;
@@ -194,13 +189,11 @@ export function GitHubContributionCalendar({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Fetch real GitHub contribution data
   const fetchData = async (year: string) => {
     setLoading(true);
     setError(null);
 
     try {
-      // 1. Attempt primary backend serverless API (uses GitHub GraphQL)
       const res = await fetch(`/api/github-contributions?username=${encodeURIComponent(username)}&year=${year}`);
       if (res.ok) {
         const json = await res.json();
@@ -211,7 +204,6 @@ export function GitHubContributionCalendar({
         }
       }
 
-      // 2. Client-side fallback to public contributions API if /api is not deployed or unreachable
       try {
         const fallbackUrl = `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=${year}`;
         const fallbackRes = await fetch(fallbackUrl);
@@ -227,7 +219,6 @@ export function GitHubContributionCalendar({
             let currentWeek: ContributionDay[] = [];
             const monthMap = new Map<string, { name: string; firstDay: string; totalWeeks: number }>();
 
-            // Ensure chronological order
             json.contributions.sort((a: any, b: any) => (a.date || "").localeCompare(b.date || ""));
 
             json.contributions.forEach((day: { date: string; count: number; level: number }) => {
@@ -283,10 +274,8 @@ export function GitHubContributionCalendar({
           }
         }
       } catch {
-        // Fallback service timed out, proceed to client fallback
       }
 
-      // 3. Resilient client-side fallback matching profile activity
       setData(generateClientFallback(username, year));
     } catch (err: any) {
       console.warn("[GitHubContributionCalendar] Network error, utilizing client fallback:", err);
@@ -300,11 +289,9 @@ export function GitHubContributionCalendar({
     fetchData(selectedYear);
   }, [username, selectedYear]);
 
-  // Normalize weeks to ensure complete 7-day columns for grid rendering
   const normalizedWeeks = useMemo(() => {
     if (!data?.weeks) return [];
 
-    // Flatten all contribution days, deduplicate by date, and sort chronologically
     const dayMap = new Map<string, ContributionDay>();
     data.weeks.forEach((week) => {
       week.contributionDays?.forEach((d) => {
@@ -317,7 +304,6 @@ export function GitHubContributionCalendar({
     const allDays = Array.from(dayMap.values()).sort((a, b) => a.date.localeCompare(b.date));
     if (allDays.length === 0) return [];
 
-    // Group into 7-day columns (Sunday = row 0, Saturday = row 6)
     const weeks: (ContributionDay | null)[][] = [];
     let currentWeek: (ContributionDay | null)[] = new Array(7).fill(null);
 
@@ -328,7 +314,6 @@ export function GitHubContributionCalendar({
           ? day.weekday
           : dateObj.getDay();
 
-      // If Sunday (0) and currentWeek has days already, push it and start a new column
       if (weekday === 0 && currentWeek.some((d) => d !== null)) {
         weeks.push(currentWeek);
         currentWeek = new Array(7).fill(null);
@@ -349,7 +334,6 @@ export function GitHubContributionCalendar({
     return weeks;
   }, [data]);
 
-  // Compute month label positions corresponding to week indices
   const monthLabels = useMemo(() => {
     if (!normalizedWeeks.length) return [];
 
@@ -415,7 +399,6 @@ export function GitHubContributionCalendar({
 
   const profileUrl = portfolioData.socials.github || `https://github.com/${username}`;
 
-  // 3-Metric calculations for stats cards (matching Photo 3)
   const stats = useMemo(() => {
     let activeDays = 0;
     let maxStreak = 0;
@@ -461,7 +444,6 @@ export function GitHubContributionCalendar({
 
   return (
     <section id={id} className={`py-14 sm:py-16 md:py-20 relative select-none ${className}`}>
-      {/* ── Section Title & Header matching portfolio aesthetics ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -480,7 +462,6 @@ export function GitHubContributionCalendar({
         </p>
       </motion.div>
 
-      {/* ── Top Bar matching Photo 3: 01 GITHUB (Left) & @Atharvkote ↗ (Right) ── */}
       <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.08]">
         <div className="flex items-center gap-2">
           <span className="font-mono text-xs sm:text-sm font-bold text-primary tracking-wider">
@@ -502,7 +483,6 @@ export function GitHubContributionCalendar({
         </a>
       </div>
 
-      {/* ── Main Contribution Card Container ── */}
       <motion.div
         ref={containerRef}
         initial={{ opacity: 0, y: 25 }}
@@ -511,13 +491,11 @@ export function GitHubContributionCalendar({
         transition={{ duration: 0.45, delay: 0.1 }}
         className="relative rounded-2xl border border-white/10 bg-[#000000]/80 backdrop-blur-xl p-3 sm:p-5 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:border-primary/30 transition-colors duration-300"
       >
-        {/* Subtle radial ambient glow inside card */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-primary/10 rounded-full blur-3xl"
         />
 
-        {/* ── Card Subheader (Stats Left, Year Selectors Right) ── */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 sm:pb-5 border-b border-white/5 relative z-10">
           <div className="flex items-center gap-2 sm:gap-2.5">
             <span className="text-xl sm:text-2xl font-bold font-['Manrope'] text-white tracking-tight">
@@ -532,7 +510,6 @@ export function GitHubContributionCalendar({
             </span>
           </div>
 
-          {/* Year Selector Pills */}
           <div className="flex items-center bg-[#141414] p-1 rounded-xl border border-white/10 w-full sm:w-auto overflow-x-auto no-scrollbar justify-between sm:justify-start">
             {AVAILABLE_YEARS.map((yr) => (
               <button
@@ -555,10 +532,8 @@ export function GitHubContributionCalendar({
           </div>
         </div>
 
-        {/* ── Main Activity Heatmap Grid ── */}
         <div className="relative mt-6">
           {loading ? (
-            /* Skeleton Loading Grid */
             <div className="py-6 flex flex-col items-center justify-center">
               <div className="flex items-center gap-2.5 text-xs text-primary font-mono mb-4">
                 <RefreshCw size={14} className="animate-spin" />
@@ -580,7 +555,6 @@ export function GitHubContributionCalendar({
               </div>
             </div>
           ) : error ? (
-            /* Error Fallback State */
             <div className="py-12 text-center flex flex-col items-center justify-center">
               <CalendarIcon size={32} className="text-text-muted/40 mb-3" />
               <p className="text-sm text-text-muted mb-4">{error}</p>
@@ -593,10 +567,8 @@ export function GitHubContributionCalendar({
               </button>
             </div>
           ) : (
-            /* Heatmap Calendar Matrix - Mobile Horizontal Scroll & Desktop Centering */
             <div className="w-full overflow-x-auto pb-3 pt-2 no-scrollbar md:scrollbar-thin md:scrollbar-thumb-white/10 md:scrollbar-track-transparent flex justify-start lg:justify-center">
               <div className="w-fit min-w-fit shrink-0 lg:mx-auto px-1 sm:px-2">
-                {/* Month labels row */}
                 <div className="flex items-center mb-2 pl-7 sm:pl-8 text-[11px] font-mono text-text-muted/70">
                   <div className="relative w-full h-4">
                     {monthLabels.map((m, idx) => (
@@ -613,9 +585,7 @@ export function GitHubContributionCalendar({
                   </div>
                 </div>
 
-                {/* Days Grid + Weekday labels */}
                 <div className="flex items-start gap-2">
-                  {/* Weekday labels down left side (Mon, Wed, Fri) */}
                   <div className="flex flex-col gap-[3px] text-[10px] font-mono text-text-muted/60 select-none pt-[1px] w-5 sm:w-6 shrink-0 text-right pr-1">
                     <span className="h-[11px] sm:h-[12px] leading-[11px] sm:leading-[12px]"></span>
                     <span className="h-[11px] sm:h-[12px] leading-[11px] sm:leading-[12px]">Mon</span>
@@ -626,7 +596,6 @@ export function GitHubContributionCalendar({
                     <span className="h-[11px] sm:h-[12px] leading-[11px] sm:leading-[12px]"></span>
                   </div>
 
-                  {/* 52 Columns of 7 Days */}
                   <div className="flex gap-[3px]">
                     {normalizedWeeks.map((week, weekIdx) => (
                       <div key={weekIdx} className="flex flex-col gap-[3px]">
@@ -673,7 +642,6 @@ export function GitHubContributionCalendar({
             </div>
           )}
 
-          {/* ── Interactive Floating Tooltip ── */}
           <AnimatePresence>
             {tooltip && (
               <motion.div
@@ -702,19 +670,16 @@ export function GitHubContributionCalendar({
                 <div className="text-[10px] font-mono text-text-muted mt-0.5">
                   {formatDate(tooltip.day.date)}
                 </div>
-                {/* Pointer tip */}
                 <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0d0d0d]" />
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Mobile Swipe Guidance */}
           <div className="flex lg:hidden items-center justify-center gap-1.5 text-[10px] font-mono text-text-muted/60 mt-1 pb-1">
             <span>← Swipe horizontally to explore 52 weeks →</span>
           </div>
         </div>
 
-        {/* ── Card Footer: Activity Intensity Legend (matching Photo 3) ── */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 mt-2 border-t border-white/5 text-xs text-text-muted">
           <div className="flex items-center gap-1.5 font-mono text-[11px] text-text-muted">
             <span>Hover a day for details</span>
@@ -739,7 +704,6 @@ export function GitHubContributionCalendar({
         </div>
       </motion.div>
 
-      {/* ── 3-Column Metrics Row (matching Photo 3) ── */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4">
         <motion.div
           initial={{ opacity: 0, y: 15 }}

@@ -9,7 +9,6 @@ import { VisitorCounter } from "../sections/visitor-counter";
 export function Contact() {
   return (
     <section id="contact" className="py-24 md:py-32">
-      {/* ── Section Title & Header ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -29,7 +28,6 @@ export function Contact() {
       </motion.div>
 
       <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
-        {/* Say Hello (Gmail Compose) */}
         <motion.a
           target="_blank"
           rel="noopener noreferrer"
@@ -41,20 +39,16 @@ export function Contact() {
           className="relative inline-block group"
         >
           <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
-            {/* Background layer */}
             <span className="absolute inset-0 bg-bg z-0 transition-all duration-300 group-hover:scale-105"></span>
 
-            {/* Text */}
             <span className="relative z-10 font-medium">
               Say Hello <FaMessage className="inline-block ml-1 text-base text-primary" aria-hidden="true" />
             </span>
           </span>
 
-          {/* Shadow / offset layer */}
           <span className="absolute inset-0 border border-primary/30 rounded-lg translate-x-1 translate-y-1 transition-all duration-300 group-hover:bg-primary"></span>
         </motion.a>
 
-        {/* All Links page */}
         <motion.div
           initial={{ opacity: 0, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,16 +60,13 @@ export function Contact() {
             className="relative inline-block group"
           >
             <span className="relative z-10 px-6 py-3 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 border-2 border-primary/30 text-text-primary overflow-hidden inline-block">
-              {/* Background layer */}
               <span className="absolute inset-0 bg-bg z-0 transition-all duration-300 group-hover:scale-105"></span>
 
-              {/* Text */}
               <span className="relative z-10 font-medium">
                 All Links <Link2 className="inline-block ml-1 text-lg text-primary" aria-hidden="true" />
               </span>
             </span>
 
-            {/* Shadow / offset layer */}
             <span className="absolute inset-0 border border-primary/30 rounded-lg translate-x-1 translate-y-1 transition-all duration-300 group-hover:bg-primary"></span>
           </Link>
         </motion.div>
@@ -96,21 +87,16 @@ export function Footer() {
         transition={{ duration: 0.45 }}
         className="rounded-[8px] sm:rounded-[16px] bg-[#0c0c0e]/95 border border-white/[0.08] backdrop-blur-2xl p-6 sm:p-8 md:p-10 lg:p-11 shadow-[0_16px_48px_rgba(0,0,0,0.6)] relative overflow-hidden"
       >
-        {/* Subtle ambient background glow */}
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#01d8b4]/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
 
-        {/* Main Grid: Left Signature & Bio, Right Multi-Column Links */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 relative z-10">
 
-          {/* Left Column: Signature & Philosophy */}
           <div className="lg:col-span-5 flex flex-col text-center md:text-left md:justify-start">
-            {/* Signature using Bonheur Royale font */}
             <h2 className="font-bonheur text-6xl sm:text-7xl md:text-8xl lg:text-[88px]  select-none -ml-1 py-1 drop-shadow-[0_4px_24px_rgba(255,255,255,0.15)]">
               Atharva Kote
             </h2>
 
-            {/* Philosophy Paragraph */}
             <p className="text-text-muted text-xs sm:text-sm leading-relaxed mt-3 sm:mt-4 max-w-sm font-['Manrope']">
               Building digital experiences that matter, one line of code at a time.
               Crafting interfaces that feel alive, solving problems that make a difference,
@@ -118,10 +104,8 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Right Columns: 4 Clean Navigation Columns */}
           <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 mx-auto md:mx-0 gap-6 sm:gap-6 lg:gap-8">
 
-            {/* 1. General */}
             <div>
               <h3 className="font-mono text-xs sm:text-sm font-semibold text-white tracking-wide mb-3 sm:mb-4">
                 General
@@ -155,7 +139,6 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* 2. About */}
             <div>
               <h3 className="font-mono text-xs sm:text-sm font-semibold text-white tracking-wide mb-3 sm:mb-4">
                 About
@@ -185,7 +168,6 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* 3. Connect */}
             <div>
               <h3 className="font-mono text-xs sm:text-sm font-semibold text-white tracking-wide mb-3 sm:mb-4">
                 Connect
@@ -249,7 +231,6 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* 4. Legal */}
             <div>
               <h3 className="font-mono text-xs sm:text-sm font-semibold text-white tracking-wide mb-3 sm:mb-4">
                 Legal
@@ -277,7 +258,6 @@ export function Footer() {
 
         </div>
 
-        {/* Bottom Bar: Visitor Counter, Copyright, Attribution */}
         <div className="border-t border-white/[0.08] mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted font-mono relative z-10">
           <div className="flex items-center gap-3">
             <VisitorCounter />

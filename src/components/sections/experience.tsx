@@ -9,7 +9,6 @@ export function Experience() {
 
   return (
     <section id="experience" className="py-24 md:py-32">
-      {/* ── Section Title & Header ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -28,7 +27,6 @@ export function Experience() {
         </p>
       </motion.div>
 
-      {/* Main Layout */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -36,9 +34,7 @@ export function Experience() {
         transition={{ duration: 0.35, delay: 0.08 }}
         className="flex flex-col md:flex-row gap-10 max-w-[1000px]"
       >
-        {/* LEFT: Tabs */}
         <div className="relative flex flex-col overflow-x-auto md:overflow-visible border-b md:border-b-0 md:border-l-2 border-text-muted/15 md:min-w-[180px] shrink-0">
-          {/* Indicator */}
           <div
             className="hidden md:block absolute left-[-2px] w-[2px] h-[42px] bg-primary rounded-full transition-all duration-300"
             style={{ top: active * 42 }}
@@ -63,7 +59,6 @@ export function Experience() {
           ))}
         </div>
 
-        {/* MIDDLE: Content */}
         <div className="md:pl-8 flex-1 min-h-[220px]">
           <AnimatePresence mode="wait">
             <motion.div
@@ -112,10 +107,8 @@ export function Experience() {
             <div className="relative h-fit group mx-auto md:mx-0 w-[200px] md:w-full max-w-[200px]">
               <div className="relative z-10 rounded-lg overflow-hidden aspect-square border-2 border-primary/15 transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1">
                 
-                {/* Overlay */}
                 <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
 
-                {/* IMAGE (dynamic) */}
                 <img
                   src={exp.image}
                   alt={exp.company}
@@ -126,7 +119,6 @@ export function Experience() {
                 />
               </div>
 
-              {/* Border effect */}
               <div className="absolute inset-0 border-2 border-primary/30 rounded-lg translate-x-4 translate-y-4 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:bg-primary" />
             </div>
           </motion.div>

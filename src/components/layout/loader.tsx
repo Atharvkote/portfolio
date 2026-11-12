@@ -12,7 +12,6 @@ export function Loader({ children }: LoaderProps) {
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // Lock body scroll during initial loading
   useEffect(() => {
     if (loading) {
       document.body.style.overflow = "hidden";
@@ -24,17 +23,15 @@ export function Loader({ children }: LoaderProps) {
     };
   }, [loading]);
 
-  // Smooth high-frame progress animation
   useEffect(() => {
     const startTime = performance.now();
-    const duration = 1800; // 1.8 seconds optimal duration
+    const duration = 1800;
 
     let animationFrameId: number;
 
     const tick = (now: number) => {
       const elapsed = now - startTime;
       const rawProgress = Math.min(1, elapsed / duration);
-      // Easing curve for rapid initial acceleration and clean settle into 100%
       const easedProgress = Math.min(100, Math.round((1 - Math.pow(1 - rawProgress, 2.5)) * 100));
 
       setProgress(easedProgress);
@@ -42,7 +39,6 @@ export function Loader({ children }: LoaderProps) {
       if (rawProgress < 1) {
         animationFrameId = requestAnimationFrame(tick);
       } else {
-        // Brief pause at 100% for satisfying feedback before unmounting
         setTimeout(() => {
           setLoading(false);
         }, 200);
@@ -56,7 +52,6 @@ export function Loader({ children }: LoaderProps) {
     };
   }, []);
 
-  // Keyboard shortcut to skip intro
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
@@ -90,10 +85,8 @@ export function Loader({ children }: LoaderProps) {
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-[9999] flex flex-col items-center justify-between bg-black text-text-primary px-6 py-8 sm:py-12 select-none overflow-hidden cursor-default"
           >
-            {/* Ambient Radial Cyber Glow */}
             <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] rounded-full bg-primary/10 blur-[100px] animate-pulse" />
 
-            {/* Top Telemetry Header */}
             <motion.a
               href="#"
               initial={{ opacity: 0 }}
@@ -109,16 +102,13 @@ export function Loader({ children }: LoaderProps) {
               </span>
             </motion.a>
 
-            {/* Centerpiece: Electrified A.svg Monogram */}
             <div className="relative z-10 flex flex-col items-center justify-center my-auto">
-              {/* Subtle orbital concentric accent rings */}
               <div className="absolute inset-0 -m-8 sm:-m-12 rounded-full border border-primary/10 animate-[spin_25s_linear_infinite] pointer-events-none" />
               <div className="absolute inset-0 -m-4 sm:-m-6 rounded-full border border-dashed border-primary/15 animate-[spin_35s_linear_infinite_reverse] pointer-events-none" />
 
-              {/* Electric Canvas Container */}
               <div className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[420px] md:h-[420px] flex items-center justify-center">
                 <ElectricLogo
-                  src={aSvg || "/a.svg"}
+                  src={aSvg || "/svg/a.svg"}
                   color="#01d8b4"
                   glowColor="#00F0C0"
                   scale={0.82}
@@ -141,9 +131,7 @@ export function Loader({ children }: LoaderProps) {
               </div>
             </div>
 
-            {/* Bottom Progress Bar & Readout */}
             <div className="relative z-10 w-full max-w-md flex flex-col items-center gap-3">
-              {/* Status & Numeric Percentage */}
               <div className="w-full flex items-center justify-between font-mono text-xs">
                 <div className="flex items-center gap-2 text-primary font-semibold tracking-wide">
                   <Zap size={14} className="text-primary animate-pulse shrink-0" />
@@ -154,17 +142,14 @@ export function Loader({ children }: LoaderProps) {
                 </span>
               </div>
 
-              {/* Glowing Cyber Beam Progress Track */}
               <div className="w-full h-[3px] bg-white/10 rounded-full overflow-hidden relative border border-white/5">
                 <div
                   className="h-full bg-gradient-to-r from-primary/80 via-primary-light to-primary rounded-full relative transition-[width] duration-75 ease-out"
                   style={{ width: `${progress}%` }}
                 >
-                  {/* Glowing lead edge beam */}
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full blur-[2px] shadow-[0_0_12px_#00F0C0]" />
                 </div>
               </div>
-
 
             </div>
           </motion.div>

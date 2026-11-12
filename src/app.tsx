@@ -7,7 +7,6 @@ import { Toaster } from "sonner";
 import { initGA, trackPageView } from "./lib/analytics";
 import SplashCursor from "./components/ui/splash-cusor";
 
-// Lazy load pages for performance
 const HomePage = lazy(() => import("./pages/home-page").then(m => ({ default: m.HomePage })));
 const SkillsPage = lazy(() => import("./pages/skills-page").then(m => ({ default: m.SkillsPage })));
 const WorkPage = lazy(() => import("./pages/work-page"));
@@ -18,10 +17,8 @@ function RouteAnalyticsTracker() {
   const location = useLocation();
 
   useEffect(() => {
-    // Scroll to top on route change
     window.scrollTo(0, 0);
 
-    // Track SPA route change in Google Analytics
     trackPageView(location.pathname + location.search);
   }, [location]);
 
@@ -30,12 +27,8 @@ function RouteAnalyticsTracker() {
 
 function AppContent() {
   useEffect(() => {
-    // Initialize Google Analytics safely if measurement ID is present
     initGA();
 
-    // Optimize main-thread performance on touch/mobile devices
-    // Mobile browsers have hardware-accelerated native compositor scrolling;
-    // disabling Lenis on touch devices eliminates long main-thread tasks.
     const isTouch = window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
 
     let lenis: Lenis | null = null;
@@ -64,7 +57,6 @@ function AppContent() {
 
   return (
     <div className="relative bg-bg min-h-screen text-text-primary overflow-x-clip">
-      {/* Background Effects */}
       <div className="grain-overlay" />
 
       <SplashCursor
@@ -84,7 +76,6 @@ function AppContent() {
         intro
         contained={false}
       />
-      {/* Route & Analytics Tracker */}
       <RouteAnalyticsTracker />
 
       <Suspense

@@ -25,12 +25,10 @@ export interface GitHubContributionsResponse {
   months: ContributionMonth[];
 }
 
-// In-memory cache for serverless instance (1 hour TTL)
 const cache: Record<string, { data: GitHubContributionsResponse; timestamp: number }> = {};
 const CACHE_TTL_MS = 60 * 60 * 1000;
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // CORS & Security headers
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -43,7 +41,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ success: false, message: "Method Not Allowed" });
   }
 
-  // Parse query params safely
   const rawUrl = req.url || "";
   const fullUrl = rawUrl.startsWith("http")
     ? rawUrl
@@ -63,7 +60,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || process.env.GITHUB_PAT;
     let data: GitHubContributionsResponse | null = null;
 
-    // 1. If GITHUB_TOKEN is available, query official GitHub GraphQL API
     if (token) {
       try {
         data = await fetchFromGraphQL(username, yearParam, token);
@@ -72,7 +68,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // 2. Fetch directly from official GitHub HTML contributions endpoint (no token required, no 3rd party 504)
     if (!data) {
       try {
         data = await fetchFromGitHubHtml(username, yearParam);
@@ -81,7 +76,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // 3. Fallback to public contribution API if direct HTML fetch didn't succeed
     if (!data) {
       try {
         data = await fetchFromPublicAPI(username, yearParam);
@@ -90,27 +84,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // 4. Guaranteed offline fallback: Generate authentic activity data so the UI never crashes
     if (!data) {
       data = generateOfflineFallback(username, yearParam);
     }
 
-    // Store in cache
     cache[cacheKey] = { data, timestamp: Date.now() };
 
     res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
     return res.status(200).json({ success: true, data });
   } catch (error: any) {
     console.error(`[GitHub Contributions API] Unexpected error for ${username} (${yearParam}):`, error);
-    // Even on error, return fallback instead of 500 error
     const fallbackData = generateOfflineFallback(username, yearParam);
     return res.status(200).json({ success: true, data: fallbackData });
   }
 }
 
-/**
- * 1. Fetch contribution data using official GitHub GraphQL API
- */
 async function fetchFromGraphQL(
   username: string,
   year: string,
@@ -191,10 +179,6 @@ async function fetchFromGraphQL(
   }
 }
 
-/**
- * 2. Fetch directly from official GitHub public HTML contributions endpoint
- * Hosted directly on github.com with no token required and no third-party downtime.
- */
 async function fetchFromGitHubHtml(
   username: string,
   year: string
@@ -220,11 +204,9 @@ async function fetchFromGitHubHtml(
     if (!res.ok) return null;
     const html = await res.text();
 
-    // Parse total contributions: e.g. "440 contributions in 2024" or "440 contributions in the last year"
     const totalMatch = html.match(/([\d,]+)\s+contributions/i);
     const totalContributions = totalMatch ? parseInt(totalMatch[1].replace(/,/g, ""), 10) : 0;
 
-    // Parse tooltips for exact count
     const tooltipMap = new Map<string, number>();
     const tooltipRegex = /<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]+)<\/tool-tip>/gi;
     let tMatch: RegExpExecArray | null;
@@ -236,7 +218,6 @@ async function fetchFromGitHubHtml(
       tooltipMap.set(id, count);
     }
 
-    // Parse td day cells
     const tdRegex = /<td[^>]+data-date="(\d{4}-\d{2}-\d{2})"[^>]+data-level="(\d+)"[^>]*>/gi;
     let match: RegExpExecArray | null;
     const days: ContributionDay[] = [];
@@ -277,11 +258,8 @@ async function fetchFromGitHubHtml(
 
     if (days.length === 0) return null;
 
-    // CRITICAL: GitHub HTML table renders <tr> row-by-row (all 53 Sundays, all 53 Mondays, etc.).
-    // We MUST sort days chronologically by date ascending so each week contains Sun..Sat in proper order!
     days.sort((a, b) => a.date.localeCompare(b.date));
 
-    // Populate months in chronological order
     days.forEach((day) => {
       const dateObj = new Date(day.date + "T00:00:00");
       const monthName = dateObj.toLocaleString("en-US", { month: "short" });
@@ -295,7 +273,6 @@ async function fetchFromGitHubHtml(
       }
     });
 
-    // Group into Sunday-Saturday weeks
     const weeks: ContributionWeek[] = [];
     let currentWeek: ContributionDay[] = [];
 
@@ -322,9 +299,6 @@ async function fetchFromGitHubHtml(
   }
 }
 
-/**
- * 3. Public API fallback (short timeout so it never hangs)
- */
 async function fetchFromPublicAPI(
   username: string,
   year: string
@@ -354,7 +328,6 @@ async function fetchFromPublicAPI(
     let currentWeek: ContributionDay[] = [];
     const monthMap = new Map<string, { name: string; firstDay: string; totalWeeks: number }>();
 
-    // Ensure chronological order
     json.contributions.sort((a: any, b: any) => (a.date || "").localeCompare(b.date || ""));
 
     json.contributions.forEach((day: { date: string; count: number; level: number }) => {
@@ -410,11 +383,6 @@ async function fetchFromPublicAPI(
   }
 }
 
-/**
- * 4. Offline Fallback Generator
- * If the environment is offline or GitHub endpoints are blocked, generates
- * authentic contribution patterns calibrated to Atharva's real profile activity (~440 commits).
- */
 function generateOfflineFallback(username: string, year: string): GitHubContributionsResponse {
   const endDate =
     year === "last"
@@ -426,12 +394,10 @@ function generateOfflineFallback(username: string, year: string): GitHubContribu
   const days: ContributionDay[] = [];
   const monthMap = new Map<string, { name: string; firstDay: string; totalWeeks: number }>();
 
-  // Generate 52 weeks (364 days) backwards to end date
   const totalDays = 52 * 7;
   const startDate = new Date(endDate);
   startDate.setDate(endDate.getDate() - totalDays + 1);
 
-  // Seeded pseudo-random generator based on username & date
   let seed = 440;
   for (let i = 0; i < username.length; i++) {
     seed = (seed * 31 + username.charCodeAt(i)) % 100000;
@@ -446,14 +412,12 @@ function generateOfflineFallback(username: string, year: string): GitHubContribu
     const dateStr = curDate.toISOString().split("T")[0];
     const weekday = curDate.getDay();
 
-    // Pseudo-random daily contribution distribution
     seed = (seed * 9301 + 49297) % 233280;
     const rand = seed / 233280;
 
     let count = 0;
     let level: "NONE" | "FIRST_QUARTILE" | "SECOND_QUARTILE" | "THIRD_QUARTILE" | "FOURTH_QUARTILE" = "NONE";
 
-    // ~45% active days, with occasional high activity sprints
     if (weekday !== 0 && rand > 0.42) {
       if (rand > 0.94) {
         count = Math.floor(rand * 8) + 5;

@@ -1,28 +1,3 @@
-/**
- * import GlareHover from './GlareHover';
-
-<GlareHover
-  width="360px"
-  height="240px"
-  borderRadius="20px"
-  mode="hover"
-  variant="streak"
-  glareColor="#ffffff"
-  glareOpacity={0.5}
-  glareSize={30}
-  softness={0.6}
-  glareAngle={-45}
-  blendMode="screen"
-  rimGlint
-  transitionDuration={650}
->
-  <img src="/photo.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-  interval={3}
-  playOnce={false}
-  intro={false}
-/>
-</GlareHover>
- */
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react';
 

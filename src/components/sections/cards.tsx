@@ -23,7 +23,6 @@ export function BackendDevops() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  // Live real-time clock timer
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -38,16 +37,12 @@ export function BackendDevops() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // 12-hour normal clock calculations
   const hours = currentTime.getHours();
   const minutes = currentTime.getMinutes();
   const seconds = currentTime.getSeconds();
 
-  // 12-hour hour hand: 360 deg / 12 = 30 deg per hour
   const hour12Deg = ((hours % 12) + minutes / 60 + seconds / 3600) * 30;
-  // 60-minute minute hand: 360 deg / 60 = 6 deg per minute
   const minuteDeg = (minutes + seconds / 60) * 6;
-  // 60-second second hand: 360 deg / 60 = 6 deg per second
   const secondDeg = seconds * 6;
 
   const formattedDigitalTime = currentTime.toLocaleTimeString("en-US", {
@@ -84,7 +79,6 @@ export function BackendDevops() {
     },
   ];
 
-  // 12-Hour Batons (Numbers removed from dial as requested)
   const hourMarkers12 = [
     { deg: 0 },
     { deg: 30 },
@@ -104,7 +98,6 @@ export function BackendDevops() {
 
   return (
     <section id="backend-devops" className="py-20 sm:py-24 relative overflow-hidden select-none">
-      {/* ── Section Title & Header ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -123,19 +116,10 @@ export function BackendDevops() {
         </p>
       </motion.div>
 
-      {/* Bento Grid */}
       <div className="flex flex-col gap-5 sm:gap-6">
 
-        {/* ========================================================
-            TOP ROW:
-            1. Left-most (3 cols): Crystalized Ball Component
-            2. Middle (6 cols): Main Architecture & Systems Card (with Shredder)
-            3. Right-most (3 cols): Contact Card & LinkedIn Card
-               aligned vertically on top of one another!
-        ======================================================== */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
 
-          {/* 1. LEFT-MOST END (3 COLS): Crystalized Ball Component */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -145,7 +129,6 @@ export function BackendDevops() {
           >
             <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#01d8b4]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#01d8b4]/20 transition-all duration-500" />
 
-            {/* Top Bar */}
             <div className="flex items-center justify-between z-10">
               <div>
                 <span className="font-mono text-[11px] tracking-wider uppercase text-text-muted">
@@ -159,7 +142,6 @@ export function BackendDevops() {
 
             </div>
 
-            {/* Center WebGL Crystalized Ball */}
             <div className="relative w-full h-[280px] sm:h-[300px] my-auto flex items-center justify-center cursor-grab active:cursor-grabbing">
               <CrystalizedBall
                 preset="aurora"
@@ -180,7 +162,6 @@ export function BackendDevops() {
               </div>
             </div>
 
-            {/* Bottom Card Footer - Social Channels (GitHub, Instagram, X, LinkedIn) */}
             <div className="z-10 border-t border-white/[0.08] pt-3">
               <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
                 {socialLinks.map((s) => {
@@ -206,7 +187,6 @@ export function BackendDevops() {
             </div>
           </motion.div>
 
-          {/* 2. MIDDLE (6 COLS): Main Architecture Card with Interactive Shredder */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -217,7 +197,6 @@ export function BackendDevops() {
             <div className="absolute -top-16 -right-16 w-52 h-52 bg-[#01d8b4]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#01d8b4]/20 transition-all duration-500" />
 
             <div>
-              {/* Header tags & interactive pill buttons */}
               <div className="flex flex-wrap items-center justify-between gap-2.5 mb-5">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-primary  bg-linear-to-l from-primary to-bg">
                   <Server size={13} className="text-[#01d8b4]" />
@@ -242,7 +221,6 @@ export function BackendDevops() {
                 </div>
               </div>
 
-              {/* Headline */}
               <div className="flex items-baseline justify-between gap-2">
                 <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
                   Resilient systems <span className="badone-font italic font-normal text-[#01d8b4]">you can trust.</span>
@@ -254,7 +232,6 @@ export function BackendDevops() {
               </p>
             </div>
 
-            {/* Interactive Shredder Component for Tab Items */}
             <div className="mt-8 pt-6 border-t border-white/[0.08] flex flex-col justify-end">
               <Shredder
                 key={activeTab}
@@ -294,11 +271,8 @@ export function BackendDevops() {
             </div>
           </motion.div>
 
-          {/* 3. RIGHT-MOST END (3 COLS): Contact Card & LinkedIn Card
-              ALIGNED VERTICALLY ON TOP OF ONE ANOTHER! */}
           <div className="lg:col-span-3 flex flex-col gap-4 sm:gap-5 justify-between">
 
-            {/* TOP CARD: Contact & Availability Card */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -306,7 +280,6 @@ export function BackendDevops() {
               transition={{ duration: 0.4, delay: 0.16 }}
               className="flex-1 rounded-3xl border border-white/[0.08] bg-[#0c0c0e]/85 backdrop-blur-xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#01d8b4]/40 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-h-[250px]"
             >
-              {/* Top Availability Badge */}
               <div className="flex items-center justify-between">
                 <div className="  bg-white/10 flex items-center justify-center">
                   <SiGmail className="text-md text-primary" />
@@ -319,7 +292,6 @@ export function BackendDevops() {
                 </div>
               </div>
 
-              {/* Punchy Text & Email */}
               <div className="my-2">
                 <h3 className="font-['Manrope'] font-bold text-base text-white tracking-tight uppercase leading-snug">
                   LET&apos;S BUILD SOMETHING{" "}
@@ -328,7 +300,6 @@ export function BackendDevops() {
                   </span>
                 </h3>
 
-                {/* Email Tap to Copy */}
                 <button
                   type="button"
                   onClick={handleCopyEmail}
@@ -351,7 +322,6 @@ export function BackendDevops() {
                 </p>
               </div>
 
-              {/* Connect Action Button */}
               <a
                 href="#contact"
                 className="w-full py-2.5 px-3 rounded-xl bg-primary text-black font-semibold text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 hover:bg-hover-primary hover:shadow-[0_0_20px_rgba(1,216,180,0.5)] transition-all duration-300"
@@ -361,7 +331,6 @@ export function BackendDevops() {
               </a>
             </motion.div>
 
-            {/* BOTTOM CARD: LinkedIn Card (Blue and White Theme) */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -369,10 +338,8 @@ export function BackendDevops() {
               transition={{ duration: 0.4, delay: 0.2 }}
               className="flex-1 rounded-3xl border border-[#0A66C2]/35 bg-[#0c0c12]/90 backdrop-blur-xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#0A66C2]/70 transition-all duration-300 shadow-[0_8px_32px_rgba(10,102,194,0.18)] min-h-[250px]"
             >
-              {/* LinkedIn Electric Blue Ambient Glow */}
               <div className="absolute -top-10 -right-10 w-36 h-36 bg-[#0A66C2]/20 rounded-full blur-3xl pointer-events-none group-hover:bg-[#0A66C2]/35 transition-all duration-500" />
 
-              {/* Top Bar with LinkedIn Logo & Pill */}
               <div className="flex items-center justify-between z-10">
                 <div className="w-7 h-7 rounded-lg bg-[#0A66C2] text-white flex items-center justify-center font-bold text-xs shadow-[0_0_12px_rgba(10,102,194,0.6)]">
                   <FaLinkedinIn size={14} />
@@ -383,7 +350,6 @@ export function BackendDevops() {
                 </div>
               </div>
 
-              {/* Content */}
               <div className="my-2 z-10">
                 <h3 className="font-['Manrope'] font-bold text-base text-white tracking-tight leading-snug">
                   Let&apos;s Connect{" "}
@@ -392,7 +358,6 @@ export function BackendDevops() {
                   </span>
                 </h3>
 
-                {/* Profile Handle / Status */}
                 <div className="mt-2.5 p-2 rounded-xl border border-[#0A66C2]/30 bg-[#0A66C2]/[0.08] flex items-center justify-between">
                   <div className="flex items-center gap-1.5 overflow-hidden">
                     <span className="text-[#3897f0] font-mono text-xs font-semibold">in/</span>
@@ -407,7 +372,6 @@ export function BackendDevops() {
                 </p>
               </div>
 
-              {/* Blue & White Action Buttons */}
               <div className="z-10 flex flex-col gap-1.5">
                 <a
                   href="https://www.linkedin.com/in/atharvakote"
@@ -418,28 +382,14 @@ export function BackendDevops() {
                   <span>VIEW LINKEDIN</span>
                   <ArrowUpRight size={13} />
                 </a>
-                {/* <Link
-                  to="/links"
-                  className="text-[10px] font-mono text-text-muted hover:text-[#3897f0] text-center transition-colors"
-                >
-                  Or explore all links (/links) &rarr;
-                </Link> */}
               </div>
             </motion.div>
 
           </div>
         </div>
 
-        {/* ========================================================
-            BOTTOM ROW:
-            1. Left (4 cols): Luxury 12-Hour Aviator Chronograph Clock (No numbers)
-            2. Middle (4 cols): Kafka & Redis Event Pub/Sub Architecture
-            3. Right (4 cols): Algorithmic Core & LeetCode (200+ Solved)
-        ======================================================== */}
         <div className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
-          {/* MIDDLE (4 cols): Philosophy Quote & GitHub Dual Stack */}
           <div className="order-2 md:col-span-6 lg:col-span-4 flex flex-col gap-4 sm:gap-5 justify-between">
-            {/* TOP CARD: Philosophy & Engineering Quote */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -447,11 +397,9 @@ export function BackendDevops() {
               transition={{ duration: 0.4, delay: 0.22 }}
               className="flex-1 rounded-3xl border border-white/[0.08] bg-[#0c0c0e]/85 backdrop-blur-xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden group hover:border-[#01d8b4]/40 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-h-[200px]"
             >
-              {/* Subtle Ambient Glow */}
               <div className="absolute -top-12 -right-12 w-36 h-36 bg-[#01d8b4]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#01d8b4]/20 transition-all duration-500" />
               <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-white/[0.02] rounded-full blur-2xl pointer-events-none" />
 
-              {/* Top Header Badge */}
               <div className="flex items-center justify-between z-10">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-primary  bg-linear-to-l from-primary to-bg">
                   <Book size={12} className="text-[#01d8b4]" />
@@ -462,7 +410,6 @@ export function BackendDevops() {
 
               </div>
 
-              {/* Quote Typography */}
               <div className="my-auto py-2 z-10 relative">
                 <p className=" text-[13.5px] sm:text-xl font-medium text-white/95 leading-relaxed italic">
                   &ldquo;I have no special talent. I am only passionately curious.&rdquo;
@@ -476,7 +423,6 @@ export function BackendDevops() {
 
             </motion.div>
 
-            {/* BOTTOM CARD: GitHub Card (Dark Slate & Teal Theme) */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -484,10 +430,8 @@ export function BackendDevops() {
               transition={{ duration: 0.4, delay: 0.26 }}
               className="flex-1 rounded-3xl border border-white/[0.08] bg-[#0c0c12]/90 backdrop-blur-xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#01d8b4]/40 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-h-[220px]"
             >
-              {/* GitHub Ambient Glow */}
               <div className="absolute -top-10 -right-10 w-36 h-36 bg-white/[0.06] rounded-full blur-3xl pointer-events-none group-hover:bg-[#01d8b4]/15 transition-all duration-500" />
 
-              {/* Top Bar with GitHub Logo & Pill */}
               <div className="flex items-center justify-between z-10">
                 <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center font-bold text-xs shadow-[0_0_12px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform">
                   <FaGithub size={15} />
@@ -495,7 +439,6 @@ export function BackendDevops() {
 
               </div>
 
-              {/* Content */}
               <div className="my-2 z-10">
                 <h3 className="font-['Manrope'] font-bold text-base text-white tracking-tight ">
                   Explore Code
@@ -504,7 +447,6 @@ export function BackendDevops() {
                   </span>
                 </h3>
 
-                {/* Profile Handle / Status */}
                 <div className="mt-2.5 p-2 rounded-xl border border-white/10 bg-white/[0.03] flex items-center justify-between">
                   <div className="flex items-center gap-1.5 overflow-hidden">
                     <span className="text-[#01d8b4] font-mono text-xs font-semibold">gh/</span>
@@ -519,7 +461,6 @@ export function BackendDevops() {
                 </p>
               </div>
 
-              {/* Action Button */}
               <div className="z-10 flex flex-col gap-1.5">
                 <a
                   href="https://github.com/Atharvkote"
@@ -534,7 +475,6 @@ export function BackendDevops() {
               </div>
             </motion.div>
           </div>
-          {/* LEFT: 12-Hour Luxury Aviator Chronograph (Numbers Removed) */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -542,7 +482,6 @@ export function BackendDevops() {
             transition={{ duration: 0.4, delay: 0.2 }}
             className="order-1 md:col-span-6 lg:col-span-4 rounded-3xl border border-white/[0.08] bg-[#0c0c0e]/85 backdrop-blur-xl p-6 sm:p-7 flex flex-col items-center justify-between relative overflow-hidden group hover:border-[#01d8b4]/40 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-h-[420px]"
           >
-            {/* Top Bar */}
             <div className="w-full flex items-center justify-between text-xs">
               <span className="font-mono text-[11px] text-text-muted tracking-widest uppercase">
                 CHRONOGRAPH
@@ -553,11 +492,9 @@ export function BackendDevops() {
               </div>
             </div>
 
-            {/* SVG Luxury Aviator Watch with 4 crosshairs and 12-hour clean dial (No numbers) */}
             <div className="relative w-64 h-64 sm:w-72 sm:h-72 my-3 flex items-center justify-center">
               <svg viewBox="0 0 300 300" className="w-full h-full drop-shadow-[0_16px_36px_rgba(0,0,0,0.95)]">
                 <defs>
-                  {/* Outer Beveled Metallic Casing Gradient */}
                   <linearGradient id="metalBezel" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#7a7a88" />
                     <stop offset="25%" stopColor="#303038" />
@@ -566,20 +503,17 @@ export function BackendDevops() {
                     <stop offset="100%" stopColor="#121216" />
                   </linearGradient>
 
-                  {/* Inner Rim Highlight Gradient */}
                   <radialGradient id="innerDialShadow" cx="50%" cy="50%" r="50%">
                     <stop offset="70%" stopColor="#08080a" />
                     <stop offset="100%" stopColor="#000000" />
                   </radialGradient>
 
-                  {/* Glass Glare Gradient */}
                   <linearGradient id="glassGlare" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#ffffff" stopOpacity="0.14" />
                     <stop offset="35%" stopColor="#ffffff" stopOpacity="0.04" />
                     <stop offset="65%" stopColor="transparent" stopOpacity="0" />
                   </linearGradient>
 
-                  {/* 3D Sword Hand Gradients */}
                   <linearGradient id="swordLight" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#ffffff" />
                     <stop offset="100%" stopColor="#d5d5de" />
@@ -597,20 +531,16 @@ export function BackendDevops() {
                   </filter>
                 </defs>
 
-                {/* 4 Outer Crosshair Tabs (at 12, 3, 6, 9) matching reference image */}
                 <rect x="144" y="2" width="12" height="24" rx="2" fill="#18181f" stroke="#333" strokeWidth="1" />
                 <rect x="144" y="274" width="12" height="24" rx="2" fill="#18181f" stroke="#333" strokeWidth="1" />
                 <rect x="2" y="144" width="24" height="12" rx="2" fill="#18181f" stroke="#333" strokeWidth="1" />
                 <rect x="274" y="144" width="24" height="12" rx="2" fill="#18181f" stroke="#333" strokeWidth="1" />
 
-                {/* Outer Circular Steel Case */}
                 <circle cx="150" cy="150" r="136" fill="url(#metalBezel)" stroke="#383844" strokeWidth="1.5" />
 
-                {/* Inner Bevel Rim with Dark Shadow */}
                 <circle cx="150" cy="150" r="122" fill="#09090c" stroke="#1f1f26" strokeWidth="2" />
                 <circle cx="150" cy="150" r="120" fill="url(#innerDialShadow)" />
 
-                {/* 60 Minute Radial Chapter Ring Ticks */}
                 {Array.from({ length: 60 }).map((_, i) => {
                   const deg = i * 6;
                   const isMajor = i % 5 === 0;
@@ -629,10 +559,8 @@ export function BackendDevops() {
                   );
                 })}
 
-                {/* 12 Major 3D Faceted Hour Batons (Clean dial, NO numbers) */}
                 {hourMarkers12.map((m) => {
                   if (m.deg === 0) {
-                    // Double baton at 12 o'clock
                     return (
                       <g key={m.deg} transform="rotate(0 150 150)">
                         <rect x="145" y="47" width="4" height="18" rx="1" fill="#ffffff" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.8))" />
@@ -656,53 +584,38 @@ export function BackendDevops() {
                   );
                 })}
 
-                {/* Inner Subtle Sub-dial Ring */}
                 <circle cx="150" cy="150" r="54" fill="none" stroke="#ffffff" strokeOpacity="0.06" strokeWidth="1" />
 
-                {/* Sapphire Crystal Glass Glare Reflection */}
                 <path
                   d="M 50 100 Q 150 30 250 100 A 120 120 0 0 0 50 100 Z"
                   fill="url(#glassGlare)"
                   pointerEvents="none"
                 />
 
-                {/* 12-Hour Hour Hand (Faceted 3D Sword Hand) */}
                 <g transform={`rotate(${hour12Deg} 150 150)`} filter="url(#handShadow)">
-                  {/* Left half highlight */}
                   <polygon points="150,86 146,138 150,150" fill="url(#swordLight)" />
-                  {/* Right half shadow */}
                   <polygon points="150,86 154,138 150,150" fill="url(#swordDark)" />
-                  {/* Center luminous channel */}
                   <line x1="150" y1="92" x2="150" y2="136" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" />
                 </g>
 
-                {/* Slender Minute Hand (Faceted 3D Sword Hand) */}
                 <g transform={`rotate(${minuteDeg} 150 150)`} filter="url(#handShadow)">
-                  {/* Left half highlight */}
                   <polygon points="150,56 147,138 150,150" fill="url(#swordLight)" />
-                  {/* Right half shadow */}
                   <polygon points="150,56 153,138 150,150" fill="url(#swordDark)" />
-                  {/* Center luminous channel */}
                   <line x1="150" y1="62" x2="150" y2="136" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" />
                 </g>
 
-                {/* Cyber Teal Sweeping Second Hand with Counterweight */}
                 <g transform={`rotate(${secondDeg} 150 150)`} filter="url(#tealGlow)">
-                  {/* Main needle */}
                   <line x1="150" y1="42" x2="150" y2="150" stroke="#01d8b4" strokeWidth="1.6" strokeLinecap="round" />
-                  {/* Counterweight Tail */}
                   <line x1="150" y1="150" x2="150" y2="174" stroke="#01d8b4" strokeWidth="2.5" strokeLinecap="round" />
                   <circle cx="150" cy="164" r="3" fill="#01d8b4" />
                 </g>
 
-                {/* Center Pinion Screw Cap */}
                 <circle cx="150" cy="150" r="7" fill="#1e1e24" stroke="#777785" strokeWidth="1.5" />
                 <circle cx="150" cy="150" r="3.5" fill="#01d8b4" />
                 <circle cx="150" cy="150" r="1.5" fill="#ffffff" />
               </svg>
             </div>
 
-            {/* Bottom Digital Time & Dial Specs */}
             <div className="w-full flex items-center justify-between border-t border-white/[0.08] pt-3 text-xs text-text-muted">
               <span className="font-mono text-xs text-white/90 font-semibold tracking-wider">
                 {formattedDigitalTime}
@@ -713,9 +626,6 @@ export function BackendDevops() {
             </div>
           </motion.div>
 
-
-
-          {/* RIGHT (4 cols): Algorithmic Problem Solving & LeetCode */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -726,7 +636,6 @@ export function BackendDevops() {
             <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-[#FFA116]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#FFA116]/20 transition-all duration-500" />
 
             <div>
-              {/* Header: 02 LEETCODE (Left) & Profile Link (Right) */}
               <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06]">
                 <div className="flex items-center gap-2">
                   <SiLeetcode className="text-[#FFA116]" />
@@ -745,7 +654,6 @@ export function BackendDevops() {
                 </a>
               </div>
 
-              {/* Solved Metric Headline */}
               <div className="flex items-center gap-2.5 mb-5">
                 <span className="text-4xl sm:text-5xl font-extrabold text-[#FFA116] font-['Manrope'] tracking-tight">
                   300+
@@ -755,9 +663,7 @@ export function BackendDevops() {
                 </span>
               </div>
 
-              {/* Difficulty Progress Bars */}
               <div className="space-y-3.5 mb-5">
-                {/* EASY */}
                 <div>
                   <div className="flex items-center justify-between font-mono text-xs mb-1.5">
                     <span className="text-white font-bold tracking-wider">EASY</span>
@@ -771,7 +677,6 @@ export function BackendDevops() {
                   </div>
                 </div>
 
-                {/* MEDIUM */}
                 <div>
                   <div className="flex items-center justify-between font-mono text-xs mb-1.5">
                     <span className="text-white font-bold tracking-wider">MEDIUM</span>
@@ -785,7 +690,6 @@ export function BackendDevops() {
                   </div>
                 </div>
 
-                {/* HARD */}
                 <div>
                   <div className="flex items-center justify-between font-mono text-xs mb-1.5">
                     <span className="text-white font-bold tracking-wider">HARD</span>
@@ -800,7 +704,6 @@ export function BackendDevops() {
                 </div>
               </div>
 
-              {/* 3 Stats Boxes */}
               <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
                 <div className="p-2.5 sm:p-3 rounded-2xl border border-white/[0.08] bg-black/50 text-left">
                   <div className="font-['Manrope'] text-base sm:text-lg font-bold text-white tracking-tight">
@@ -829,7 +732,6 @@ export function BackendDevops() {
               </div>
             </div>
 
-            {/* Bottom Profile CTA Link */}
             <div className="pt-3.5 border-t border-white/[0.08] mt-4">
               <a
                 href="https://leetcode.com/u/AtharvaKote81/"

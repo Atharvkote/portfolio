@@ -13,7 +13,6 @@ function vercelApiDevPlugin(): Plugin {
             const mod = await server.ssrLoadModule(modulePath);
             const handler = mod.default;
 
-            // Polyfill Vercel-specific response helpers on Node's ServerResponse
             const vercelRes = Object.assign(res, {
               status(code: number) {
                 res.statusCode = code;
@@ -46,9 +45,7 @@ function vercelApiDevPlugin(): Plugin {
   };
 }
 
-// https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  // Load environment variables from .env into process.env for local development
   const env = loadEnv(mode, process.cwd(), '');
   Object.assign(process.env, env);
 

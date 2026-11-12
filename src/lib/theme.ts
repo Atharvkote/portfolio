@@ -176,7 +176,6 @@ export function applyColorTheme(themeId: string): ColorTheme {
     const root = document.documentElement;
     root.setAttribute("data-color", theme.id);
 
-    // Set CSS variables on root element for instant reactivity
     root.style.setProperty("--color-primary", theme.primary);
     root.style.setProperty("--color-primary-light", theme.light);
     root.style.setProperty("--color-primary-dark", theme.dark);
@@ -188,7 +187,6 @@ export function applyColorTheme(themeId: string): ColorTheme {
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme.id);
     } catch {
-      // Storage unavailable
     }
   }
   return theme;

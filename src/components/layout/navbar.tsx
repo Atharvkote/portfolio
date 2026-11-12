@@ -42,7 +42,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [lastY]);
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -63,7 +62,6 @@ export function Navbar() {
           }`}
       >
         <nav className="max-w-[1400px] mx-auto border-none flex items-center justify-between">
-          {/* Logo */}
           <motion.a
             href="#"
             initial={{ opacity: 0 }}
@@ -79,7 +77,6 @@ export function Navbar() {
             </span>
           </motion.a>
 
-          {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-1.5">
             {NAV_LINKS.map((link) => {
               const Icon = link.icon;
@@ -96,7 +93,6 @@ export function Navbar() {
                   />
                   <span>{link.name}</span>
 
-                  {/* Subtle bottom indicator glow */}
                   <span className="absolute bottom-0 left-2 right-2 h-[1.5px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.a>
               );
@@ -112,12 +108,10 @@ export function Navbar() {
               <TbLayoutFilled aria-hidden="true" className="text-primary/70 group-hover:text-primary group-hover:scale-110 group-hover:-translate-y-0.5 transition-all duration-200 text-base" />
               <span>Quick access</span>
 
-              {/* Subtle bottom indicator glow */}
               <span className="absolute bottom-0 left-2 right-2 h-[1.5px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.button>
           </div>
 
-          {/* Mobile Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden cursor-pointer relative z-[60] text-primary p-2"
@@ -128,7 +122,6 @@ export function Navbar() {
         </nav>
       </motion.header>
 
-      {/* Mobile Fullscreen Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -138,12 +131,10 @@ export function Navbar() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-[55] bg-bg flex flex-col md:hidden overflow-hidden"
           >
-            {/* Ambient glow */}
             <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 rounded-full"
               style={{ background: "radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%)" }}
             />
 
-            {/* Top bar */}
             <div className="flex items-center justify-between px-7 pt-14 pb-6">
               <motion.a
                 href="#"
@@ -164,10 +155,8 @@ export function Navbar() {
               </button>
             </div>
 
-            {/* Divider */}
             <div className="mx-7" style={{ height: "1px", background: "linear-gradient(90deg, var(--color-primary), transparent)" }} />
 
-            {/* Links */}
             <nav className="flex-1 flex flex-col pt-9">
               {NAV_LINKS.map((link, i) => {
                 const Icon = link.icon;
@@ -182,17 +171,14 @@ export function Navbar() {
                     className="relative flex items-center gap-0 px-7 py-3.5 group transition-colors"
                     style={{ borderBottom: "1px solid rgba(255,255,255,0.03)" }}
                   >
-                    {/* Active indicator bar */}
                     <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[60%] rounded-r opacity-0 group-hover:opacity-100 transition-opacity"
                       style={{ background: "linear-gradient(180deg, var(--color-primary), var(--color-primary-dark))" }}
                     />
 
-                    {/* Number */}
                     <span className=" text-[0.65rem] text-primary opacity-70 tracking-widest min-w-[28px] self-start mt-1.5 font-mono">
                       0{i + 1}
                     </span>
 
-                    {/* Icon + Label */}
                     <div className="flex-1 flex items-center gap-3 px-3">
                       <Icon size={20} aria-hidden="true" className="text-primary/70 group-hover:text-primary transition-colors" />
                       <span className="font-body text-[1.45rem] font-bold tracking-[-0.02em] text-text-primary group-hover:text-primary transition-colors leading-none block">
@@ -200,7 +186,6 @@ export function Navbar() {
                       </span>
                     </div>
 
-                    {/* Arrow */}
                     <span className="text-border-hover group-hover:text-primary transition-all group-hover:translate-x-1 text-sm">
                       <ChevronRight size={18} aria-hidden="true" />
                     </span>
@@ -209,7 +194,6 @@ export function Navbar() {
               })}
             </nav>
 
-            {/* Footer */}
             <div className="px-7 pb-10 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
               <div className="flex gap-3 mb-4">
                 {SOCIAL_LINKS.map((s) => (

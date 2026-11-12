@@ -26,37 +26,24 @@ export interface GlowHorizonProps {
   className?: string;
   variant?: GlowHorizonVariant;
 
-  /**
-   * Array of 4 horizon colors:
-   * [0]: Light neon highlight (similar to primary)
-   * [1]: Main primary color
-   * [2]: Darker tone (similar to primary)
-   * [3]: Toward background
-   */
   colors?: [string, string, string, string];
 
-  /** Color 1 (similar to primary): Lightest neon highlight (defaults to #00F0C0) */
   lightColor?: string;
   highlightColor?: string;
   coreColor?: string;
   core?: string;
 
-  /** Color 2 (primary): Main cyber teal primary color (defaults to #01d8b4) */
   primaryColor?: string;
   primary?: string;
 
-  /** Color 3 (similar to primary): Deep darker tone of primary (defaults to #003D35) */
   darkerColor?: string;
   darker?: string;
 
-  /** Color 4 (toward bg): Void blend into background (defaults to #000000) */
   bgColor?: string;
   bg?: string;
 
-  /** Custom box shadow for the core rim */
   boxShadow?: string;
 
-  /** Animation duration in seconds (defaults to 2) */
   duration?: number;
 }
 
@@ -77,7 +64,6 @@ export function GlowHorizonFM({
   boxShadow,
   duration = DEFAULT_DURATION,
 }: GlowHorizonProps) {
-  // Four colors: Three similar to primary, one towards bg
   const c1 = colors?.[0] ?? lightColor ?? highlightColor ?? coreColor ?? core ?? "#00F0C0";
   const c2 = colors?.[1] ?? primaryColor ?? primary ?? "#01d8b4";
   const c3 = colors?.[2] ?? darkerColor ?? darker ?? "#003D35";
@@ -108,7 +94,6 @@ export function GlowHorizonFM({
       animate={{ [axis]: restPct,  [scaleAxis]: 1,   opacity: 1, filter: "blur(0px)"  }}
       transition={{ duration, ease: EASE }}
     >
-      {/* Color 1: Lightest neon rim highlight (similar to primary: #00F0C0) */}
       <Arc
         variant={variant}
         color={c1}
@@ -118,7 +103,6 @@ export function GlowHorizonFM({
         duration={duration}
       />
 
-      {/* Color 2: Main primary neon layer (primary cyber teal: #01d8b4) */}
       <Arc
         variant={variant}
         color={c2}
@@ -129,7 +113,6 @@ export function GlowHorizonFM({
         duration={duration}
       />
 
-      {/* Color 3: Deep darker tone of primary (deep teal glow: #003D35) */}
       <Arc
         variant={variant}
         color={c3}
@@ -140,7 +123,6 @@ export function GlowHorizonFM({
         duration={duration}
       />
 
-      {/* Color 4: Toward background void blending layer (#000000) */}
       <Arc
         variant={variant}
         color={c4}

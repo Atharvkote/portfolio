@@ -1,20 +1,3 @@
-/**
- * import GlowCursor from './GlowCursor';
-
-<div style={{ position: 'relative', width: '100%', height: '500px' }}>
-  <GlowCursor
-    color="#5f8bff"
-    intensity={1.3}
-    trailWidth={3}
-    linger={1.4}
-    glow={1.2}
-    clickBurst
-    theme="dark"
-  >
-    // content
-  </GlowCursor>
-</div>
-*/
 
 
 import { useEffect, useRef, type CSSProperties, type HTMLAttributes, type ReactNode } from 'react';

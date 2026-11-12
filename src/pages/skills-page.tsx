@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { skillSections, type SkillSection } from "../data/portfolio";
 
-// ─── Animation Variants ───
 const stagger = {
   hidden: { opacity: 0 },
   show: {
@@ -55,7 +54,6 @@ function SkillChip({ name }: { name: string }) {
   );
 }
 
-// ─── Category Accordion Panel ───
 function CategoryPanel({ section, isActive, onToggle }: {
   section: SkillSection;
   isActive: boolean;
@@ -70,13 +68,11 @@ function CategoryPanel({ section, isActive, onToggle }: {
       className="rounded-2xl border border-primary/40 bg-bg-card/25
                 overflow-hidden transition-all duration-300"
     >
-      {/* Header */}
       <button
         onClick={onToggle}
         className="w-full text-left px-5 sm:px-6 py-5 flex items-center gap-4 group cursor-pointer
                    transition-colors duration-200"
       >
-        {/* Icon */}
         <div
           className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0
                      transition-all duration-300"
@@ -88,7 +84,6 @@ function CategoryPanel({ section, isActive, onToggle }: {
           />
         </div>
 
-        {/* Text */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
             <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-primary">
@@ -103,7 +98,6 @@ function CategoryPanel({ section, isActive, onToggle }: {
           </h3>
         </div>
 
-        {/* Arrow */}
         <motion.div
           animate={{ rotate: isActive ? 90 : 0 }}
           transition={{ duration: 0.25 }}
@@ -113,7 +107,6 @@ function CategoryPanel({ section, isActive, onToggle }: {
         </motion.div>
       </button>
 
-      {/* Expandable skills */}
       <AnimatePresence initial={false}>
         {isActive && (
           <motion.div
@@ -124,13 +117,11 @@ function CategoryPanel({ section, isActive, onToggle }: {
             className="overflow-hidden"
           >
             <div className="px-5 sm:px-6 pb-6">
-              {/* Description */}
               <p className="text-text-secondary text-[13px] leading-relaxed mb-5
                             pl-3 border-l-2 border-primary/15">
                 {section.description}
               </p>
 
-              {/* Skills grid */}
               <motion.div
                 variants={stagger}
                 initial="hidden"
@@ -149,7 +140,6 @@ function CategoryPanel({ section, isActive, onToggle }: {
   );
 }
 
-// ─── Stats Row ───
 function StatsRow() {
   const stats = [
     { label: "Technologies", value: "30+" },
@@ -185,7 +175,6 @@ function StatsRow() {
   );
 }
 
-// ─── Currently Exploring Marquee ───
 function ExploringMarquee() {
   const items = [
     "Rust", "WebAssembly", "tRPC", "Bun", "Deno", "Astro", "gRPC",
@@ -207,7 +196,6 @@ function ExploringMarquee() {
         </span>
       </div>
       <div className="relative overflow-hidden">
-        {/* Fade edges */}
         <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-bg-card/90 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-bg-card/90 to-transparent z-10 pointer-events-none" />
 
@@ -232,7 +220,6 @@ function ExploringMarquee() {
   );
 }
 
-// ─── Main Page ───
 export function SkillsPage() {
   const [activeSection, setActiveSection] = useState<string>("languages");
 
@@ -252,7 +239,6 @@ export function SkillsPage() {
       <QuickAccess />
 
       <main className="relative z-10 w-full max-w-[820px] mx-auto px-6 sm:px-10 lg:px-6 pt-32 pb-20">
-        {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -271,10 +257,8 @@ export function SkillsPage() {
           </p>
         </motion.div>
 
-        {/* ── Stats ── */}
         <StatsRow />
 
-        {/* ── Section Panels ── */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -292,10 +276,8 @@ export function SkillsPage() {
           ))}
         </motion.div>
 
-        {/* ── Exploring ── */}
         <ExploringMarquee />
 
-        {/* ── Quote / Philosophy Showcase ── */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -303,11 +285,9 @@ export function SkillsPage() {
           viewport={{ once: true }}
           className="relative w-full max-w-2xl mx-auto mt-12 mb-8 p-8 sm:p-12 rounded-3xl border border-primary/25 bg-gradient-to-b from-bg-card/90 via-bg-card/50 to-bg-elevated/30 backdrop-blur-xl shadow-[0_0_60px_rgba(1,216,180,0.07)] overflow-hidden text-center select-none"
         >
-          {/* Ambient background glows */}
           <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-36 bg-primary/15 rounded-full blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 left-1/2 -translate-x-1/2 w-80 h-36 bg-primary/10 rounded-full blur-3xl" />
 
-          {/* Top line: Stylized Cyber Code Slashes + Development: Turning */}
           <div className="relative z-10 flex items-center justify-center gap-3 mb-4">
             <div className="flex gap-1.5 items-center">
               <span className="w-2 sm:w-2.5 h-7 sm:h-8 -skew-x-[20deg] rounded-sm bg-primary shadow-[0_0_14px_var(--color-primary-glow)] block" />
@@ -321,7 +301,6 @@ export function SkillsPage() {
             </p>
           </div>
 
-          {/* Middle: Coffee into Code with gradient divider lines */}
           <div className="relative z-10 flex items-center justify-center gap-3 sm:gap-5 my-3">
             <div className="h-[1.5px] w-8 sm:w-16 bg-gradient-to-r from-transparent via-primary/50 to-primary/20 rounded-full" />
 
@@ -340,7 +319,6 @@ export function SkillsPage() {
             <div className="h-[1.5px] w-8 sm:w-16 bg-gradient-to-l from-transparent via-primary/50 to-primary/20 rounded-full" />
           </div>
 
-          {/* Bottom: then Magic. */}
           <div className="relative z-10 flex items-center justify-center gap-3 mt-3">
             <span className="badone-font italic font-normal text-text-muted text-2xl sm:text-3xl md:text-4xl">
               then
@@ -351,7 +329,6 @@ export function SkillsPage() {
             </span>
           </div>
 
-          {/* Subtle cyber metadata footer */}
           <div className="relative z-10 mt-7 pt-5 border-t border-border/40 flex items-center justify-center gap-2 font-mono text-[11px] tracking-widest text-text-dim uppercase">
             <span>0xCOFFEE</span>
             <span className="text-primary font-bold">→</span>

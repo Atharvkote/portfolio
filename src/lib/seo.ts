@@ -1,7 +1,3 @@
-/**
- * SEO & Dynamic Meta Tag Management Utility
- * Updates head metadata, canonical URLs, and Open Graph tags across client-side routes.
- */
 
 export const SITE_URL = (
   import.meta.env.VITE_SITE_URL || "https://atharvakote.vercel.app"
@@ -45,9 +41,6 @@ function setCanonical(url: string): void {
   link.setAttribute("href", url);
 }
 
-/**
- * Updates document head for SPA navigation without dependencies.
- */
 export function updateSEO({
   title,
   description = DEFAULT_SEO.description,
@@ -62,18 +55,14 @@ export function updateSEO({
     : DEFAULT_SEO.title;
   const canonicalUrl = `${SITE_URL}${path === "/" ? "" : path}`;
 
-  // 1. Document title
   document.title = fullTitle;
 
-  // 2. Standard Meta
   setMetaTag("name", "description", description);
   setMetaTag("name", "author", DEFAULT_SEO.author);
   setMetaTag("name", "robots", noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
 
-  // 3. Canonical URL
   setCanonical(canonicalUrl);
 
-  // 4. Open Graph
   setMetaTag("property", "og:title", fullTitle);
   setMetaTag("property", "og:description", description);
   setMetaTag("property", "og:url", canonicalUrl);
@@ -81,7 +70,6 @@ export function updateSEO({
   setMetaTag("property", "og:site_name", DEFAULT_SEO.siteName);
   setMetaTag("property", "og:type", "website");
 
-  // 5. Twitter Card
   setMetaTag("name", "twitter:title", fullTitle);
   setMetaTag("name", "twitter:description", description);
   setMetaTag("name", "twitter:image", ogImage);

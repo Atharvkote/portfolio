@@ -8,7 +8,6 @@ export function QuickAccess() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Permanently enforce dark theme
     document.documentElement.setAttribute("data-theme", "dark");
     localStorage.setItem("theme", "dark");
   }, []);
@@ -63,7 +62,6 @@ export function QuickAccess() {
             <X className="w-5 h-5" aria-hidden="true" />
           </button>
 
-          {/* Left: Shortcuts Info */}
           <div className="flex flex-col max-w-sm mb-10 md:mb-0 w-full animate-slide-in">
             <div className="flex items-center gap-3 mb-4">
               <Keyboard className="w-7 h-7 text-bg bg-primary rounded p-1" aria-hidden="true" />
@@ -119,7 +117,6 @@ export function QuickAccess() {
             </div>
           </div>
 
-          {/* Right: Action Center */}
           <div className="flex flex-col gap-6 w-full md:w-[420px] animate-fade-up">
             <div>
               <div className="flex items-center justify-between mb-4">
