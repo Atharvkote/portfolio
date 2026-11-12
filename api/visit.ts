@@ -6,6 +6,9 @@ const COOKIE_NAME = "portfolio_vid";
 const COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
 const REDIS_COUNTER_KEY = "portfolio:unique_visitors";
 const REDIS_VISITOR_PREFIX = "portfolio:visitor:";
+const REDIS_RATELIMIT_PREFIX = "portfolio:ratelimit:visit:";
+const RATE_LIMIT_MAX_REQUESTS = 15;
+const RATE_LIMIT_WINDOW_SECONDS = 60;
 
 const ATOMIC_VISITOR_SCRIPT = `
 local visitorKey = KEYS[1]
@@ -22,6 +25,21 @@ else
 end
 `;
 
+function getClientIp(req: VercelRequest): string {
+  const forwarded = req.headers["x-forwarded-for"];
+  if (typeof forwarded === "string") {
+    return forwarded.split(",")[0].trim();
+  }
+  if (Array.isArray(forwarded) && forwarded[0]) {
+    return forwarded[0].split(",")[0].trim();
+  }
+  const realIp = req.headers["x-real-ip"];
+  if (typeof realIp === "string") {
+    return realIp.trim();
+  }
+  return req.socket?.remoteAddress || "unknown";
+}
+
 function parseCookies(cookieHeader?: string): Record<string, string> {
   if (!cookieHeader) return {};
   const cookies: Record<string, string> = {};
@@ -29,7 +47,11 @@ function parseCookies(cookieHeader?: string): Record<string, string> {
   for (const item of items) {
     const [rawName, ...rawValParts] = item.trim().split("=");
     if (rawName) {
-      cookies[rawName.trim()] = decodeURIComponent(rawValParts.join("=").trim());
+      try {
+        cookies[rawName.trim()] = decodeURIComponent(rawValParts.join("=").trim());
+      } catch {
+        cookies[rawName.trim()] = rawValParts.join("=").trim();
+      }
     }
   }
   return cookies;
@@ -62,13 +84,15 @@ function isAllowedOrigin(origin: string | undefined, referer: string | undefined
     .filter(Boolean);
 
   const defaultOrigins = [
+    "https://atharvakote.dev",
+    "https://www.atharvakote.dev",
     "https://atharvakote.vercel.app",
     "http://localhost:5173",
     "http://localhost:3000",
     "http://127.0.0.1:5173",
   ];
 
-  const allowedList = envOrigins.length > 0 ? envOrigins : defaultOrigins;
+  const allowedList = Array.from(new Set([...defaultOrigins, ...envOrigins]));
 
   if (origin) {
     const match = allowedList.find((allowed) => allowed === origin);
@@ -138,7 +162,48 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Pragma", "no-cache");
   res.setHeader("X-Content-Type-Options", "nosniff");
 
-  const secret = process.env.VISITOR_COOKIE_SECRET || "default_local_secret_portfolio_2026";
+  const isProduction =
+    process.env.NODE_ENV === "production" ||
+    req.headers["x-forwarded-proto"] === "https" ||
+    Boolean(reqOrigin && reqOrigin.startsWith("https://"));
+
+  let secret = process.env.VISITOR_COOKIE_SECRET;
+  if (!secret) {
+    if (isProduction) {
+      console.error("Critical Security Error: VISITOR_COOKIE_SECRET is missing in production. Failing closed.");
+      return res.status(500).json({ success: false, message: "Server security configuration error" });
+    }
+    secret = "dev_transient_local_secret_only";
+  }
+
+  const redis = getRedisClient();
+  if (!redis) {
+    console.error("Upstash Redis credentials are not configured in environment.");
+    return res.status(200).json({
+      success: false,
+      uniqueVisitors: null,
+      message: "Visitor service unavailable",
+    });
+  }
+
+  const clientIp = getClientIp(req);
+  const rateLimitKey = `${REDIS_RATELIMIT_PREFIX}${clientIp}`;
+  try {
+    const currentHits = await redis.incr(rateLimitKey);
+    if (currentHits === 1) {
+      await redis.expire(rateLimitKey, RATE_LIMIT_WINDOW_SECONDS);
+    }
+    if (currentHits > RATE_LIMIT_MAX_REQUESTS) {
+      res.setHeader("Retry-After", String(RATE_LIMIT_WINDOW_SECONDS));
+      return res.status(429).json({
+        success: false,
+        message: "Too many visitor registration requests. Please try again later.",
+      });
+    }
+  } catch (rateLimitErr) {
+    console.warn("Rate limit check bypassed due to transient Redis error:", rateLimitErr);
+  }
+
   const cookies = parseCookies(req.headers.cookie);
   const existingCookieValue = cookies[COOKIE_NAME];
 
@@ -163,16 +228,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!visitorId || !isVerifiedCookie) {
     visitorId = crypto.randomUUID();
     shouldSetCookie = true;
-  }
-
-  const redis = getRedisClient();
-  if (!redis) {
-    console.error("Upstash Redis credentials are not configured in environment.");
-    return res.status(200).json({
-      success: false,
-      uniqueVisitors: null,
-      message: "Visitor service unavailable",
-    });
   }
 
   try {
@@ -216,11 +271,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const signature = signVisitorId(visitorId, secret);
       const signedCookieValue = `${visitorId}.${signature}`;
 
-      const isProduction =
-        process.env.NODE_ENV === "production" ||
-        req.headers["x-forwarded-proto"] === "https" ||
-        Boolean(reqOrigin && reqOrigin.startsWith("https://"));
-
       const cookieParts = [
         `${COOKIE_NAME}=${encodeURIComponent(signedCookieValue)}`,
         `Max-Age=${COOKIE_MAX_AGE}`,
@@ -250,4 +300,3 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 }
-

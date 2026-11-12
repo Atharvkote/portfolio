@@ -23,10 +23,67 @@ export interface GitHubContributionsResponse {
   year: string;
   weeks: ContributionWeek[];
   months: ContributionMonth[];
+  isStale?: boolean;
 }
 
-const cache: Record<string, { data: GitHubContributionsResponse; timestamp: number }> = {};
+interface CacheEntry {
+  data: GitHubContributionsResponse;
+  timestamp: number;
+}
+
+const MAX_CACHE_ENTRIES = 60;
 const CACHE_TTL_MS = 60 * 60 * 1000;
+const STALE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+const memoryCache = new Map<string, CacheEntry>();
+
+function setBoundedCache(key: string, data: GitHubContributionsResponse): void {
+  if (memoryCache.size >= MAX_CACHE_ENTRIES) {
+    const oldestKey = memoryCache.keys().next().value;
+    if (oldestKey) memoryCache.delete(oldestKey);
+  }
+  memoryCache.set(key, { data, timestamp: Date.now() });
+}
+
+function computeMonthMetadata(weeks: ContributionWeek[]): ContributionMonth[] {
+  if (!weeks.length) return [];
+
+  const months: ContributionMonth[] = [];
+  let currentMonthKey = "";
+  let currentMonthWeeks = 0;
+
+  weeks.forEach((week) => {
+    const validDay = week.contributionDays.find((d) => d && d.date);
+    if (!validDay) return;
+
+    const d = new Date(validDay.date + "T00:00:00");
+    const monthKey = `${d.getFullYear()}-${d.getMonth()}`;
+    const monthName = d.toLocaleString("en-US", { month: "short" });
+
+    if (monthKey !== currentMonthKey) {
+      if (months.length > 0) {
+        months[months.length - 1].totalWeeks = Math.max(1, currentMonthWeeks);
+      }
+      currentMonthKey = monthKey;
+      currentMonthWeeks = 1;
+      months.push({
+        name: monthName,
+        year: d.getFullYear(),
+        firstDay: validDay.date,
+        totalWeeks: 1,
+      });
+    } else {
+      currentMonthWeeks++;
+    }
+  });
+
+  if (months.length > 0) {
+    months[months.length - 1].totalWeeks = Math.max(1, currentMonthWeeks);
+  }
+
+  return months;
+}
+
+const GITHUB_USERNAME_REGEX = /^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/;
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -45,13 +102,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const fullUrl = rawUrl.startsWith("http")
     ? rawUrl
     : `http://${req.headers.host || "localhost"}${rawUrl.startsWith("/") ? "" : "/"}${rawUrl}`;
-  const url = new URL(fullUrl);
-  const username = (url.searchParams.get("username") || "Atharvkote").trim();
-  const yearParam = (url.searchParams.get("year") || "last").trim();
+  const parsedUrl = new URL(fullUrl);
+  const username = (parsedUrl.searchParams.get("username") || "Atharvkote").trim();
+  const yearParam = (parsedUrl.searchParams.get("year") || "last").trim();
 
-  const cacheKey = `${username}:${yearParam}`;
-  const cached = cache[cacheKey];
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+  if (!GITHUB_USERNAME_REGEX.test(username)) {
+    return res.status(400).json({ success: false, message: "Invalid GitHub username parameter" });
+  }
+
+  const currentYear = new Date().getFullYear();
+  if (
+    yearParam !== "last" &&
+    (!/^\d{4}$/.test(yearParam) || Number(yearParam) < 2008 || Number(yearParam) > currentYear)
+  ) {
+    return res.status(400).json({ success: false, message: "Invalid year parameter" });
+  }
+
+  const cacheKey = `${username.toLowerCase()}:${yearParam}`;
+  const cached = memoryCache.get(cacheKey);
+  const now = Date.now();
+
+  if (cached && now - cached.timestamp < CACHE_TTL_MS) {
     res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
     return res.status(200).json({ success: true, data: cached.data });
   }
@@ -64,7 +135,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       try {
         data = await fetchFromGraphQL(username, yearParam, token);
       } catch (err) {
-        console.warn("[GitHub Contributions API] GraphQL query failed, attempting direct fetch:", err);
+        console.warn("[GitHub Contributions API] GraphQL query failed:", err);
       }
     }
 
@@ -72,7 +143,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       try {
         data = await fetchFromGitHubHtml(username, yearParam);
       } catch (err) {
-        console.warn("[GitHub Contributions API] Direct HTML scraping failed:", err);
+        console.warn("[GitHub Contributions API] Direct HTML parsing failed:", err);
       }
     }
 
@@ -80,23 +151,73 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       try {
         data = await fetchFromPublicAPI(username, yearParam);
       } catch (err) {
-        console.warn("[GitHub Contributions API] Public API failed:", err);
+        console.warn("[GitHub Contributions API] Mirror API failed:", err);
       }
     }
 
-    if (!data) {
-      data = generateOfflineFallback(username, yearParam);
+    if (data) {
+      setBoundedCache(cacheKey, data);
+      res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
+      return res.status(200).json({ success: true, data });
     }
 
-    cache[cacheKey] = { data, timestamp: Date.now() };
+    if (cached && now - cached.timestamp < STALE_TTL_MS) {
+      res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=3600");
+      return res.status(200).json({
+        success: true,
+        data: { ...cached.data, isStale: true },
+        message: "Serving stale contribution data due to upstream unavailability.",
+      });
+    }
 
-    res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
-    return res.status(200).json({ success: true, data });
-  } catch (error: any) {
+    return res.status(503).json({
+      success: false,
+      data: null,
+      message: "GitHub contribution data temporarily unavailable. Please retry shortly.",
+    });
+  } catch (error) {
     console.error(`[GitHub Contributions API] Unexpected error for ${username} (${yearParam}):`, error);
-    const fallbackData = generateOfflineFallback(username, yearParam);
-    return res.status(200).json({ success: true, data: fallbackData });
+
+    if (cached) {
+      return res.status(200).json({
+        success: true,
+        data: { ...cached.data, isStale: true },
+        message: "Serving stale contribution data following error.",
+      });
+    }
+
+    return res.status(500).json({
+      success: false,
+      data: null,
+      message: "An internal error occurred while fetching GitHub activity.",
+    });
   }
+}
+
+interface GraphQLCalendarResponse {
+  data?: {
+    user?: {
+      contributionsCollection?: {
+        contributionCalendar?: {
+          totalContributions: number;
+          weeks: Array<{
+            contributionDays: Array<{
+              contributionCount: number;
+              date: string;
+              contributionLevel: ContributionDay["contributionLevel"];
+              weekday: number;
+            }>;
+          }>;
+          months: Array<{
+            name: string;
+            year: number;
+            firstDay: string;
+            totalWeeks: number;
+          }>;
+        };
+      };
+    };
+  };
 }
 
 async function fetchFromGraphQL(
@@ -164,7 +285,7 @@ async function fetchFromGraphQL(
       return null;
     }
 
-    const result: any = await response.json();
+    const result = (await response.json()) as GraphQLCalendarResponse;
     const calendar = result?.data?.user?.contributionsCollection?.contributionCalendar;
     if (!calendar) return null;
 
@@ -189,7 +310,7 @@ async function fetchFromGitHubHtml(
   }
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 7000);
+  const timeoutId = setTimeout(() => controller.abort(), 6500);
 
   try {
     const res = await fetch(url, {
@@ -205,7 +326,7 @@ async function fetchFromGitHubHtml(
     const html = await res.text();
 
     const totalMatch = html.match(/([\d,]+)\s+contributions/i);
-    const totalContributions = totalMatch ? parseInt(totalMatch[1].replace(/,/g, ""), 10) : 0;
+    const parsedTotal = totalMatch ? parseInt(totalMatch[1].replace(/,/g, ""), 10) : 0;
 
     const tooltipMap = new Map<string, number>();
     const tooltipRegex = /<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]+)<\/tool-tip>/gi;
@@ -221,7 +342,6 @@ async function fetchFromGitHubHtml(
     const tdRegex = /<td[^>]+data-date="(\d{4}-\d{2}-\d{2})"[^>]+data-level="(\d+)"[^>]*>/gi;
     let match: RegExpExecArray | null;
     const days: ContributionDay[] = [];
-    const monthMap = new Map<string, { name: string; firstDay: string; totalWeeks: number }>();
 
     while ((match = tdRegex.exec(html)) !== null) {
       const fullTag = match[0];
@@ -237,16 +357,16 @@ async function fetchFromGitHubHtml(
       const dateObj = new Date(date + "T00:00:00");
       const weekday = dateObj.getDay();
 
-      const levelEnum =
+      const levelEnum: ContributionDay["contributionLevel"] =
         levelNum === 4
           ? "FOURTH_QUARTILE"
           : levelNum === 3
-          ? "THIRD_QUARTILE"
-          : levelNum === 2
-          ? "SECOND_QUARTILE"
-          : levelNum === 1
-          ? "FIRST_QUARTILE"
-          : "NONE";
+            ? "THIRD_QUARTILE"
+            : levelNum === 2
+              ? "SECOND_QUARTILE"
+              : levelNum === 1
+                ? "FIRST_QUARTILE"
+                : "NONE";
 
       days.push({
         date,
@@ -259,19 +379,6 @@ async function fetchFromGitHubHtml(
     if (days.length === 0) return null;
 
     days.sort((a, b) => a.date.localeCompare(b.date));
-
-    days.forEach((day) => {
-      const dateObj = new Date(day.date + "T00:00:00");
-      const monthName = dateObj.toLocaleString("en-US", { month: "short" });
-      const monthKey = `${dateObj.getFullYear()}-${dateObj.getMonth()}`;
-      if (!monthMap.has(monthKey)) {
-        monthMap.set(monthKey, {
-          name: monthName,
-          firstDay: day.date,
-          totalWeeks: 1,
-        });
-      }
-    });
 
     const weeks: ContributionWeek[] = [];
     let currentWeek: ContributionDay[] = [];
@@ -288,15 +395,28 @@ async function fetchFromGitHubHtml(
       weeks.push({ contributionDays: currentWeek });
     }
 
+    const totalCalculated = days.reduce((acc, d) => acc + d.contributionCount, 0);
+
     return {
-      totalContributions: totalContributions || days.reduce((a, b) => a + b.contributionCount, 0),
+      totalContributions: parsedTotal || totalCalculated,
       year,
       weeks,
-      months: Array.from(monthMap.values()),
+      months: computeMonthMetadata(weeks),
     };
   } finally {
     clearTimeout(timeoutId);
   }
+}
+
+interface MirrorContributionDay {
+  date: string;
+  count: number;
+  level: number;
+}
+
+interface MirrorApiResponse {
+  total?: Record<string, number>;
+  contributions?: MirrorContributionDay[];
 }
 
 async function fetchFromPublicAPI(
@@ -307,7 +427,7 @@ async function fetchFromPublicAPI(
   const url = `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=${targetYear}`;
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 4000);
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
 
   try {
     const res = await fetch(url, {
@@ -316,34 +436,35 @@ async function fetchFromPublicAPI(
     });
 
     if (!res.ok) return null;
-    const json: any = await res.json();
-    if (!json || !Array.isArray(json.contributions)) return null;
+    const json = (await res.json()) as MirrorApiResponse;
+    if (!json || !Array.isArray(json.contributions) || json.contributions.length === 0) {
+      return null;
+    }
 
     const totalContributions =
       typeof json.total?.[targetYear] === "number"
         ? json.total[targetYear]
-        : json.contributions.reduce((acc: number, cur: any) => acc + (cur.count || 0), 0);
+        : json.contributions.reduce((acc, cur) => acc + (cur.count || 0), 0);
+
+    const sortedContributions = [...json.contributions].sort((a, b) => (a.date || "").localeCompare(b.date || ""));
 
     const weeks: ContributionWeek[] = [];
     let currentWeek: ContributionDay[] = [];
-    const monthMap = new Map<string, { name: string; firstDay: string; totalWeeks: number }>();
 
-    json.contributions.sort((a: any, b: any) => (a.date || "").localeCompare(b.date || ""));
-
-    json.contributions.forEach((day: { date: string; count: number; level: number }) => {
+    sortedContributions.forEach((day) => {
       const dateObj = new Date(day.date + "T00:00:00");
       const weekday = dateObj.getDay();
 
-      const levelEnum =
+      const levelEnum: ContributionDay["contributionLevel"] =
         day.level === 4
           ? "FOURTH_QUARTILE"
           : day.level === 3
-          ? "THIRD_QUARTILE"
-          : day.level === 2
-          ? "SECOND_QUARTILE"
-          : day.level === 1
-          ? "FIRST_QUARTILE"
-          : "NONE";
+            ? "THIRD_QUARTILE"
+            : day.level === 2
+              ? "SECOND_QUARTILE"
+              : day.level === 1
+                ? "FIRST_QUARTILE"
+                : "NONE";
 
       currentWeek.push({
         date: day.date,
@@ -351,16 +472,6 @@ async function fetchFromPublicAPI(
         contributionLevel: levelEnum,
         weekday,
       });
-
-      const monthName = dateObj.toLocaleString("en-US", { month: "short" });
-      const monthKey = `${dateObj.getFullYear()}-${dateObj.getMonth()}`;
-      if (!monthMap.has(monthKey)) {
-        monthMap.set(monthKey, {
-          name: monthName,
-          firstDay: day.date,
-          totalWeeks: 1,
-        });
-      }
 
       if (weekday === 6) {
         weeks.push({ contributionDays: currentWeek });
@@ -376,103 +487,9 @@ async function fetchFromPublicAPI(
       totalContributions,
       year,
       weeks,
-      months: Array.from(monthMap.values()),
+      months: computeMonthMetadata(weeks),
     };
   } finally {
     clearTimeout(timeoutId);
   }
-}
-
-function generateOfflineFallback(username: string, year: string): GitHubContributionsResponse {
-  const endDate =
-    year === "last"
-      ? new Date()
-      : !isNaN(Number(year))
-      ? new Date(parseInt(year, 10), 11, 31)
-      : new Date();
-
-  const days: ContributionDay[] = [];
-  const monthMap = new Map<string, { name: string; firstDay: string; totalWeeks: number }>();
-
-  const totalDays = 52 * 7;
-  const startDate = new Date(endDate);
-  startDate.setDate(endDate.getDate() - totalDays + 1);
-
-  let seed = 440;
-  for (let i = 0; i < username.length; i++) {
-    seed = (seed * 31 + username.charCodeAt(i)) % 100000;
-  }
-
-  let totalContributions = 0;
-
-  for (let i = 0; i < totalDays; i++) {
-    const curDate = new Date(startDate);
-    curDate.setDate(startDate.getDate() + i);
-
-    const dateStr = curDate.toISOString().split("T")[0];
-    const weekday = curDate.getDay();
-
-    seed = (seed * 9301 + 49297) % 233280;
-    const rand = seed / 233280;
-
-    let count = 0;
-    let level: "NONE" | "FIRST_QUARTILE" | "SECOND_QUARTILE" | "THIRD_QUARTILE" | "FOURTH_QUARTILE" = "NONE";
-
-    if (weekday !== 0 && rand > 0.42) {
-      if (rand > 0.94) {
-        count = Math.floor(rand * 8) + 5;
-        level = "FOURTH_QUARTILE";
-      } else if (rand > 0.82) {
-        count = Math.floor(rand * 5) + 3;
-        level = "THIRD_QUARTILE";
-      } else if (rand > 0.65) {
-        count = Math.floor(rand * 3) + 2;
-        level = "SECOND_QUARTILE";
-      } else {
-        count = 1;
-        level = "FIRST_QUARTILE";
-      }
-    }
-
-    totalContributions += count;
-
-    days.push({
-      date: dateStr,
-      contributionCount: count,
-      contributionLevel: level,
-      weekday,
-    });
-
-    const monthName = curDate.toLocaleString("en-US", { month: "short" });
-    const monthKey = `${curDate.getFullYear()}-${curDate.getMonth()}`;
-    if (!monthMap.has(monthKey)) {
-      monthMap.set(monthKey, {
-        name: monthName,
-        firstDay: dateStr,
-        totalWeeks: 1,
-      });
-    }
-  }
-
-  const weeks: ContributionWeek[] = [];
-  let currentWeek: ContributionDay[] = [];
-
-  days.forEach((day) => {
-    currentWeek.push(day);
-    if (day.weekday === 6) {
-      weeks.push({ contributionDays: currentWeek });
-      currentWeek = [];
-    }
-  });
-
-  if (currentWeek.length > 0) {
-    weeks.push({ contributionDays: currentWeek });
-  }
-
-  return {
-    totalContributions: 440,
-    year,
-    weeks,
-    months: Array.from(monthMap.values()),
-  };
 }

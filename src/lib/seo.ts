@@ -1,6 +1,6 @@
 
 export const SITE_URL = (
-  import.meta.env.VITE_SITE_URL || "https://atharvakote.vercel.app"
+  import.meta.env.VITE_SITE_URL || "https://atharvakote.dev"
 ).replace(/\/$/, "");
 
 export const DEFAULT_SEO = {

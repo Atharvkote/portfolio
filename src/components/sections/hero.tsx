@@ -58,7 +58,7 @@ export function Hero() {
 
           <motion.div
             variants={item}
-            className="relative flex flex-col items-center justify-center w-full mt-2 mb-10 sm:mb-5  pb-2 sm:pb-4"
+            className="relative flex flex-col items-center justify-center w-full mt-2 mb-10  pb-2 sm:pb-4"
           >
             <h1 className="sr-only">Atharva Kote - Software Engineer</h1>
             <div className="w-full max-w-[320px] sm:max-w-[480px] md:max-w-[680px] lg:max-w-[840px] xl:max-w-[920px] px-2 flex justify-center">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Menu, X, User, Code2, Briefcase } from "lucide-react";
 import { TbLayoutFilled } from "react-icons/tb";
@@ -28,19 +28,31 @@ const SOCIAL_LINKS = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [lastY, setLastY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const lastYRef = useRef(0);
+  const tickingRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 50);
-      setVisible(y < lastY || y < 80);
-      setLastY(y);
+      if (!tickingRef.current) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY;
+          const isScrolled = y > 50;
+          const isVisible = y < lastYRef.current || y < 80;
+
+          setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+          setVisible((prev) => (prev !== isVisible ? isVisible : prev));
+
+          lastYRef.current = y;
+          tickingRef.current = false;
+        });
+        tickingRef.current = true;
+      }
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [lastY]);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";

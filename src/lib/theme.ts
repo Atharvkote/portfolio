@@ -187,6 +187,7 @@ export function applyColorTheme(themeId: string): ColorTheme {
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme.id);
     } catch {
+      void 0;
     }
   }
   return theme;

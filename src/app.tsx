@@ -2,6 +2,7 @@ import { useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import { Loader } from "./components/layout/loader";
+import { ErrorBoundary } from "./components/ui/error-boundary";
 import Option from "./lib/toast";
 import { Toaster } from "sonner";
 import { initGA, trackPageView } from "./lib/analytics";
@@ -103,17 +104,19 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Loader>
-        <Toaster
-          position="top-right"
-          richColors
-          expand={true}
-          toastOptions={Option}
-        />
-        <AppContent />
-      </Loader>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Loader>
+          <Toaster
+            position="top-right"
+            richColors
+            expand={true}
+            toastOptions={Option}
+          />
+          <AppContent />
+        </Loader>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 

@@ -15,6 +15,10 @@ const Contact = lazy(() => import("../components/layout/contact").then((m) => ({
 const Footer = lazy(() => import("../components/layout/contact").then((m) => ({ default: m.Footer })));
 const BackendDevops = lazy(() => import("../components/sections/cards").then((m) => ({ default: m.BackendDevops })));
 
+function SectionFallback({ minHeight = "min-h-[200px]" }: { minHeight?: string }) {
+  return <div className={`w-full ${minHeight}`} aria-hidden="true" />;
+}
+
 export function HomePage() {
   return (
     <div className="relative bg-bg min-h-screen text-text-primary overflow-x-clip">
@@ -26,19 +30,40 @@ export function HomePage() {
       <Hero />
 
       <main className="relative z-10 w-full max-w-[1100px] mx-auto px-6 sm:px-10 md:px-6 lg:px-0">
-        <Suspense fallback={null}>
+        <Suspense fallback={<SectionFallback minHeight="min-h-[320px]" />}>
           <About />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback minHeight="min-h-[400px]" />}>
           <BackendDevops />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback minHeight="min-h-[300px]" />}>
           <Experience />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback minHeight="min-h-[300px]" />}>
           <TechStack />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback minHeight="min-h-[400px]" />}>
           <Projects />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback minHeight="min-h-[250px]" />}>
           <GitHubContributionCalendar />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback minHeight="min-h-[250px]" />}>
           <Education />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback minHeight="min-h-[300px]" />}>
           <Contact />
         </Suspense>
       </main>
 
-      <Suspense fallback={null}>
+      <Suspense fallback={<SectionFallback minHeight="min-h-[120px]" />}>
         <Footer />
       </Suspense>
     </div>

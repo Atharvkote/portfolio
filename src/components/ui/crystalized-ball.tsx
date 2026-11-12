@@ -928,6 +928,21 @@ void main() {
 }
 `;
 
+function checkWebGL2(): boolean {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return false;
+    try {
+        const probeCanvas = document.createElement('canvas');
+        const probeGl = probeCanvas.getContext('webgl2', { alpha: true });
+        if (probeGl) {
+            probeGl.getExtension('WEBGL_lose_context')?.loseContext();
+            return true;
+        }
+        return false;
+    } catch {
+        return false;
+    }
+}
+
 const CrystalizedBallInner = ({
     preset = 'plasma',
     color,
@@ -958,7 +973,7 @@ const CrystalizedBallInner = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const settingsRef = useRef<Settings | null>(null);
     const wakeRef = useRef<(() => void) | null>(null);
-    const [hasWebGL, setHasWebGL] = useState(true);
+    const [hasWebGL, setHasWebGL] = useState(() => checkWebGL2());
 
     const base = BALL_PRESETS[preset] || BALL_PRESETS.plasma;
     const pick = <K extends keyof PresetValues>(value: PresetValues[K] | undefined, key: K): PresetValues[K] =>
@@ -1001,36 +1016,21 @@ const CrystalizedBallInner = ({
         const container = containerRef.current;
         if (!container) return undefined;
 
-        let gl2Available = false;
-        try {
-            const probeCanvas = document.createElement('canvas');
-            const probeGl = probeCanvas.getContext('webgl2', { alpha: true });
-            if (probeGl) {
-                gl2Available = true;
-                probeGl.getExtension('WEBGL_lose_context')?.loseContext();
-            }
-        } catch {
-            gl2Available = false;
-        }
-
-        if (!gl2Available) {
-            setHasWebGL(false);
-            return undefined;
-        }
+        if (!hasWebGL) return undefined;
 
         let renderer: Renderer;
         try {
             renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: false, depth: false });
         } catch (err) {
             console.warn('CrystalizedBall: WebGL2 Renderer creation failed:', err);
-            setHasWebGL(false);
+            queueMicrotask(() => setHasWebGL(false));
             return undefined;
         }
 
         const gl = renderer.gl;
         if (!gl || !renderer.isWebgl2) {
             gl?.getExtension('WEBGL_lose_context')?.loseContext();
-            setHasWebGL(false);
+            queueMicrotask(() => setHasWebGL(false));
             return undefined;
         }
         const gl2 = gl as unknown as WebGL2RenderingContext;
@@ -1602,7 +1602,7 @@ const CrystalizedBallInner = ({
             gl.getExtension('WEBGL_lose_context')?.loseContext();
             if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
         };
-    }, []);
+    }, [hasWebGL]);
 
     return (
         <div ref={containerRef} className={`relative w-full h-full overflow-hidden flex items-center justify-center ${className}`.trim()} style={style}>

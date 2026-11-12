@@ -416,8 +416,10 @@ const CircularCarousel = ({
     const [active, setActive] = useState(0);
     const [ready, setReady] = useState(false);
     const [dragging, setDragging] = useState(false);
-    const readyRef = useRef(false);
-    readyRef.current = ready;
+    const readyRef = useRef(ready);
+    useEffect(() => {
+        readyRef.current = ready;
+    }, [ready]);
 
     const stateRef = useRef<CarouselState>({
         angle: 0,
@@ -467,10 +469,14 @@ const CircularCarousel = ({
         reduced
     };
     const settingsRef = useRef(settings);
-    settingsRef.current = settings;
+    useEffect(() => {
+        settingsRef.current = settings;
+    });
 
     const onChangeRef = useRef(onChange);
-    onChangeRef.current = onChange;
+    useEffect(() => {
+        onChangeRef.current = onChange;
+    }, [onChange]);
 
     const dragSign = layout.inward ? -1 : 1;
     const directionSign = (direction === 'right' ? 1 : -1) * dragSign;
@@ -481,9 +487,11 @@ const CircularCarousel = ({
     }, [directionSign]);
 
     const incomingRef = useRef(incoming);
-    incomingRef.current = incoming;
     const listRef = useRef(list);
-    listRef.current = list;
+    useEffect(() => {
+        incomingRef.current = incoming;
+        listRef.current = list;
+    }, [incoming, list]);
     const sourcesKey = incoming.map(item => item.src).join('|');
 
     useEffect(() => {
@@ -491,9 +499,13 @@ const CircularCarousel = ({
         const next = incomingRef.current;
         const smooth = readyRef.current && next.length === listRef.current.length;
         if (!smooth) {
-            setReady(false);
-            setLeaving(null);
-            setList(next);
+            queueMicrotask(() => {
+                if (!cancelled) {
+                    setReady(false);
+                    setLeaving(null);
+                    setList(next);
+                }
+            });
         }
         const sources = next.slice(0, 16).map(item => item.src);
         const load = (src: string) =>
@@ -916,7 +928,9 @@ const CircularCarousel = ({
             setDragging(true);
             try {
                 rootRef.current?.setPointerCapture(event.pointerId);
-            } catch { }
+            } catch {
+                void 0;
+            }
         }
         const perPixel = 180 / (Math.PI * s.radius * state.fit);
         state.angle = press.angle + (delta - press.origin) * perPixel * (s.layout.inward ? -1 : 1);

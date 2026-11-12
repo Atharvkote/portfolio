@@ -1257,7 +1257,7 @@ const Folder = ({
     );
 
     const setOpenRef = useRef(setOpen);
-    setOpenRef.current = setOpen;
+    const settingsRef = useRef<Settings>(null as unknown as Settings);
 
     const rgb = parseColor(color);
     const paper = parseColor(paperColor);
@@ -1265,8 +1265,7 @@ const Folder = ({
     const insideTop = rgbString(mixRgb(rgb, [0, 0, 0], 0.08));
     const insideBottom = rgbString(backTone);
 
-    const settingsRef = useRef<Settings>(null as unknown as Settings);
-    settingsRef.current = {
+    const settings: Settings = {
         open: isOpen,
         layout,
         openOn,
@@ -1294,6 +1293,11 @@ const Folder = ({
         view,
         g
     };
+
+    useEffect(() => {
+        setOpenRef.current = setOpen;
+        settingsRef.current = settings;
+    });
 
     useEffect(() => {
         const root = rootRef.current;
@@ -2172,7 +2176,7 @@ const Folder = ({
         const renderer = createGlass(canvas);
         if (!renderer) return undefined;
         rendererRef.current = renderer;
-        setGpu(true);
+        queueMicrotask(() => setGpu(true));
         const onLost = (event: Event) => {
             event.preventDefault();
             rendererRef.current = null;
@@ -2234,7 +2238,7 @@ const Folder = ({
         '--folder-doc-w': `${g.docW}px`,
         '--folder-doc-h': `${g.docH}px`,
         '--folder-frost': `${(1.5 + clamp(frost, 0, 1) * 10) * scale}px`,
-        '--folder-depth': `${settingsRef.current.depth}px`,
+        '--folder-depth': `${settings.depth}px`,
         '--folder-scale': scale,
         width: 'var(--folder-w)',
         height: 'calc(var(--folder-tab-h) + var(--folder-h))',

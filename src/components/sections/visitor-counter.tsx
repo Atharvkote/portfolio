@@ -21,6 +21,7 @@ export function VisitorCounter({ className = "" }: VisitorCounterProps) {
           setCount(result.uniqueVisitors);
         }
       } catch {
+        void 0;
       } finally {
         if (isMounted) {
           setIsLoading(false);

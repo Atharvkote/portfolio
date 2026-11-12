@@ -106,7 +106,9 @@ const GlareHover = ({
     const introRef = useRef(false);
     const settings = { glareAngle, glareSize, transitionDuration, interval, playOnce, intro };
     const settingsRef = useRef(settings);
-    settingsRef.current = settings;
+    useEffect(() => {
+        settingsRef.current = settings;
+    });
 
     useEffect(() => {
         const root = rootRef.current;

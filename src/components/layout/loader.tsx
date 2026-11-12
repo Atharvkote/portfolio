@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ElectricLogo from "../ui/electric-logo";
 import aSvg from "../../assets/a.svg";
@@ -8,9 +8,19 @@ interface LoaderProps {
   children: ReactNode;
 }
 
+function getStatusText(p: number): string {
+  if (p < 25) return "INITIALIZING SYSTEM KERNEL...";
+  if (p < 55) return "CALIBRATING ELECTRIC CORES...";
+  if (p < 85) return "COMPILING SHADERS & DISTRIBUTED MESH...";
+  if (p < 100) return "SYNCHRONIZING ATHARVA KOTE PORTFOLIO...";
+  return "SYSTEM READY , WELCOME !!";
+}
+
 export function Loader({ children }: LoaderProps) {
-  const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const percentTextRef = useRef<HTMLSpanElement>(null);
+  const statusTextRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (loading) {
@@ -26,20 +36,28 @@ export function Loader({ children }: LoaderProps) {
   useEffect(() => {
     const startTime = performance.now();
     const duration = 1800;
-
     let animationFrameId: number;
+    let finishTimeoutId: ReturnType<typeof setTimeout>;
 
     const tick = (now: number) => {
       const elapsed = now - startTime;
       const rawProgress = Math.min(1, elapsed / duration);
       const easedProgress = Math.min(100, Math.round((1 - Math.pow(1 - rawProgress, 2.5)) * 100));
 
-      setProgress(easedProgress);
+      if (progressBarRef.current) {
+        progressBarRef.current.style.width = `${easedProgress}%`;
+      }
+      if (percentTextRef.current) {
+        percentTextRef.current.textContent = `${easedProgress.toString().padStart(3, "0")}%`;
+      }
+      if (statusTextRef.current) {
+        statusTextRef.current.textContent = getStatusText(easedProgress);
+      }
 
       if (rawProgress < 1) {
         animationFrameId = requestAnimationFrame(tick);
       } else {
-        setTimeout(() => {
+        finishTimeoutId = setTimeout(() => {
           setLoading(false);
         }, 200);
       }
@@ -47,28 +65,22 @@ export function Loader({ children }: LoaderProps) {
 
     animationFrameId = requestAnimationFrame(tick);
 
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
+        cancelAnimationFrame(animationFrameId);
+        clearTimeout(finishTimeoutId);
         setLoading(false);
       }
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
-  const getStatusText = (p: number) => {
-    if (p < 25) return "INITIALIZING SYSTEM KERNEL...";
-    if (p < 55) return "CALIBRATING ELECTRIC CORES...";
-    if (p < 85) return "COMPILING SHADERS & DISTRIBUTED MESH...";
-    if (p < 100) return "SYNCHRONIZING ATHARVA KOTE PORTFOLIO...";
-    return "SYSTEM READY , WELCOME !!";
-  };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      clearTimeout(finishTimeoutId);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <>
@@ -135,17 +147,20 @@ export function Loader({ children }: LoaderProps) {
               <div className="w-full flex items-center justify-between font-mono text-xs">
                 <div className="flex items-center gap-2 text-primary font-semibold tracking-wide">
                   <Zap size={14} className="text-primary animate-pulse shrink-0" />
-                  <span className="truncate max-w-[240px] sm:max-w-xs">{getStatusText(progress)}</span>
+                  <span ref={statusTextRef} className="truncate max-w-[240px] sm:max-w-xs">
+                    INITIALIZING SYSTEM KERNEL...
+                  </span>
                 </div>
-                <span className="text-primary font-mono font-bold tracking-widest pl-2">
-                  {progress.toString().padStart(3, "0")}%
+                <span ref={percentTextRef} className="text-primary font-mono font-bold tracking-widest pl-2">
+                  000%
                 </span>
               </div>
 
               <div className="w-full h-[3px] bg-white/10 rounded-full overflow-hidden relative border border-white/5">
                 <div
+                  ref={progressBarRef}
                   className="h-full bg-gradient-to-r from-primary/80 via-primary-light to-primary rounded-full relative transition-[width] duration-75 ease-out"
-                  style={{ width: `${progress}%` }}
+                  style={{ width: "0%" }}
                 >
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full blur-[2px] shadow-[0_0_12px_#00F0C0]" />
                 </div>

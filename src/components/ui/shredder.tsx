@@ -342,6 +342,9 @@ const paintStrip = <T,>(ctx: CanvasRenderingContext2D, st: Strip<T>, len: number
     ctx.globalAlpha = 1;
 };
 
+const getNow = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
+const getRandom = () => Math.random();
+
 const Shredder = <T extends ShredderItem>({
     items = [],
     renderItem,
@@ -377,8 +380,7 @@ const Shredder = <T extends ShredderItem>({
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const slotEls = useRef(new Map<string | number, HTMLLIElement>());
     const itemEls = useRef(new Map<string | number, HTMLDivElement>());
-    const cfg = useRef<Config<T>>({} as Config<T>);
-    cfg.current = {
+    const config: Config<T> = {
         items: sorted,
         height,
         inset,
@@ -398,6 +400,10 @@ const Shredder = <T extends ShredderItem>({
         onReorder,
         disabled
     };
+    const cfg = useRef<Config<T>>(config);
+    useEffect(() => {
+        cfg.current = config;
+    });
     const sim = useRef<Sim<T>>({
         raf: 0,
         last: 0,
@@ -433,7 +439,7 @@ const Shredder = <T extends ShredderItem>({
     const run = () => {
         const s = sim.current;
         if (s.raf) return;
-        s.last = performance.now();
+        s.last = getNow();
         s.raf = requestAnimationFrame(step);
     };
 
@@ -675,8 +681,8 @@ const Shredder = <T extends ShredderItem>({
                 amp: pick(1.5, 4) * DEG * c.curl,
                 freq: (Math.PI * 2) / pick(34, 60),
                 wave: pick(0, Math.PI * 2),
-                rA: Math.random(),
-                rB: Math.random(),
+                rA: getRandom(),
+                rB: getRandom(),
                 speed: 0,
                 splay: 0,
                 core: 1,
@@ -1017,7 +1023,9 @@ const Shredder = <T extends ShredderItem>({
         if (e.button !== 0) return;
         try {
             e.currentTarget.setPointerCapture(e.pointerId);
-        } catch { }
+        } catch {
+            void 0;
+        }
         begin(item, 'drag', e);
     };
     const onMove = (e: PointerEvent<HTMLDivElement>) => {
@@ -1033,7 +1041,9 @@ const Shredder = <T extends ShredderItem>({
         d.id = null;
         try {
             if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
-        } catch { }
+        } catch {
+            void 0;
+        }
         const m = metrics();
         if (d.ry + d.H > m.lip + 0.5) {
             grab(d, m);
@@ -1097,6 +1107,11 @@ const Shredder = <T extends ShredderItem>({
         return () => clearTimeout(timer);
     }, [items]);
 
+    const actionsRef = useRef({ begin, goneKeys, isLive, revive });
+    useEffect(() => {
+        actionsRef.current = { begin, goneKeys, isLive, revive };
+    });
+
     useEffect(() => {
         if (!autoAnimate) return undefined;
         const s = sim.current;
@@ -1110,7 +1125,7 @@ const Shredder = <T extends ShredderItem>({
         const pickNext = () => {
             const list = cfg.current.items;
             for (let i = list.length - 1; i >= 0; i -= 1) {
-                if (isLive(list[i].id)) return list[i];
+                if (actionsRef.current.isLive(list[i].id)) return list[i];
             }
             return null;
         };
@@ -1123,11 +1138,11 @@ const Shredder = <T extends ShredderItem>({
                 if (!item) {
                     await wait(1100);
                     if (!alive) break;
-                    revive(goneKeys());
+                    actionsRef.current.revive(actionsRef.current.goneKeys());
                     await wait(1200);
                     continue;
                 }
-                if (!cfg.current.disabled) begin(item, 'carry', null);
+                if (!cfg.current.disabled) actionsRef.current.begin(item, 'carry', null);
                 await wait(700);
             }
         };
@@ -1147,13 +1162,6 @@ const Shredder = <T extends ShredderItem>({
             s.timers.clear();
         };
     }, []);
-
-    const keep =
-        <E extends HTMLElement>(map: { current: Map<string | number, E> }, key: string | number) =>
-            (el: E | null) => {
-                if (el) map.current.set(key, el);
-                else map.current.delete(key);
-            };
 
     return (
         <div
@@ -1179,11 +1187,17 @@ const Shredder = <T extends ShredderItem>({
                 {sorted.map((item, index) => (
                     <li
                         key={item.id}
-                        ref={keep(slotEls, item.id)}
+                        ref={(el) => {
+                            if (el) slotEls.current.set(item.id, el);
+                            else slotEls.current.delete(item.id);
+                        }}
                         className="group/slot relative [margin-bottom:var(--sh-gap)] data-[active]:z-[2] data-[gone]:pointer-events-none"
                     >
                         <div
-                            ref={keep(itemEls, item.id)}
+                            ref={(el) => {
+                                if (el) itemEls.current.set(item.id, el);
+                                else itemEls.current.delete(item.id);
+                            }}
                             className="relative origin-center cursor-grab touch-none select-none outline-none [-webkit-user-select:none] group-data-[active]/slot:absolute group-data-[active]/slot:top-0 group-data-[active]/slot:right-0 group-data-[active]/slot:left-0 group-data-[active]/slot:[will-change:transform,filter] group-data-[active]/slot:[filter:drop-shadow(0_0_0_rgba(0,0,0,0))] group-data-[active]/slot:[transition:filter_240ms_ease] data-[state=drag]:cursor-grabbing data-[state=drag]:[filter:drop-shadow(0_14px_22px_rgba(0,0,0,0.22))]! data-[state=feed]:pointer-events-none data-[state=feed]:cursor-default group-data-[disabled]:cursor-default motion-reduce:group-data-[active]/slot:[transition:none]"
                             tabIndex={disabled ? -1 : 0}
                             aria-disabled={disabled || undefined}
