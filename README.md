@@ -336,6 +336,19 @@ GITHUB_TOKEN=ghp_your_github_personal_access_token
 
 ---
 
+
+## Website Quality
+
+<!-- LIGHTHOUSE:START -->
+### Mobile Lighthouse Scores
+
+Metrics will appear after the first successful Lighthouse CI run.
+
+<!-- LIGHTHOUSE:END -->
+
+Audited with Google Lighthouse CI across all 13 website routes.
+
+
 ## Author & License
 
 ### Author
