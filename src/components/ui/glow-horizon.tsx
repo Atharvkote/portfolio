@@ -16,7 +16,7 @@ const VARIANTS: Record<
     restPct: string;
   }
 > = {
-  top:    { axis: "y", scaleAxis: "scaleY", enterPct: "-100%", restPct: "-50%" },
+  top:    { axis: "y", scaleAxis: "scaleY", enterPct: "-100%", restPct: "-42%" },
   bottom: { axis: "y", scaleAxis: "scaleY", enterPct:  "100%", restPct:  "50%" },
   left:   { axis: "x", scaleAxis: "scaleX", enterPct:  "100%", restPct:  "50%" },
   right:  { axis: "x", scaleAxis: "scaleX", enterPct: "-100%", restPct: "-50%" },
@@ -45,6 +45,8 @@ export interface GlowHorizonProps {
   boxShadow?: string;
 
   duration?: number;
+  enterPct?: string;
+  restPct?: string;
 }
 
 export function GlowHorizonFM({
@@ -63,13 +65,17 @@ export function GlowHorizonFM({
   bg,
   boxShadow,
   duration = DEFAULT_DURATION,
+  enterPct: customEnterPct,
+  restPct: customRestPct,
 }: GlowHorizonProps) {
   const c1 = colors?.[0] ?? lightColor ?? highlightColor ?? coreColor ?? core ?? "#00F0C0";
   const c2 = colors?.[1] ?? primaryColor ?? primary ?? "#01d8b4";
   const c3 = colors?.[2] ?? darkerColor ?? darker ?? "#003D35";
   const c4 = colors?.[3] ?? bgColor ?? bg ?? "#000000";
 
-  const { axis, scaleAxis, enterPct, restPct } = VARIANTS[variant];
+  const { axis, scaleAxis, enterPct: defaultEnterPct, restPct: defaultRestPct } = VARIANTS[variant];
+  const enterPct = customEnterPct ?? defaultEnterPct;
+  const restPct = customRestPct ?? defaultRestPct;
 
   const defaultShadow = {
     top: `0px -4px 24px 0px rgba(0, 240, 192, 0.65)`,

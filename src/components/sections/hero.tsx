@@ -39,7 +39,7 @@ export function Hero() {
       className="w-full min-h-[100dvh] flex flex-col justify-between items-center px-4 sm:px-8 md:px-12 lg:px-16 pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 relative overflow-hidden text-center bg-black select-none"
     >
 
-      <div className="flex-1 flex flex-col justify-center items-center w-full my-auto z-10 py-4 sm:py-6">
+      <div className="flex-1 flex flex-col justify-center items-center w-full my-auto z-10 py-4 sm:py-4">
         <motion.div
           variants={container}
           initial="hidden"
@@ -58,10 +58,10 @@ export function Hero() {
 
           <motion.div
             variants={item}
-            className="relative flex flex-col items-center justify-center w-full mt-2 mb-10  pb-2 sm:pb-4"
+            className="relative flex flex-col items-center justify-start w-full mt-2 mb-10  pb-2 sm:pb-4"
           >
             <h1 className="sr-only">Atharva Kote - Software Engineer</h1>
-            <div className="w-full max-w-[320px] sm:max-w-[480px] md:max-w-[680px] lg:max-w-[840px] xl:max-w-[920px] px-2 flex justify-center">
+            <div className="w-full max-w-[320px] sm:max-w-[480px] md:max-w-[680px] lg:max-w-[840px] xl:max-w-[920px] px-2 flex  justify-center">
               <img
                 src="/image/ATHARVA.png"
                 alt="ATHARVA"
@@ -157,6 +157,7 @@ export function Hero() {
 
       <GlowHorizonFM
         variant="top"
+        restPct="-42%"
         colors={["#00F0C0", "#01d8b4", "#003D35", "#000000"]}
         className="z-0 pointer-events-none"
       />
