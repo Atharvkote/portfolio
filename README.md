@@ -1,6 +1,6 @@
 <h1 >
  <img width="35" height="30" alt="Logo-T" src="https://github.com/user-attachments/assets/ec2296a8-5fae-490a-8d67-f4e68a91291f" />
-Developer Portfolio
+ Portfolio
 </h1>
   
   
