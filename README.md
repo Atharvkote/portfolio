@@ -1,32 +1,23 @@
-<div align="center">
-  <img width="100%" alt="Atharva Kote — Developer Portfolio v2" src="" />
-
-  <br />
-  <br />
-
-  <h1>atharvakote.dev &mdash; Developer Portfolio v2</h1>
+<h1 >
+ <img width="35" height="30" alt="Logo-T" src="https://github.com/user-attachments/assets/ec2296a8-5fae-490a-8d67-f4e68a91291f" />
+Developer Portfolio
+</h1>
+  
+  
+<img width="1837" height="894" alt="Screenshot 2026-11-13 014912" src="https://github.com/user-attachments/assets/43b102b2-76db-42d2-9f28-be498ad1dff6" />
 
   <p>
     <strong>A high-performance personal portfolio and distributed systems showcase engineered with React 19, TypeScript, Vite 8, Tailwind CSS v4, OGL WebGL shaders, and Vercel Serverless Architecture.</strong>
   </p>
+<div align="center">
+
 
   <p>
-    <a href="https://atharvakote.vercel.app/"><strong>Explore the Live Website &rarr;</strong></a>
+    <a href="https://atharvakote.vercel.app/"><strong>Explore the Live Website </strong></a>
   </p>
 
-  <p>
-    <a href="https://react.dev/"><img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 19" /></a>
-    <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript_~6.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
-    <a href="https://vite.dev/"><img src="https://img.shields.io/badge/Vite_8-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 8" /></a>
-    <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS_v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS v4" /></a>
-    <a href="https://motion.dev/"><img src="https://img.shields.io/badge/Framer_Motion_12-EF008F?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" /></a>
-    <a href="https://upstash.com/"><img src="https://img.shields.io/badge/Upstash_Redis-00E599?style=for-the-badge&logo=redis&logoColor=white" alt="Upstash Redis" /></a>
-    <a href="https://vercel.com/"><img src="https://img.shields.io/badge/Vercel_Serverless-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" /></a>
-    <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-teal?style=for-the-badge" alt="MIT License" /></a>
-  </p>
 </div>
 
----
 
 ## Table of Contents
 
@@ -380,5 +371,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-> **Note on Personal Branding**: The MIT License applies to the source code and software architecture. Personal photographs, identity branding, custom project descriptions, and logos are proprietary and reserved by **Atharva Kote**.
+> [!NOTE]
+> On Personal Branding,
+> The MIT License applies to the source code and software architecture. Personal photographs, identity branding, custom project descriptions, and logos are proprietary and reserved by **Atharva Kote**.
 
