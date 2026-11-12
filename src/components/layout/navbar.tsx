@@ -140,9 +140,6 @@ export function Navbar() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-[55] bg-bg flex flex-col md:hidden overflow-hidden"
           >
-            <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 rounded-full"
-              style={{ background: "radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%)" }}
-            />
 
             <div className="flex items-center justify-between px-7 pt-14 pb-6">
               <motion.a
@@ -150,13 +147,11 @@ export function Navbar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
-                className="relative group text-md flex items-center gap-2.5 font-bold text-text-primary"
+                className="relative group text-md flex items-center gap-0.5 font-bold text-text-primary"
               >
-                <span className="text-xs font-bold font-mono bg-primary text-black px-2.5 py-1 rounded-lg tracking-wider uppercase shadow-[0_0_14px_var(--color-primary-glow)]">
-                  /
-                </span>
-                <span className="font-display tracking-tight text-base font-bold text-text-primary">
-                  Atharva Kote <span className="text-primary text-xl">.</span>
+                <img src="/image/Logo-T.png" height={20} width={20} alt="Logo" />
+                <span className="font-barone tracking-tight text-base font-bold text-text-primary">
+                  BOVE & BEYOND<span className="text-primary text-xl">.</span>
                 </span>
               </motion.a>
               <button
