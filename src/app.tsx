@@ -13,6 +13,12 @@ const SkillsPage = lazy(() => import("./pages/skills-page").then(m => ({ default
 const WorkPage = lazy(() => import("./pages/work-page"));
 const ProjectDetailsPage = lazy(() => import("./pages/project-details-page"));
 const LinksPage = lazy(() => import("./pages/links-page").then(m => ({ default: m.LinksPage })));
+const ContactPage = lazy(() => import("./pages/contact-page"));
+const PrivacyPolicyPage = lazy(() => import("./pages/legal/privacy-policy-page"));
+const TermsOfUsePage = lazy(() => import("./pages/legal/terms-of-use-page"));
+const LicensePage = lazy(() => import("./pages/legal/license-page"));
+const CookiePolicyPage = lazy(() => import("./pages/legal/cookie-policy-page"));
+const CreditsPage = lazy(() => import("./pages/legal/credits-page"));
 
 function RouteAnalyticsTracker() {
   const location = useLocation();
@@ -96,6 +102,12 @@ function AppContent() {
           <Route path="/work" element={<WorkPage />} />
           <Route path="/project/:slug" element={<ProjectDetailsPage />} />
           <Route path="/links" element={<LinksPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-use" element={<TermsOfUsePage />} />
+          <Route path="/license" element={<LicensePage />} />
+          <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+          <Route path="/credits" element={<CreditsPage />} />
         </Routes>
       </Suspense>
     </div>

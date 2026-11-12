@@ -11,8 +11,8 @@ const Experience = lazy(() => import("../components/sections/experience").then((
 const Education = lazy(() => import("../components/sections/education").then((m) => ({ default: m.Education })));
 const Projects = lazy(() => import("../components/sections/project-showcase").then((m) => ({ default: m.Projects })));
 const GitHubContributionCalendar = lazy(() => import("../components/sections/github-contribution-calendar").then((m) => ({ default: m.GitHubContributionCalendar })));
-const Contact = lazy(() => import("../components/layout/contact").then((m) => ({ default: m.Contact })));
-const Footer = lazy(() => import("../components/layout/contact").then((m) => ({ default: m.Footer })));
+const Contact = lazy(() => import("../components/sections/contact").then((m) => ({ default: m.Contact })));
+const Footer = lazy(() => import("../components/layout/footer").then((m) => ({ default: m.Footer })));
 const BackendDevops = lazy(() => import("../components/sections/cards").then((m) => ({ default: m.BackendDevops })));
 
 function SectionFallback({ minHeight = "min-h-[200px]" }: { minHeight?: string }) {

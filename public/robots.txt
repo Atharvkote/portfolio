@@ -3,5 +3,5 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://atharvakote.dev/sitemap.xml
+Sitemap: https://atharvakote.vercel.app/sitemap.xml
 

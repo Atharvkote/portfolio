@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Menu, X, User, Code2, Briefcase } from "lucide-react";
 import { TbLayoutFilled } from "react-icons/tb";
-import { toast } from "sonner";
 import { FaGithub, FaHeart, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import { portfolioData } from "../../data/portfolio";
@@ -61,7 +60,7 @@ export function Navbar() {
 
 
   const handleQuickAccessClick = () => {
-    toast.success("Press Q to open Quick Access", { duration: 3000 });
+    window.dispatchEvent(new CustomEvent("open-quick-access"));
   };
 
   return (
@@ -75,17 +74,15 @@ export function Navbar() {
       >
         <nav className="max-w-[1400px] mx-auto border-none flex items-center justify-between">
           <motion.a
-            href="#"
+            href="/"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="relative group text-md flex items-center gap-2.5 font-bold text-text-primary"
+            className="relative group text-md flex items-center gap-0.5 font-bold text-text-primary"
           >
-            <span className="text-xs font-bold font-mono bg-primary text-black px-2.5 py-1 rounded-lg tracking-wider uppercase shadow-[0_0_14px_var(--color-primary-glow)]">
-              /
-            </span>
-            <span className="font-display tracking-tight text-base font-bold text-text-primary">
-              Atharva Kote <span className="text-primary text-xl">.</span>
+            <img src="/image/Logo-T.png" height={20} width={20} alt="Logo" />
+            <span className="font-barone tracking-tight text-base font-bold text-text-primary">
+              BOVE & BEYOND<span className="text-primary text-xl">.</span>
             </span>
           </motion.a>
 
@@ -149,14 +146,18 @@ export function Navbar() {
 
             <div className="flex items-center justify-between px-7 pt-14 pb-6">
               <motion.a
-                href="#"
+                href="/"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
-                className="relative group text-md flex items-center gap-1 font-bold text-primary"
+                className="relative group text-md flex items-center gap-2.5 font-bold text-text-primary"
               >
-                <span className=" text-md font-bold bg-primary text-bg px-2  rounded-lg">/</span>
-                atharva <span className="text-primary text-2xl">.</span>
+                <span className="text-xs font-bold font-mono bg-primary text-black px-2.5 py-1 rounded-lg tracking-wider uppercase shadow-[0_0_14px_var(--color-primary-glow)]">
+                  /
+                </span>
+                <span className="font-display tracking-tight text-base font-bold text-text-primary">
+                  Atharva Kote <span className="text-primary text-xl">.</span>
+                </span>
               </motion.a>
               <button
                 onClick={() => setMenuOpen(false)}

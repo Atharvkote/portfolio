@@ -133,7 +133,7 @@ export function Loader({ children }: LoaderProps) {
                   arcs={2}
                   flicker={0.35}
                   fill={0.06}
-                  speed={2.2}
+                  speed={0.5}
                   interactive={true}
                   cursorIntensity={0.85}
                   cursorRadius={90}

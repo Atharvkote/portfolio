@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Navbar } from "../components/layout/navbar";
 import { SocialBar } from "../components/layout/social-bar";
 import { QuickAccess } from "../components/layout/quick-access";
-import { Footer } from "../components/layout/contact";
+import { Footer } from "../components/layout/footer";
 import { portfolioData } from "../data/portfolio";
 import { Link } from "react-router-dom";
 import { ChevronRight, Calendar } from "lucide-react";

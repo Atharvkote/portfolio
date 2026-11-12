@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "../components/layout/navbar";
 import { SocialBar } from "../components/layout/social-bar";
 import { QuickAccess } from "../components/layout/quick-access";
-import { Footer } from "../components/layout/contact";
+import { Footer } from "../components/layout/footer";
 import TechIcon from "../components/ui/icon-provider";
 import { SEO } from "../components/layout/seo";
 import {
