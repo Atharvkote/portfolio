@@ -340,13 +340,17 @@ GITHUB_TOKEN=ghp_your_github_personal_access_token
 ## Website Quality
 
 <!-- LIGHTHOUSE:START -->
-### Mobile Lighthouse Scores
+<div align="center">
 
-![Performance](https://img.shields.io/badge/Performance-38%25-red?style=flat-square) ![Accessibility](https://img.shields.io/badge/Accessibility-94%25-brightgreen?style=flat-square) ![Best Practices](https://img.shields.io/badge/Best%20Practices-100%25-brightgreen?style=flat-square) ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat-square)
+### Mobile Lighthouse
+
+![Performance](https://img.shields.io/badge/Performance-36%25-red?style=for-the-badge) ![Accessibility](https://img.shields.io/badge/Accessibility-94%25-brightgreen?style=for-the-badge) ![Best Practices](https://img.shields.io/badge/Best%20Practices-100%25-brightgreen?style=for-the-badge) ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=for-the-badge)
 
 **Last audited:** 2026-11-14
 
-[View website](https://atharvakote.vercel.app/) · [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci)
+[View Website](https://atharvakote.vercel.app/) · [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci)
+
+</div>
 <!-- LIGHTHOUSE:END -->
 
 Audited with Google Lighthouse CI across all 13 website routes.
