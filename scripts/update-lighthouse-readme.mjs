@@ -124,13 +124,20 @@ const generatedAt = new Date().toISOString().slice(0, 10);
 
 const section = [
   START,
-  "### Mobile Lighthouse Scores",
+  '<div align="center">',
   "",
-  badges.join(" "),
+  "### Mobile Lighthouse",
+  "",
+  badges.map((badge) => badge.replace(
+    "?style=flat-square",
+    "?style=for-the-badge"
+  )).join(" "),
   "",
   `**Last audited:** ${generatedAt}`,
   "",
-  "[View website](https://atharvakote.vercel.app/) · [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci)",
+  "[View Website](https://atharvakote.vercel.app/) · [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci)",
+  "",
+  "</div>",
   END
 ].join("\n");
 
