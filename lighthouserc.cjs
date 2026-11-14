@@ -51,8 +51,10 @@ module.exports = {
       }
     },
 
-    upload: {
-      target: "temporary-public-storage"
-    }
+   upload: {
+  // Generate manifest.json and report files locally for the README updater.
+  target: "filesystem",
+  outputDir: ".lighthouseci"
+}
   }
 };
