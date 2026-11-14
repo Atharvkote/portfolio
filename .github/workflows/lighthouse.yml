@@ -50,6 +50,9 @@ jobs:
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli@0.16.x
 
+      - name: Prepare clean Lighthouse output directory
+        run: rm -rf .lighthouseci
+
       - name: Run Lighthouse audits
         run: lhci autorun
 
