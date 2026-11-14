@@ -342,8 +342,11 @@ GITHUB_TOKEN=ghp_your_github_personal_access_token
 <!-- LIGHTHOUSE:START -->
 ### Mobile Lighthouse Scores
 
-Metrics will appear after the first successful Lighthouse CI run.
+![Performance](https://img.shields.io/badge/Performance-38%25-red?style=flat-square) ![Accessibility](https://img.shields.io/badge/Accessibility-94%25-brightgreen?style=flat-square) ![Best Practices](https://img.shields.io/badge/Best%20Practices-100%25-brightgreen?style=flat-square) ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat-square)
 
+**Last audited:** 2026-11-14
+
+[View website](https://atharvakote.vercel.app/) · [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci)
 <!-- LIGHTHOUSE:END -->
 
 Audited with Google Lighthouse CI across all 13 website routes.
