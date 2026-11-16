@@ -344,9 +344,9 @@ GITHUB_TOKEN=ghp_your_github_personal_access_token
 
 ### Mobile Lighthouse
 
-![Performance](https://img.shields.io/badge/Performance-36%25-red?style=for-the-badge) ![Accessibility](https://img.shields.io/badge/Accessibility-94%25-brightgreen?style=for-the-badge) ![Best Practices](https://img.shields.io/badge/Best%20Practices-100%25-brightgreen?style=for-the-badge) ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=for-the-badge)
+![Performance](https://img.shields.io/badge/Performance-40%25-red?style=for-the-badge) ![Accessibility](https://img.shields.io/badge/Accessibility-94%25-brightgreen?style=for-the-badge) ![Best Practices](https://img.shields.io/badge/Best%20Practices-100%25-brightgreen?style=for-the-badge) ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=for-the-badge)
 
-**Last audited:** 2026-11-14
+**Last audited:** 2026-11-16
 
 [View Website](https://atharvakote.vercel.app/) · [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci)
 
